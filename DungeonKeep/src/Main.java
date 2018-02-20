@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Main {
 	
-	
+
+
 	static char level[][] = 
 		{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
