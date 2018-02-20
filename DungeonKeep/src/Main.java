@@ -1,5 +1,8 @@
+import java.util.Scanner;
 
 public class Main {
+	
+	
 	static char level[][] = 
 		{
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -13,14 +16,14 @@ public class Main {
         {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
         {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
         };
-
+	
+	
+	
 	public static void main(String args[]) {
-		System.out.println("Hello");
-		for (char[] row : level) {
-			for (char i : row)
-				System.out.print(i + " ");
-			System.out.println();
-		}
-
+		
+		Level level1 = new Level(level);
+		level1.game();
+		
+	
 	}
 }
