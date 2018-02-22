@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Hero {
-	private int x;
-	private int y;
+
+	private Pair position = new Pair(0,0);
 	
 	public enum MOVEMENT_TYPE {
 	    UP, DOWN, LEFT, RIGHT, NONE
@@ -13,8 +13,9 @@ public class Hero {
 			for (int j = 0; j < map[i].length;j++)
 				if(map[i][j]== 'H') 
 				{
-					x=i;
-					y=j;
+					position.setX(i);
+					position.setY(j);
+					map[i][j] = ' ';
 				}
 			
 		}
@@ -23,18 +24,18 @@ public class Hero {
 	
 	
 	public int getX() { 
-		return x;
+		return position.getX();
 	}
 	
 	public int getY() {
-		return y;
+		return position.getY();
 	}
 	
 	public void setX(int a) {
-		x=a;
+		position.setX(a);
 	}
 	public void setY(int a) {
-		y=a;
+		position.setY(a);
 	}
 	
 	public Hero.MOVEMENT_TYPE move(char map[][])

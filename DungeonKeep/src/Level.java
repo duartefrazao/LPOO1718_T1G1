@@ -4,18 +4,43 @@ public class Level {
 	private Hero hero;
 	private boolean leverOn = false;
 	private boolean winningCondition = false;
+	private Pair Lever = new Pair(0,0);
+
+
+	private void findLever(){
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length;j++)
+                if(map[i][j]== 'k')
+                {
+                    Lever.setX(i);
+                    Lever.setY(j);
+                }
+
+        }
+    }
 
 	public Level(char level[][]) {
 		map = level;
 		hero = new Hero(map);
+		findLever();
 	}
 
 	public void printMap() {
-		for (char[] row : map) {
-			for (char i : row)
-				System.out.print(i + " ");
-			System.out.println();
-		}
+
+
+	    for (int i = 0; i < map.length; i++){
+	        for (int j = 0; j < map[i].length; j++){
+
+	            if(hero.getX() == i && hero.getY() == j){
+	                System.out.print("H ");
+                }
+                else
+                    System.out.print(map[i][j] + " " );
+
+            }
+
+            System.out.println();
+        }
 	}
 
 	public void updateGame() {
@@ -24,42 +49,45 @@ public class Level {
 		int x = hero.getX();
 		int y = hero.getY();
 
+
+		if( x == Lever.getX() && y == Lever.getY()){
+
+
+        }
+
 		switch (move) {
 
 		case UP: {
 			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-				map[x][y] = ' ';
-				map[x - 1][y] = 'H';
 				hero.setX(--x);
 			}
 			break;
 		}
 		case DOWN: {
 			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
-				map[x][y] = ' ';
-				map[x + 1][y] = 'H';
 				hero.setX(++x);
 			}
 			break;
 		}
 		case LEFT: {
 			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
-				map[x][y] = ' ';
-				map[x][y - 1] = 'H';
 				hero.setY(--y);
 			}
 			break;
 		}
 		case RIGHT: {
 			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
-				map[x][y] = ' ';
-				map[x][y + 1] = 'H';
 				hero.setY(++y);
 			}
 			break;
 		}
 
 		}
+
+
+
+
+
 	}
 
 	public void game() {
