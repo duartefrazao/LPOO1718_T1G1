@@ -6,8 +6,11 @@ public class Level {
     private boolean leverOn = false;
     private boolean terminate = false;
     private Pair Lever = new Pair(0, 0);
-    private Pair Guard = new Pair(0, 0);
+    private Guard guard;
+
     private Vector<Pair> passageDoors = new Vector<Pair>(0);
+
+
 
 
     private void findPassageDoors() {
@@ -45,8 +48,8 @@ public class Level {
                         break;
 
                     case 'G':
-                        Guard.setX(i);
-                        Guard.setY(j);
+                        guard.setX(i);
+                        guard.setY(j);
                         break;
                 }
             }
@@ -55,7 +58,7 @@ public class Level {
     }
 
 
-    private boolean collision(Pair A){
+    private boolean collision(MovingObject A){
 
         int hero_x = hero.getX();
         int hero_y = hero.getY();
@@ -74,6 +77,7 @@ public class Level {
     public Level(char level[][]) {
         map = level;
         hero = new Hero(map);
+        guard = new Guard(map);
         findGameElements();
         findPassageDoors();
     }
@@ -84,9 +88,11 @@ public class Level {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
 
-                if (hero.getX() == i && hero.getY() == j) {
+                if (hero.getX() == i && hero.getY() == j)
                     System.out.print("H ");
-                } else
+                else if(guard.getX() == i && guard.getY() == j)
+                    System.out.print("G ");
+                else
                     System.out.print(map[i][j] + " ");
 
             }
@@ -117,9 +123,10 @@ public class Level {
         }
 
         hero.move(move, map);
+        guard.move(guard.getMove(), map);
 
 
-        if (map[hero.getX()][hero.getY()] == 'S' || collision(Guard))
+        if (map[hero.getX()][hero.getY()] == 'S' || collision(guard))
             terminate = true;
 
     }
