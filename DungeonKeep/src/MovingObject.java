@@ -19,7 +19,8 @@ public abstract class MovingObject {
 	
 	public int getY(){
 		return position.getY();
-	}	
+	}
+
 	public void move(MovingObject.MOVEMENT_TYPE movement, char map[][])
 	{
 		int x=position.getX();

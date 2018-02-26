@@ -1,16 +1,25 @@
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class Level {
+
     private char map[][];
+
     private Hero hero;
-    private boolean leverOn = false;
-    private boolean terminate = false;
-    private Pair Lever = new Pair(0, 0);
+
+    private boolean guardDefined = false;
     private Guard guard;
 
+    private boolean ogreDefined = false;
+    private Ogre ogre;
+
+    private boolean terminate = false;
+    private boolean won = false;
+
+    private Pair Lever = new Pair(0, 0);
+
+
     private Vector<Pair> passageDoors = new Vector<Pair>(0);
-
-
 
 
     private void findPassageDoors() {
@@ -51,6 +60,11 @@ public class Level {
                         guard.setX(i);
                         guard.setY(j);
                         break;
+
+                    case 'O':
+                        ogre.setX(i);
+                        ogre.setY(j);
+                        break;
                 }
             }
 
@@ -58,7 +72,7 @@ public class Level {
     }
 
 
-    private boolean collision(MovingObject A){
+    private boolean collision(MovingObject A) {
 
         int hero_x = hero.getX();
         int hero_y = hero.getY();
@@ -67,17 +81,28 @@ public class Level {
         int obj_y = A.getY();
 
 
-        if((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= 1)
+        if ((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= 1)
             return true;
 
         return false;
 
     }
 
-    public Level(char level[][]) {
+    public Level(char level[][], boolean hasGuard, boolean hasOgre) {
         map = level;
+
         hero = new Hero(map);
-        guard = new Guard(map);
+
+        if (hasGuard) {
+            guardDefined = true;
+            guard = new Guard(map);
+        }
+
+        if (hasOgre) {
+            ogre = new Ogre(map);
+            ogreDefined = true;
+        }
+
         findGameElements();
         findPassageDoors();
     }
@@ -89,10 +114,17 @@ public class Level {
             for (int j = 0; j < map[i].length; j++) {
 
                 if (hero.getX() == i && hero.getY() == j)
-                    System.out.print("H ");
-                else if(guard.getX() == i && guard.getY() == j)
-                    System.out.print("G ");
-                else
+                    System.out.print(hero.getSymbol() + " ");
+
+                else if (guardDefined && guard.getX() == i && guard.getY() == j)
+                    System.out.print(guard.getSymbol() + " ");
+
+                else if (ogreDefined && ogre.getX() == i && ogre.getY() == j) {
+                    if (ogre.getX() == Lever.getX() && ogre.getY() == Lever.getY())
+                        System.out.print("$ ");
+                    else
+                        System.out.print(ogre.getSymbol() + " ");
+                } else
                     System.out.print(map[i][j] + " ");
 
             }
@@ -102,7 +134,7 @@ public class Level {
     }
 
     public void updateGame() {
-    	MovingObject.MOVEMENT_TYPE move = hero.getMove(map);
+        MovingObject.MOVEMENT_TYPE move = hero.getMove();
 
         int x = hero.getX();
         int y = hero.getY();
@@ -110,33 +142,84 @@ public class Level {
 
         if (x == Lever.getX() && y == Lever.getY()) {
 
+            hero.setSymbol('K');
+            map[x][y] = ' ';
+
+        }
+
+        hero.move(move, map);
+
+        if (hero.hasKey()) {
+
+
+            switch (move) {
+                case UP: {
+                    x--;
+                    break;
+                }
+                case DOWN: {
+                    x++;
+                    break;
+                }
+                case LEFT: {
+                    y--;
+                    break;
+                }
+                case RIGHT: {
+                    y++;
+                    break;
+                }
+            }
+
             for (int i = 0; i < passageDoors.size(); i++) {
 
                 int a = passageDoors.elementAt(i).getX();
                 int b = passageDoors.elementAt(i).getY();
 
-                map[a][b] = 'S';
-
+                if (x == a && y == b)
+                    map[a][b] = 'S';
 
             }
 
         }
 
-        hero.move(move, map);
-        guard.move(guard.getMove(), map);
+        if (guardDefined)
+            guard.move(guard.getMove(), map);
+
+        if (ogreDefined)
+            ogre.move(ogre.getMove(), map);
 
 
-        if (map[hero.getX()][hero.getY()] == 'S' || collision(guard))
+        if (map[hero.getX()][hero.getY()] == 'S') {
+            won = true;
             terminate = true;
+            System.out.println("You Won! Going to the next Level...\n");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            return;
+        }
+
+        if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre))) {
+            won = false;
+            terminate = true;
+            System.out.println("You Lost!\n");
+            return;
+        }
+
 
     }
 
-    public void game() {
+    public boolean game() {
         printMap();
         do {
             updateGame();
             printMap();
         } while (!terminate);
+
+        return won;
 
     }
 

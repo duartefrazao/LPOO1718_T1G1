@@ -2,6 +2,11 @@ import java.util.Vector;
 
 public class Guard extends MovingObject{
 
+    private char Symbol = 'G';
+
+    public char getSymbol(){ return this.Symbol;};
+
+    public void setSymbol(char symbol){ this.Symbol = symbol;  };
 
     private Vector<MOVEMENT_TYPE> guardMovement = new Vector<MovingObject.MOVEMENT_TYPE>(0);
 
@@ -38,7 +43,7 @@ public class Guard extends MovingObject{
     {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length;j++)
-                if(map[i][j]== 'G')
+                if(map[i][j]== Symbol)
                 {
                     position.setX(i);
                     position.setY(j);
