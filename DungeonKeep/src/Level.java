@@ -96,7 +96,7 @@ public class Level {
     }
 
     public void updateGame() {
-        Hero.MOVEMENT_TYPE move = hero.move(map);
+    	MovingObject.MOVEMENT_TYPE move = hero.getMove(map);
 
         int x = hero.getX();
         int y = hero.getY();
@@ -116,34 +116,7 @@ public class Level {
 
         }
 
-        switch (move) {
-
-            case UP: {
-                if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-                    hero.setX(--x);
-                }
-                break;
-            }
-            case DOWN: {
-                if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
-                    hero.setX(++x);
-                }
-                break;
-            }
-            case LEFT: {
-                if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
-                    hero.setY(--y);
-                }
-                break;
-            }
-            case RIGHT: {
-                if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
-                    hero.setY(++y);
-                }
-                break;
-            }
-
-        }
+        hero.move(move, map);
 
 
         if (map[hero.getX()][hero.getY()] == 'S' || collision(Guard))
