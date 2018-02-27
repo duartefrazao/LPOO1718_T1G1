@@ -1,3 +1,4 @@
+package dkeep.logic;
 public abstract class MovingObject {
 	
 	protected Pair position = new Pair(0,0);

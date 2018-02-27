@@ -1,3 +1,4 @@
+package dkeep.logic;
 public class Pair {
 
     private int x;

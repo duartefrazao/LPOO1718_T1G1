@@ -1,3 +1,4 @@
+package dkeep.logic;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ogre extends MovingObject {

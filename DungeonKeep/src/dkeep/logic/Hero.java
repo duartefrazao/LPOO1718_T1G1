@@ -1,3 +1,4 @@
+package dkeep.logic;
 import java.util.Scanner;
 
 public class Hero extends MovingObject {
