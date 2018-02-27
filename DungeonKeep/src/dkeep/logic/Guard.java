@@ -40,18 +40,11 @@ public class Guard extends MovingObject{
     }
 
 
-    public Guard(char map[][])
+    public Guard(int x, int y)
     {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length;j++)
-                if(map[i][j]== Symbol)
-                {
-                    position.setX(i);
-                    position.setY(j);
-                    map[i][j] = ' ';
-                }
-
-        }
+    	position.setX(x);
+        position.setY(y);
+     
 
         fillMovement();
     }

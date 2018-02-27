@@ -3,7 +3,11 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 public class Level {
-
+	
+	public enum LEVEL_STATE{
+		PASSED_LEVEL, DEATH, NONE
+	}
+	
     private char map[][];
 
     private Hero hero;
@@ -13,9 +17,6 @@ public class Level {
 
     private boolean ogreDefined = false;
     private Ogre ogre;
-
-    private boolean terminate = false;
-    private boolean won = false;
 
 
     private Pair Lever = new Pair(0, 0);
@@ -57,16 +58,22 @@ public class Level {
                         Lever.setX(i);
                         Lever.setY(j);
                         break;
-
                     case 'G':
-                        guard.setX(i);
-                        guard.setY(j);
+                        guard= new Guard(i,j);
+                        map[i][j]= ' ';
+                        guardDefined = true;
                         break;
-
                     case 'O':
-                        ogre.setX(i);
-                        ogre.setY(j);
+                    	ogre = new Ogre(i,j);
+                    	map[i][j]= ' ';
+                        ogreDefined = true;
                         break;
+                    case 'H':
+                    	hero.setX(i);
+                    	hero.setY(j);
+                    	map[i][j]= ' ';
+                    	break;
+                    	
                 }
             }
 
@@ -90,24 +97,22 @@ public class Level {
 
     }
 
-    public Level(char level[][], boolean hasGuard, boolean hasOgre) {
-        map = level;
-
-        hero = new Hero(map);
-
-        if (hasGuard) {
-            guardDefined = true;
-            guard = new Guard(map);
-        }
-
-        if (hasOgre) {
-            ogre = new Ogre(map);
-            ogreDefined = true;
-        }
-
+    public Level(char level[][], Hero globalHero) {
+        this.map = level;
+        this.hero = globalHero;
+        
         findGameElements();
         findPassageDoors();
     }
+    
+    public void resetElements()
+    {
+    	hero.setSymbol('H');
+    	findGameElements();
+        findPassageDoors();
+    }
+    
+    
 
     public void printMap() {
 
@@ -145,8 +150,7 @@ public class Level {
         }
     }
 
-    public void updateGame() {
-        MovingObject.MOVEMENT_TYPE move = hero.getMove();
+    public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
         int x = hero.getX();
         int y = hero.getY();
@@ -203,39 +207,13 @@ public class Level {
             ogre.getClub().move(map, ogre.getPosition());
         }
 
+        if (map[hero.getX()][hero.getY()] == 'S')
+            return LEVEL_STATE.PASSED_LEVEL;
+        else if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) 
+        	return LEVEL_STATE.DEATH;
+     
 
-
-        if (map[hero.getX()][hero.getY()] == 'S') {
-            won = true;
-            terminate = true;
-            System.out.println("You Won! Going to the next Level...\n");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-            return;
-        }
-
-        if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) {
-            won = false;
-            terminate = true;
-            System.out.println("You Lost!\n");
-            return;
-        }
-
-
-    }
-
-    public boolean game() {
-        printMap();
-        do {
-            updateGame();
-            printMap();
-        } while (!terminate);
-
-        return won;
-
+    	return LEVEL_STATE.NONE;
     }
 
 }

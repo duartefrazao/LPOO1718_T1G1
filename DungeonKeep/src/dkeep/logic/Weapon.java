@@ -39,8 +39,8 @@ public class Weapon extends MovingObject {
 
     }
 
-    public Weapon(char [][] map, Pair A) {
-        move(map, A);
+    public Weapon() {
+    	super();
     }
 
 
