@@ -1,6 +1,6 @@
 public abstract class MovingObject {
 	
-	Pair position = new Pair(0,0);
+	protected Pair position = new Pair(0,0);
 	
 	public enum MOVEMENT_TYPE {
 	    UP, DOWN, LEFT, RIGHT, NONE
@@ -20,6 +20,8 @@ public abstract class MovingObject {
 	public int getY(){
 		return position.getY();
 	}
+
+	public Pair getPosition() { return position; }
 
 	public void move(MovingObject.MOVEMENT_TYPE movement, char map[][])
 	{

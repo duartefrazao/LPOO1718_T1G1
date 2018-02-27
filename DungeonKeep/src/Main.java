@@ -38,7 +38,7 @@ public class Main {
 		Level level2 = new Level(map2, false, true);
 
 
-		if( level1.game() == true)
+		//if( level1.game() == true)
 			level2.game();
 
 		

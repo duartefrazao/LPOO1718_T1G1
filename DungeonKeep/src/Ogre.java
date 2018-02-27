@@ -4,6 +4,12 @@ public class Ogre extends MovingObject {
 
     private char Symbol = 'O';
 
+    private Weapon club;
+
+    public Weapon getClub(){
+        return club;
+    }
+
     public MovingObject.MOVEMENT_TYPE getMove() {
 
         int x = ThreadLocalRandom.current().nextInt(0, 3 + 1);
@@ -23,6 +29,8 @@ public class Ogre extends MovingObject {
 
         }
 
+
+
     }
 
     public char getSymbol(){ return this.Symbol;}
@@ -40,6 +48,7 @@ public class Ogre extends MovingObject {
                 }
 
         }
+        club = new Weapon(map, position);
     }
 
 }

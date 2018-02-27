@@ -16,6 +16,7 @@ public class Level {
     private boolean terminate = false;
     private boolean won = false;
 
+
     private Pair Lever = new Pair(0, 0);
 
 
@@ -124,7 +125,17 @@ public class Level {
                         System.out.print("$ ");
                     else
                         System.out.print(ogre.getSymbol() + " ");
-                } else
+
+                }
+                else if(ogreDefined && ogre.getClub().getX() == i && ogre.getClub().getY() == j){
+
+                    if(ogre.getClub().getX() == Lever.getX() && ogre.getClub().getY() == Lever.getY())
+                        System.out.print("$ ");
+                    else
+                        System.out.print(ogre.getClub().getSymbol() + " ");
+
+                }
+                else
                     System.out.print(map[i][j] + " ");
 
             }
@@ -186,8 +197,11 @@ public class Level {
         if (guardDefined)
             guard.move(guard.getMove(), map);
 
-        if (ogreDefined)
+        if (ogreDefined) {
             ogre.move(ogre.getMove(), map);
+            ogre.getClub().move(map, ogre.getPosition());
+        }
+
 
 
         if (map[hero.getX()][hero.getY()] == 'S') {
@@ -202,7 +216,7 @@ public class Level {
             return;
         }
 
-        if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre))) {
+        if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) {
             won = false;
             terminate = true;
             System.out.println("You Lost!\n");
