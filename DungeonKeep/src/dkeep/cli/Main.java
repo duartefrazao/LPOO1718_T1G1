@@ -58,13 +58,13 @@ public class Main {
 		
 	    do {
 	    	
-	        d.printMap();
+	        userInterface.printMap(d.getMap());
 	        
 	        state = d.game(userInterface.getMove());
 	        
 	    } while (state == Dungeon.GAME_STATE.PLAYING);
 	    
-	    d.printMap();
+	    userInterface.printMap(d.getMap());
 	    
 
 		s.close();
