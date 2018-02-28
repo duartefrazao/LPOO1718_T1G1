@@ -134,40 +134,41 @@ public class Level {
     	
     }
 
-    public void printMap() {
-
+    public char[][] createMapToPrint() {
+    	
+    	char [][] mapToPrint= new char[map.length][];
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
 
                 if (hero.getX() == i && hero.getY() == j)
-                    System.out.print(hero.getSymbol() + " ");
+                	mapToPrint[i][j]=hero.getSymbol();
 
                 else if (guardDefined && guard.getX() == i && guard.getY() == j)
-                    System.out.print(guard.getSymbol() + " ");
+                	mapToPrint[i][j]=guard.getSymbol();
 
                 else if (ogreDefined && ogre.getX() == i && ogre.getY() == j) {
                     if (ogre.getX() == Lever.getX() && ogre.getY() == Lever.getY())
-                        System.out.print("$ ");
+                    	mapToPrint[i][j]='$';
                     else
-                        System.out.print(ogre.getSymbol() + " ");
+                    	mapToPrint[i][j]=ogre.getSymbol();
 
                 }
                 else if(ogreDefined && ogre.getClub().getX() == i && ogre.getClub().getY() == j){
 
                     if(ogre.getClub().getX() == Lever.getX() && ogre.getClub().getY() == Lever.getY())
-                        System.out.print("$ ");
+                    	mapToPrint[i][j]='$';
                     else
-                        System.out.print(ogre.getClub().getSymbol() + " ");
+                    	mapToPrint[i][j]=ogre.getClub().getSymbol();
 
                 }
                 else
-                    System.out.print(map[i][j] + " ");
+                	mapToPrint[i][j]=map[i][j];
 
             }
-
-            System.out.println();
         }
+        
+        return mapToPrint;
     }
 
     public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
@@ -234,7 +235,6 @@ public class Level {
         else if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) 
         	return LEVEL_STATE.DEATH;
      
-
     	return LEVEL_STATE.NONE;
     }
 

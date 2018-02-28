@@ -39,8 +39,8 @@ public class Dungeon {
 
 	}
 
-	public void printMap() {
-		levels.elementAt(currentLevel).printMap();
+	public char[][] getMap() {
+		return levels.elementAt(currentLevel).createMapToPrint();
 	}
 
 }
