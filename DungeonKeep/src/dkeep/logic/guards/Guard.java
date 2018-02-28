@@ -1,24 +1,27 @@
-package dkeep.logic;
+package dkeep.logic.guards;
 import java.util.Vector;
 
-public class Guard extends MovingObject{
+import dkeep.logic.MovingObject;
 
-    private char Symbol = 'G';
+public abstract class Guard extends MovingObject{
+	
+	/*public enum GUARD_PERSONALITY{
+		ROOKIE, DRUNKEN, SUSPICIOUS
+	}
+	
+	private GUARD_PERSONALITY personality;*/
+	
+    protected char Symbol = 'G';
 
     public char getSymbol(){ return this.Symbol;};
 
     public void setSymbol(char symbol){ this.Symbol = symbol;  };
 
-    private Vector<MOVEMENT_TYPE> guardMovement = new Vector<MovingObject.MOVEMENT_TYPE>(0);
+    protected Vector<MOVEMENT_TYPE> guardMovement = new Vector<MovingObject.MOVEMENT_TYPE>(0);
 
     public static int currentMovPos = 0;
 
-    public MovingObject.MOVEMENT_TYPE getMove(){
-        MovingObject.MOVEMENT_TYPE move = guardMovement.elementAt(currentMovPos);
-        currentMovPos++;
-        currentMovPos = (currentMovPos % guardMovement.size());
-        return move;
-    }
+    public abstract MovingObject.MOVEMENT_TYPE getMove();
 
     private void fillMovement(){
 

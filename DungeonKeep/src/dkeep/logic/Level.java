@@ -1,6 +1,8 @@
 package dkeep.logic;
 import java.util.Vector;
 
+import dkeep.logic.guards.*;
+
 public class Level {
 	
 	public enum LEVEL_STATE{
@@ -60,7 +62,7 @@ public class Level {
                         Lever.setY(j);
                         break;
                     case 'G':
-                        guard= new Guard(i,j);
+                        guard= new SuspiciousGuard(i,j);
                         map[i][j]= ' ';
                         guardDefined = true;
                         break;
