@@ -10,7 +10,7 @@ public class RookieGuard extends Guard {
 
 	@Override
 	public MOVEMENT_TYPE getMove() {
-		MovingObject.MOVEMENT_TYPE move = this.guardMovement.elementAt(currentMovPos);
+		MovingObject.MOVEMENT_TYPE move = this.guardMovement.get(currentMovPos);
 		
 		currentMovPos++;
 		currentMovPos = (currentMovPos % guardMovement.size());
