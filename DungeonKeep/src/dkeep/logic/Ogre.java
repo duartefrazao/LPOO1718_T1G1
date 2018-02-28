@@ -1,55 +1,52 @@
 package dkeep.logic;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ogre extends MovingObject {
 
-    private char Symbol = 'O';
+	private char Symbol = 'O';
 
-    private Weapon club;
+	private Weapon club;
 
-    public Weapon getClub(){
-        return club;
-    }
+	public Weapon getClub() {
+		return club;
+	}
 
-    public MovingObject.MOVEMENT_TYPE getMove() {
+	public MovingObject.MOVEMENT_TYPE getMove() {
 
-        int x = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+		int x = ThreadLocalRandom.current().nextInt(0, 3 + 1);
 
-        switch (x) {
+		switch (x) {
 
-            case 0:
-                return MOVEMENT_TYPE.UP;
-            case 1:
-                return MOVEMENT_TYPE.DOWN;
-            case 2:
-                return MOVEMENT_TYPE.RIGHT;
-            case 3:
-                return MOVEMENT_TYPE.LEFT;
-            default:
-                return MOVEMENT_TYPE.NONE;
+		case 0:
+			return MOVEMENT_TYPE.UP;
+		case 1:
+			return MOVEMENT_TYPE.DOWN;
+		case 2:
+			return MOVEMENT_TYPE.RIGHT;
+		case 3:
+			return MOVEMENT_TYPE.LEFT;
+		default:
+			return MOVEMENT_TYPE.NONE;
 
-        }
+		}
 
+	}
 
+	public char getSymbol() {
+		return this.Symbol;
+	}
 
-    }
+	public void setSymbol(char symbol) {
+		this.Symbol = symbol;
+	}
 
-    public char getSymbol(){ return this.Symbol;}
+	public Ogre(int x, int y) {
 
-    public void setSymbol(char symbol){ this.Symbol = symbol;  }
+		position.setX(x);
+		position.setY(y);
 
-
-    public Ogre(char map[][]) {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++)
-                if (map[i][j] == Symbol) {
-                    position.setX(i);
-                    position.setY(j);
-                    map[i][j] = ' ';
-                }
-
-        }
-        club = new Weapon(map, position);
-    }
+		club = new Weapon();
+	}
 
 }

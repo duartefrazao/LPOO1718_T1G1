@@ -55,6 +55,8 @@ public abstract class MovingObject {
 	            }
 	            break;
 	        }
+	        case NONE:
+	        	break;
 	    }
 	}
 }

@@ -1,10 +1,15 @@
 package dkeep.logic;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 public class Level {
-
+	
+	public enum LEVEL_STATE{
+		PASSED_LEVEL, DEATH, NONE
+	}
+	
     private char map[][];
+    
+    private Pair heroOriginalPos = new Pair(0,0);
 
     private Hero hero;
 
@@ -13,9 +18,6 @@ public class Level {
 
     private boolean ogreDefined = false;
     private Ogre ogre;
-
-    private boolean terminate = false;
-    private boolean won = false;
 
 
     private Pair Lever = new Pair(0, 0);
@@ -57,16 +59,30 @@ public class Level {
                         Lever.setX(i);
                         Lever.setY(j);
                         break;
-
                     case 'G':
-                        guard.setX(i);
-                        guard.setY(j);
+                        guard= new Guard(i,j);
+                        map[i][j]= ' ';
+                        guardDefined = true;
                         break;
-
                     case 'O':
-                        ogre.setX(i);
-                        ogre.setY(j);
+                    	ogre = new Ogre(i,j);
+                    	map[i][j]= ' ';
+                        ogreDefined = true;
+                        
+                        /*now we need to move the weapon one time to place it
+                         * in a random valid position
+                         */
+                        ogre.getClub().move(map, ogre.getPosition());
                         break;
+                    case 'H':
+                    	hero.setX(i);
+                    	hero.setY(j);
+                    	map[i][j]= ' ';
+                    	
+                    	heroOriginalPos.setX(i);
+                    	heroOriginalPos.setY(j);
+                    	break;
+                    	
                 }
             }
 
@@ -90,63 +106,72 @@ public class Level {
 
     }
 
-    public Level(char level[][], boolean hasGuard, boolean hasOgre) {
-        map = level;
-
-        hero = new Hero(map);
-
-        if (hasGuard) {
-            guardDefined = true;
-            guard = new Guard(map);
-        }
-
-        if (hasOgre) {
-            ogre = new Ogre(map);
-            ogreDefined = true;
-        }
-
+    public Level(char level[][], Hero globalHero) {
+        this.map = level;
+        this.hero = globalHero;
+        
         findGameElements();
         findPassageDoors();
     }
+    
+    public void resetElements()
+    {
+    	hero.setX(heroOriginalPos.getX());
+    	hero.setY(heroOriginalPos.getY());
+    	hero.setSymbol('H');
+    }
+    
+    public void testPrintMap() {
+    	
+    	for(int i = 0; i < map.length; i++) {
+    		for(int j = 0; j < map[i].length; j++) {
+    			
+    			System.out.print(map[i][j] + " ");
+    			
+    		}
+    	System.out.println("");
+    	}
+    	
+    }
 
-    public void printMap() {
-
+    public char[][] createMapToPrint() {
+    	
+    	char [][] mapToPrint= new char[map.length][map[0].length];
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
 
                 if (hero.getX() == i && hero.getY() == j)
-                    System.out.print(hero.getSymbol() + " ");
+                	mapToPrint[i][j]=hero.getSymbol();
 
                 else if (guardDefined && guard.getX() == i && guard.getY() == j)
-                    System.out.print(guard.getSymbol() + " ");
+                	mapToPrint[i][j]=guard.getSymbol();
 
                 else if (ogreDefined && ogre.getX() == i && ogre.getY() == j) {
                     if (ogre.getX() == Lever.getX() && ogre.getY() == Lever.getY())
-                        System.out.print("$ ");
+                    	mapToPrint[i][j]='$';
                     else
-                        System.out.print(ogre.getSymbol() + " ");
+                    	mapToPrint[i][j]=ogre.getSymbol();
 
                 }
                 else if(ogreDefined && ogre.getClub().getX() == i && ogre.getClub().getY() == j){
 
                     if(ogre.getClub().getX() == Lever.getX() && ogre.getClub().getY() == Lever.getY())
-                        System.out.print("$ ");
+                    	mapToPrint[i][j]='$';
                     else
-                        System.out.print(ogre.getClub().getSymbol() + " ");
+                    	mapToPrint[i][j]=ogre.getClub().getSymbol();
 
                 }
                 else
-                    System.out.print(map[i][j] + " ");
+                	mapToPrint[i][j]=map[i][j];
 
             }
-
-            System.out.println();
         }
+        
+        return mapToPrint;
     }
 
-    public void updateGame() {
-        MovingObject.MOVEMENT_TYPE move = hero.getMove();
+    public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
         int x = hero.getX();
         int y = hero.getY();
@@ -181,6 +206,8 @@ public class Level {
                     y++;
                     break;
                 }
+                case NONE:
+                	break;
             }
 
             for (int i = 0; i < passageDoors.size(); i++) {
@@ -203,39 +230,12 @@ public class Level {
             ogre.getClub().move(map, ogre.getPosition());
         }
 
-
-
-        if (map[hero.getX()][hero.getY()] == 'S') {
-            won = true;
-            terminate = true;
-            System.out.println("You Won! Going to the next Level...\n");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-            return;
-        }
-
-        if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) {
-            won = false;
-            terminate = true;
-            System.out.println("You Lost!\n");
-            return;
-        }
-
-
-    }
-
-    public boolean game() {
-        printMap();
-        do {
-            updateGame();
-            printMap();
-        } while (!terminate);
-
-        return won;
-
+        if (map[hero.getX()][hero.getY()] == 'S')
+            return LEVEL_STATE.PASSED_LEVEL;
+        else if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) 
+        	return LEVEL_STATE.DEATH;
+     
+    	return LEVEL_STATE.NONE;
     }
 
 }
