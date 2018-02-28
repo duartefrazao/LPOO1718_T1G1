@@ -8,7 +8,7 @@ public class Dungeon {
 		GAME_OVER, VICTORY, PLAYING
 	}
 
-	static private GAME_STATE game_state = GAME_STATE.PLAYING;
+	//static private GAME_STATE game_state = GAME_STATE.PLAYING;
 
 	private Vector<Level> levels;
 	static private int currentLevel = 0;
@@ -18,8 +18,10 @@ public class Dungeon {
 	}
 
 	public GAME_STATE game(MovingObject.MOVEMENT_TYPE move) {
+		
 		switch (levels.elementAt(currentLevel).updateLevel(move)) {
 		case PASSED_LEVEL:
+			
 			if (currentLevel == levels.size() - 1)
 				return GAME_STATE.VICTORY;
 			else {

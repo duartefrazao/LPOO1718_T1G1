@@ -1,6 +1,5 @@
 package dkeep.logic;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 public class Level {
 	
@@ -9,6 +8,8 @@ public class Level {
 	}
 	
     private char map[][];
+    
+    private Pair heroOriginalPos = new Pair(0,0);
 
     private Hero hero;
 
@@ -67,11 +68,19 @@ public class Level {
                     	ogre = new Ogre(i,j);
                     	map[i][j]= ' ';
                         ogreDefined = true;
+                        
+                        /*now we need to move the weapon one time to place it
+                         * in a random valid position
+                         */
+                        ogre.getClub().move(map, ogre.getPosition());
                         break;
                     case 'H':
                     	hero.setX(i);
                     	hero.setY(j);
                     	map[i][j]= ' ';
+                    	
+                    	heroOriginalPos.setX(i);
+                    	heroOriginalPos.setY(j);
                     	break;
                     	
                 }
@@ -107,12 +116,23 @@ public class Level {
     
     public void resetElements()
     {
+    	hero.setX(heroOriginalPos.getX());
+    	hero.setY(heroOriginalPos.getY());
     	hero.setSymbol('H');
-    	findGameElements();
-        findPassageDoors();
     }
     
-    
+    public void testPrintMap() {
+    	
+    	for(int i = 0; i < map.length; i++) {
+    		for(int j = 0; j < map[i].length; j++) {
+    			
+    			System.out.print(map[i][j] + " ");
+    			
+    		}
+    	System.out.println("");
+    	}
+    	
+    }
 
     public void printMap() {
 
@@ -185,6 +205,8 @@ public class Level {
                     y++;
                     break;
                 }
+                case NONE:
+                	break;
             }
 
             for (int i = 0; i < passageDoors.size(); i++) {
