@@ -1,6 +1,8 @@
 package dkeep.logic;
 import java.util.Vector;
 
+import dkeep.logic.guards.*;
+
 public class Level {
 	
 	public enum LEVEL_STATE{
@@ -60,7 +62,7 @@ public class Level {
                         Lever.setY(j);
                         break;
                     case 'G':
-                        guard= new Guard(i,j);
+                        guard= new DrunkenGuard(i,j);
                         map[i][j]= ' ';
                         guardDefined = true;
                         break;
@@ -90,8 +92,9 @@ public class Level {
     }
 
 
-    private boolean collision(MovingObject A) {
-
+    private boolean collision(MovingObject A, int spacing) {
+    	//Default spacing value set to 1 
+    	System.out.println(spacing);
         int hero_x = hero.getX();
         int hero_y = hero.getY();
 
@@ -99,12 +102,13 @@ public class Level {
         int obj_y = A.getY();
 
 
-        if ((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= 1)
+        if ((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= spacing)
             return true;
 
         return false;
 
     }
+
 
     public Level(char level[][], Hero globalHero) {
         this.map = level;
@@ -232,10 +236,16 @@ public class Level {
 
         if (map[hero.getX()][hero.getY()] == 'S')
             return LEVEL_STATE.PASSED_LEVEL;
-        else if ((guardDefined && collision(guard)) || (ogreDefined && collision(ogre)) || (ogreDefined && collision(ogre.getClub()))) 
+        else if ((ogreDefined && collision(ogre, 1)) || (ogreDefined && collision(ogre.getClub(), 1))) 
         	return LEVEL_STATE.DEATH;
-     
-    	return LEVEL_STATE.NONE;
-    }
+        else if(guardDefined) {
+        	
+        	//Needs to test with 1 space difference for general guard and 
+        	//With 0 space difference (adjacent) for a sleeping guard
+        	if(guard.getSymbol() == 'G' && collision(guard, 1)) return LEVEL_STATE.DEATH;
+        	else if(guard.getSymbol() == 'g' && collision(guard, 0)) return LEVEL_STATE.DEATH;
+        }	
+		return LEVEL_STATE.NONE;
+	}
 
 }
