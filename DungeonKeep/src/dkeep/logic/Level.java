@@ -63,7 +63,7 @@ public class Level {
                
 				Ogre tempOgre = this.crazyHorde.elementAt(i);
 
-				if (this.collision(tempOgre) || this.collision(tempOgre.getClub()))
+				if (this.collision(tempOgre, 1) || this.collision(tempOgre.getClub(), 1))
 					return true;
 			}
 
@@ -145,7 +145,7 @@ public class Level {
 		}
 	}
 
-	private boolean collision(MovingObject A) {
+	private boolean collision(MovingObject A, int spacing) {
 
 		int hero_x = hero.getX();
 		int hero_y = hero.getY();
@@ -153,7 +153,7 @@ public class Level {
 		int obj_x = A.getX();
 		int obj_y = A.getY();
 
-		if ((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= 1)
+		if ((Math.abs(hero_x - obj_x) + Math.abs(hero_y - obj_y)) <= spacing)
 			return true;
 
 		return false;
@@ -300,9 +300,16 @@ public class Level {
 
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
-		else if ((guardDefined && collision(guard)) || this.checkOgreCollision())
-			return LEVEL_STATE.DEATH;
-
+		else if (this.checkOgreCollision()) 
+        	return LEVEL_STATE.DEATH;
+        else if(guardDefined) {
+        	
+        	//Needs to test with 1 space difference for general guard and 
+        	//With 0 space difference (adjacent) for a sleeping guard
+        	if(guard.getSymbol() == 'G' && collision(guard, 1)) return LEVEL_STATE.DEATH;
+        	else if(guard.getSymbol() == 'g' && collision(guard, 0)) return LEVEL_STATE.DEATH;
+        }
+		
 		return LEVEL_STATE.NONE;
 	}
 

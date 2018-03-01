@@ -46,10 +46,10 @@ public class Main {
 		UI userInterface = new UI(s);
 
 		Level level2 = new Level(map2, hero);
-		//Level level1 = new Level(map1, hero);
+		Level level1 = new Level(map1, hero);
 		
 		Vector<Level> levels = new Vector<Level>();
-		//levels.add(level1);
+		levels.add(level1);
 		levels.add(level2);
 		
 		Dungeon d = new Dungeon(levels);
