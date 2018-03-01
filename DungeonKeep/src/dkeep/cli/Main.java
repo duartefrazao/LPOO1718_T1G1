@@ -1,10 +1,11 @@
 package dkeep.cli;
 
-import dkeep.logic.Level;
-
 import java.util.Scanner;
 import java.util.Vector;
 import dkeep.logic.*;
+import dkeep.logic.levels.InitialLevel;
+import dkeep.logic.levels.KeepLevel;
+import dkeep.logic.levels.Level;
 
 public class Main {
 	
@@ -45,8 +46,8 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		UI userInterface = new UI(s);
 
-		Level level2 = new Level(map2, hero);
-		Level level1 = new Level(map1, hero);
+		Level level2 = new KeepLevel(map2, hero);
+		Level level1 = new InitialLevel(map1, hero);
 		
 		Vector<Level> levels = new Vector<Level>();
 		levels.add(level1);

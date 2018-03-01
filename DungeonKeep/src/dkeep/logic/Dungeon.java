@@ -2,6 +2,8 @@ package dkeep.logic;
 
 import java.util.Vector;
 
+import dkeep.logic.levels.Level;
+
 public class Dungeon {
 
 	public enum GAME_STATE {
