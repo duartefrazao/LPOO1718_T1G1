@@ -60,37 +60,7 @@ public class Level {
 
 			for (int i = 0; i < this.hordeSize; i++) {
 
-                switch (map[i][j]) {
-                    case 'k':
-                        Lever.setX(i);
-                        Lever.setY(j);
-                        break;
-                    case 'G':
-                        guard= new DrunkenGuard(i,j);
-                        map[i][j]= ' ';
-                        guardDefined = true;
-                        break;
-                    case 'O':
-                    	ogre = new Ogre(i,j);
-                    	map[i][j]= ' ';
-                        ogreDefined = true;
-                        
-                        /*now we need to move the weapon one time to place it
-                         * in a random valid position
-                         */
-                        ogre.getClub().move(map, ogre.getPosition());
-                        break;
-                    case 'H':
-                    	hero.setX(i);
-                    	hero.setY(j);
-                    	map[i][j]= ' ';
-                    	
-                    	heroOriginalPos.setX(i);
-                    	heroOriginalPos.setY(j);
-                    	break;
-                    	
-                }
-            }
+               
 				Ogre tempOgre = this.crazyHorde.elementAt(i);
 
 				if (this.collision(tempOgre) || this.collision(tempOgre.getClub()))
@@ -134,7 +104,7 @@ public class Level {
 					Lever.setY(j);
 					break;
 				case 'G':
-					guard = new Guard(i, j);
+					guard = new DrunkenGuard(i, j);
 					map[i][j] = ' ';
 					guardDefined = true;
 					break;
