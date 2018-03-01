@@ -5,8 +5,12 @@ public class Hero extends MovingObject {
     private char Symbol = 'H';
 
     private boolean hasKey = false;
-
-    public boolean hasKey(){ return hasKey;}
+    
+    private Weapon weapon; 
+    
+    public boolean hasKey(){ 
+    	return hasKey;
+    	}
 
 
     public char getSymbol(){ return this.Symbol;}
@@ -23,5 +27,14 @@ public class Hero extends MovingObject {
 		super();
 	}
 
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
 
 }
