@@ -6,6 +6,12 @@ public class Ogre extends MovingObject {
 
 	private char Symbol = 'O';
 
+	private char stunnedSymbol = '8';
+
+	private int roundsLeftStunned = 0;
+
+	private boolean isStunned = false;
+
 	private Weapon club;
 
 	public Weapon getClub() {
@@ -34,10 +40,13 @@ public class Ogre extends MovingObject {
 	}
 
 	public char getSymbol() {
+		if (isStunned)
+			return this.stunnedSymbol;
 		return this.Symbol;
 	}
 
 	public void setSymbol(char symbol) {
+
 		this.Symbol = symbol;
 	}
 
@@ -47,6 +56,65 @@ public class Ogre extends MovingObject {
 		position.setY(y);
 
 		club = new Weapon();
+	}
+
+	public int getRoundsLeftStunned() {
+		return roundsLeftStunned;
+	}
+
+	public void setRoundsLeftStunned(int roundsLeftStunned) {
+		this.roundsLeftStunned = roundsLeftStunned;
+	}
+
+	public boolean isStunned() {
+		return isStunned;
+	}
+
+	public void setStunned(boolean isStunned) {
+		this.isStunned = isStunned;
+	}
+
+	@Override
+	public void move(MovingObject.MOVEMENT_TYPE movement, char map[][]) {
+		int x = position.getX();
+		int y = position.getY();
+
+		if (this.roundsLeftStunned > 0) {
+			roundsLeftStunned--;
+			if (roundsLeftStunned == 0)
+				this.isStunned = false;
+			return;
+		}
+
+		switch (movement) {
+
+		case UP: {
+			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
+				position.setX(--x);
+			}
+			break;
+		}
+		case DOWN: {
+			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
+				position.setX(++x);
+			}
+			break;
+		}
+		case LEFT: {
+			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
+				position.setY(--y);
+			}
+			break;
+		}
+		case RIGHT: {
+			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
+				position.setY(++y);
+			}
+			break;
+		}
+		case NONE:
+			break;
+		}
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
 import dkeep.logic.Pair;
-import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 
 
 public abstract class Level {

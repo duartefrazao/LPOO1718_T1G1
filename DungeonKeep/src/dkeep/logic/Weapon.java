@@ -10,7 +10,7 @@ public class Weapon extends MovingObject {
         return Symbol;
     }
 
-
+    
     public void move(char map[][], Pair A) {
 
         int x = A.getX();

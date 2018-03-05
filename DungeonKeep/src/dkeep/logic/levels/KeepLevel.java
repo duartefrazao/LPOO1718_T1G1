@@ -7,32 +7,51 @@ import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
+import dkeep.logic.Weapon;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
-
 
 public class KeepLevel extends Level {
 
 	public KeepLevel(char[][] level, Hero globalHero) {
 		super(level, globalHero);
-
+		this.heroWeapon = new Weapon();
 		findGameElements();
 		findPassageDoors();
+
 	}
 
 	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
 
-	private Pair Lever = new Pair(0, 0);
+	private Pair Key = new Pair(0, 0);
+
+	private Weapon heroWeapon;
 
 	// will be used next
 	private int hordeSize = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 
 	private boolean checkOgreCollision() {
 
+		int spacing;
+
+		if (hero.isArmed())
+			spacing = 0;
+		else
+			spacing = 1;
+
 		for (int i = 0; i < this.hordeSize; i++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(i);
 
-			if (this.collision(tempOgre, 1) || this.collision(tempOgre.getClub(), 1))
+			if (this.collision(tempOgre.getClub(), 1) || this.collision(tempOgre, 0)) {
+				return true;
+			}
+
+			else if (hero.isArmed() && this.collision(tempOgre, 1)) {
+				tempOgre.setStunned(true);
+				tempOgre.setRoundsLeftStunned(2);
+				return false;
+
+			} else if (this.collision(tempOgre, 1))
 				return true;
 		}
 
@@ -45,8 +64,8 @@ public class KeepLevel extends Level {
 
 				switch (map[i][j]) {
 				case 'k':
-					Lever.setX(i);
-					Lever.setY(j);
+					Key.setX(i);
+					Key.setY(j);
 					break;
 				case 'O':
 					map[i][j] = ' ';
@@ -75,6 +94,9 @@ public class KeepLevel extends Level {
 
 					heroOriginalPos.setX(i);
 					heroOriginalPos.setY(j);
+
+					heroWeapon.move(map, hero.getPosition());
+
 					break;
 
 				}
@@ -102,6 +124,14 @@ public class KeepLevel extends Level {
 
 		mapToPrint[i][j] = this.hero.getSymbol();
 
+		if (!hero.isArmed()) {
+
+			i = heroWeapon.getX();
+			j = heroWeapon.getY();
+
+			mapToPrint[i][j] = heroWeapon.getSymbol();
+		}
+
 		// ---- crazy horde ----
 		for (int k = 0; k < this.hordeSize; k++) {
 
@@ -110,7 +140,7 @@ public class KeepLevel extends Level {
 			i = tempOgre.getX();
 			j = tempOgre.getY();
 
-			if (i == this.Lever.getX() && j == this.Lever.getY())
+			if (i == this.Key.getX() && j == this.Key.getY())
 				mapToPrint[i][j] = '$';
 			else
 				mapToPrint[i][j] = tempOgre.getSymbol();
@@ -119,7 +149,8 @@ public class KeepLevel extends Level {
 			i = tempOgre.getClub().getX();
 			j = tempOgre.getClub().getY();
 
-			if (i == this.Lever.getX() && j == this.Lever.getY())
+			if (map[i][j] == 'k')
+				// if (i == this.Key.getX() && j == this.Key.getY())
 				mapToPrint[i][j] = '$';
 			else
 				mapToPrint[i][j] = tempOgre.getClub().getSymbol();
@@ -133,10 +164,19 @@ public class KeepLevel extends Level {
 
 		int x = hero.getX();
 		int y = hero.getY();
-
-		if (x == Lever.getX() && y == Lever.getY()) {
+		if (x == Key.getX() && y == Key.getY()) {
 
 			hero.setSymbol('K');
+
+			hero.setKey(true);
+			map[x][y] = ' ';
+
+		} else if (x == heroWeapon.getX() && y == heroWeapon.getY()) {
+
+			hero.setWeapon(heroWeapon);
+
+			if (!hero.hasKey())
+				hero.setSymbol('A');
 			map[x][y] = ' ';
 
 		}

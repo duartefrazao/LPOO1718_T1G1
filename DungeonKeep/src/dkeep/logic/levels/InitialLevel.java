@@ -3,7 +3,6 @@ package dkeep.logic.levels;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
 import dkeep.logic.Pair;
-import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.guards.*;
 
 public class InitialLevel extends Level {
