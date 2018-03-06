@@ -9,45 +9,14 @@ import dkeep.logic.levels.Level;
 
 public class Main {
 	
-
-
-	static char map1[][] =
-		{
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-        {'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-        {'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'},
-        {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
-        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-        };
-
-	static char map2[][] =
-		{
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		};
-	
-	
-	
 	public static void main(String args[]) {
 		
 		Hero hero = new Hero();
 		Scanner s = new Scanner(System.in);
 		UI userInterface = new UI(s);
 
-		Level level2 = new KeepLevel(map2, hero);
-		Level level1 = new InitialLevel(map1, hero);
+		Level level2 = new KeepLevel( hero);
+		Level level1 = new InitialLevel( hero);
 		
 		Vector<Level> levels = new Vector<Level>();
 		levels.add(level1);

@@ -7,6 +7,28 @@ import dkeep.logic.guards.*;
 
 public class InitialLevel extends Level {
 	
+	 static char map1[][] =
+		{
+		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+        {'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
+        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+        {'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
+        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'}, 
+        {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
+        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+        };
+
+	public InitialLevel( Hero globalHero) {
+		super(map1,globalHero);
+
+		findGameElements();
+		findPassageDoors();
+	}
+
+	
 	public InitialLevel(char[][] level, Hero globalHero) {
 		super(level, globalHero);
 
@@ -103,40 +125,6 @@ public class InitialLevel extends Level {
 		}
 
 
-		if (hero.hasKey()) {
-
-			switch (move) {
-			case UP: {
-				x--;
-				break;
-			}
-			case DOWN: {
-				x++;
-				break;
-			}
-			case LEFT: {
-				y--;
-				break;
-			}
-			case RIGHT: {
-				y++;
-				break;
-			}
-			case NONE:
-				break;
-			}
-
-			for (int i = 0; i < passageDoors.size(); i++) {
-
-				int a = passageDoors.elementAt(i).getX();
-				int b = passageDoors.elementAt(i).getY();
-
-				if (x == a && y == b)
-					map[a][b] = 'S';
-
-			}
-
-		}
 
 		
 

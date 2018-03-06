@@ -12,8 +12,31 @@ import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level {
 
+	static char map2[][] =
+		{
+		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+		{'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X'},
+		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+		};
+	
+	
+	
 	public KeepLevel(char[][] level, Hero globalHero) {
 		super(level, globalHero);
+		this.heroWeapon = new Weapon();
+		findGameElements();
+		findPassageDoors();
+
+	}
+	
+	public KeepLevel(Hero globalHero) {
+		super(map2, globalHero);
 		this.heroWeapon = new Weapon();
 		findGameElements();
 		findPassageDoors();

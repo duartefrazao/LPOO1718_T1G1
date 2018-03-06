@@ -21,6 +21,15 @@ public class TestDungeonGameLogic {
         {'X', 'X', 'X', 'X', 'X'}
         };
 	
+	char cleanMap[][] =
+		{
+		{'X', 'X', 'X', 'X', 'X'},
+        {'X', 'H', ' ', 'G', 'X'},
+        {'I', ' ', ' ', ' ', 'X'},
+        {'I', 'k', ' ', ' ', 'I'},
+        {'X', 'X', 'X', 'X', 'X'}
+        };
+	
 	@Test
 	public void testHeroMovementIntoFreeCell() {
 		Hero hero = new Hero();
@@ -76,14 +85,14 @@ public class TestDungeonGameLogic {
 		Hero hero = new Hero();
 		InitialLevel testLevel = new InitialLevel(map,hero);
 		assertEquals(new Pair(1,1), hero.getPosition());
-		
+		 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
 		
 		assertEquals(new Pair(2,1), hero.getPosition());
 		
 		testLevel.updateLevel(MOVEMENT_TYPE.DOWN); //To update lever symbol
-		
-		assertEquals(new Pair(3,1), hero.getPosition());
+		 
+		assertEquals(new Pair(3,1), hero.getPosition()); 
 		
 		
 		assertTrue(map[2][0]== 'S' && map[3][0]== 'S' && map[3][4] == 'S');
@@ -103,10 +112,17 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(LEVEL_STATE.PASSED_LEVEL,testLevel.updateLevel(MOVEMENT_TYPE.LEFT)); 
 		
-	} 
+	}  
 	
-
 	@Test
-	public void test
+	public void testCreateMap() {
+		Hero hero = new Hero();
+		InitialLevel testLevel = new InitialLevel(map,hero);
+		
+		
+		assertEquals(cleanMap, testLevel.createMapToPrint());
+	}
+	 
+ 
 
 }
