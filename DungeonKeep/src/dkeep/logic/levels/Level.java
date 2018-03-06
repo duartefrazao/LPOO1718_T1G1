@@ -52,7 +52,7 @@ public abstract class Level {
 				for (int j = 0; j < map[i].length; j++) {
 
 					if (map[i][j] == 'I')
-						passageDoors.add(new Pair(i, j));
+						passageDoors.add(new Pair(i, j)); 
 				}
 			} else {
 				if (map[i][0] == 'I') {
@@ -98,5 +98,6 @@ public abstract class Level {
 		hero.setY(heroOriginalPos.getY());
 		hero.setSymbol('H');
 	}
+	
 
 }

@@ -27,7 +27,7 @@ public abstract class Guard extends MovingObject{
 
         for(int i = 0; i < 6; i++)
             guardMovement.add(MovingObject.MOVEMENT_TYPE.LEFT);
-
+ 
         guardMovement.add(MovingObject.MOVEMENT_TYPE.DOWN);
 
         for(int i = 0; i < 7; i++)

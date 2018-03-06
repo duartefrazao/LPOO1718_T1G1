@@ -83,6 +83,9 @@ public class InitialLevel extends Level {
 	
 	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
+		hero.move(move, map);
+		guard.move(guard.getMove(), map);
+		
 		int x = hero.getX();
 		int y = hero.getY();
 
@@ -96,11 +99,9 @@ public class InitialLevel extends Level {
 				map[door_x][door_y] = 'S';
 			}
 			
-			map[x][y] = ' ';
 
 		}
 
-		hero.move(move, map);
 
 		if (hero.hasKey()) {
 
@@ -137,11 +138,10 @@ public class InitialLevel extends Level {
 
 		}
 
-		if (guardDefined)
-			guard.move(guard.getMove(), map);
-
 		
 
+		
+		
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
         	//Needs to test with 1 space difference for general guard and 
@@ -152,5 +152,11 @@ public class InitialLevel extends Level {
 		
 		return LEVEL_STATE.NONE;
 	}
+
+	public Guard getGuard() {
+		return guard;
+	}
+
+
 
 }

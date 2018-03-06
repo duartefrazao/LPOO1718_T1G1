@@ -33,7 +33,7 @@ public abstract class MovingObject {
 
 	       case UP: {
 	            if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-	                position.setX(--x);
+	                position.setX(--x); 
 	            }
 	            break;
 	        }
