@@ -153,7 +153,11 @@ public class TesteKeepLevelLogic {
 				ogreMov.add(ogreM);
 
 				tempOgre.move(ogreM, testMap);
-				//tempOgre.getClub().move(testMap, tempOgre.getPosition());
+				
+				MOVEMENT_TYPE clubM = tempOgre.getClub().getMove(testMap, tempOgre.getPosition());
+				
+				tempOgre.getClub().move(clubM, testMap);
+				
 			}
 
 			ogreHasGoneEveryDirection = ogreMov.size() == 4 ? true : false;
