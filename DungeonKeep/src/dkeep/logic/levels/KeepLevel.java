@@ -5,10 +5,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
+import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
 import dkeep.logic.Weapon;
-import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 
 public class KeepLevel extends Level {
 
@@ -26,17 +26,18 @@ public class KeepLevel extends Level {
 
 	private Weapon heroWeapon;
 
+	public Vector<Ogre> getCrazyHorde() {
+		return crazyHorde;
+	}
+
+	public void setCrazyHorde(Vector<Ogre> crazyHorde) {
+		this.crazyHorde = crazyHorde;
+	}
+
 	// will be used next
 	private int hordeSize = ThreadLocalRandom.current().nextInt(1, 3 + 1);
 
-	private boolean checkOgreCollision() {
-
-		int spacing;
-
-		if (hero.isArmed())
-			spacing = 0;
-		else
-			spacing = 1;
+	public boolean checkOgreCollision() {
 
 		for (int i = 0; i < this.hordeSize; i++) {
 
@@ -70,17 +71,31 @@ public class KeepLevel extends Level {
 				case 'O':
 					map[i][j] = ' ';
 
+					Ogre ogre = new Ogre(i, j);
+
+					/*
+					 * now we need to move the weapon one time to place it in a random valid
+					 * position
+					 */
+					MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
+					
+					ogre.getClub().move(clubMov, map);
+
+					this.crazyHorde.add(ogre);
+
 					for (int k = 0; k < this.hordeSize; k++) {
 
 						Pair randomPos = this.getRandomEmptyPositions();
 
-						Ogre ogre = new Ogre(randomPos.getX(), randomPos.getY());
+						ogre = new Ogre(randomPos.getX(), randomPos.getY());
 
 						/*
 						 * now we need to move the weapon one time to place it in a random valid
 						 * position
 						 */
-						ogre.getClub().move(map, ogre.getPosition());
+						clubMov = ogre.getClub().getMove(map, ogre.getPosition());
+						
+						ogre.getClub().move(clubMov, map);
 
 						this.crazyHorde.add(ogre);
 
@@ -94,8 +109,12 @@ public class KeepLevel extends Level {
 
 					heroOriginalPos.setX(i);
 					heroOriginalPos.setY(j);
+					
+					MOVEMENT_TYPE swordMove = heroWeapon.getMove(map, hero.getPosition());
 
-					heroWeapon.move(map, hero.getPosition());
+					//System.out.println(swordMove);
+					
+					heroWeapon.move(swordMove, map);
 
 					break;
 
@@ -162,8 +181,22 @@ public class KeepLevel extends Level {
 
 	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
+		hero.move(move, map);
+
+		for (int i = 0; i < this.hordeSize; i++) {
+
+			Ogre tempOgre = this.crazyHorde.elementAt(i);
+
+			tempOgre.move(tempOgre.getMove(), map);
+
+			MOVEMENT_TYPE clubMov = tempOgre.getClub().getMove(map, tempOgre.getPosition());
+
+			tempOgre.getClub().move(clubMov, map);
+		}
+
 		int x = hero.getX();
 		int y = hero.getY();
+
 		if (x == Key.getX() && y == Key.getY()) {
 
 			hero.setSymbol('K');
@@ -180,8 +213,6 @@ public class KeepLevel extends Level {
 			map[x][y] = ' ';
 
 		}
-
-		hero.move(move, map);
 
 		if (hero.hasKey()) {
 
@@ -216,14 +247,6 @@ public class KeepLevel extends Level {
 
 			}
 
-		}
-
-		for (int i = 0; i < this.hordeSize; i++) {
-
-			Ogre tempOgre = this.crazyHorde.elementAt(i);
-
-			tempOgre.move(tempOgre.getMove(), map);
-			tempOgre.getClub().move(map, tempOgre.getPosition());
 		}
 
 		if (map[hero.getX()][hero.getY()] == 'S')
