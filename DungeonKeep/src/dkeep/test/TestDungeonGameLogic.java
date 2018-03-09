@@ -2,11 +2,14 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Test;
 
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Pair;
+import dkeep.logic.guards.RookieGuard;
+import dkeep.logic.guards.SuspiciousGuard;
 import dkeep.logic.levels.*;
 import dkeep.logic.levels.Level.LEVEL_STATE;
 
@@ -111,11 +114,14 @@ public class TestDungeonGameLogic {
 		testLevel.updateLevel(MOVEMENT_TYPE.DOWN); //To update lever symbol
 		
 		assertEquals(LEVEL_STATE.PASSED_LEVEL,testLevel.updateLevel(MOVEMENT_TYPE.LEFT)); 
-		
+		 
 	}  
 	
+
+	
+	@SuppressWarnings("deprecation")
 	@Test
-	public void testCreateMap() {
+	public void testCreatedMap() {
 		Hero hero = new Hero();
 		InitialLevel testLevel = new InitialLevel(map,hero);
 		

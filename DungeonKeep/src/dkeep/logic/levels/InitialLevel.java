@@ -124,12 +124,6 @@ public class InitialLevel extends Level {
 
 		}
 
-
-
-		
-
-		
-		
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
         	//Needs to test with 1 space difference for general guard and 

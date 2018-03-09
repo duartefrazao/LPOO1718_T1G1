@@ -151,7 +151,7 @@ public class TesteKeepLevelLogic {
 				MOVEMENT_TYPE ogreM = tempOgre.getMove();
 
 				ogreMov.add(ogreM);
-
+ 
 				tempOgre.move(ogreM, testMap);
 				
 				MOVEMENT_TYPE clubM = tempOgre.getClub().getMove(testMap, tempOgre.getPosition());
