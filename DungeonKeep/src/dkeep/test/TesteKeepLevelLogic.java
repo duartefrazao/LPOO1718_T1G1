@@ -132,17 +132,17 @@ public class TesteKeepLevelLogic {
 	public void testSomeRandomBehaviour() {
 
 		boolean ogreHasGoneEveryDirection = false;
-		// boolean clubHasGoneEveryDirection = false;
+		boolean clubHasGoneEveryDirection = false;
 
 		HashSet<MOVEMENT_TYPE> ogreMov = new HashSet<>();
-		// HashSet<MOVEMENT_TYPE> clubMov = new HashSet<>();
+		HashSet<MOVEMENT_TYPE> clubMov = new HashSet<>();
 
 		Hero testHero = new Hero();
 		KeepLevel testLevel = new KeepLevel(testMap, testHero);
 
 		Vector<Ogre> testOgres = testLevel.getCrazyHorde();
 
-		while (!ogreHasGoneEveryDirection) {
+		while (!ogreHasGoneEveryDirection || !clubHasGoneEveryDirection) {
 
 			for (int i = 0; i < testOgres.size(); i++) {
 
@@ -156,11 +156,14 @@ public class TesteKeepLevelLogic {
 				
 				MOVEMENT_TYPE clubM = tempOgre.getClub().getMove(testMap, tempOgre.getPosition());
 				
+				clubMov.add(clubM);
+				
 				tempOgre.getClub().move(clubM, testMap);
 				
 			}
 
 			ogreHasGoneEveryDirection = ogreMov.size() == 4 ? true : false;
+			clubHasGoneEveryDirection = clubMov.size() == 4 ? true : false;
 
 		}
 
