@@ -40,7 +40,7 @@ public class DrunkenGuard extends Guard {
 			roundsLeftSleeping = randSleep.nextInt(5) + 1; //Value from 1 to 5 (Up to 5 rounds asleep)
 			Symbol = 'g';
 		}
-
+ 
 		Random randDirectionChanger = new Random();
 		int directionChanger = randDirectionChanger.nextInt(10); // Value from 0 to 9 (1/10 chance of changing direction)
 

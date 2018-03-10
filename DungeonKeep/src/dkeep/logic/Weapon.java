@@ -12,7 +12,7 @@ public class Weapon extends MovingObject {
     
     public MOVEMENT_TYPE getMove(char map[][], Pair A) {
     	
-    	
+    	 
     	this.setX(A.getX());
     	this.setY(A.getY());
     	
@@ -24,7 +24,7 @@ public class Weapon extends MovingObject {
 
         if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
             possibleMovs.addElement(MOVEMENT_TYPE.UP);
-        }
+        } 
         if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
             possibleMovs.addElement(MOVEMENT_TYPE.DOWN);
         }

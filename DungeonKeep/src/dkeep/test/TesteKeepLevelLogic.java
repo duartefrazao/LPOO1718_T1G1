@@ -73,7 +73,7 @@ public class TesteKeepLevelLogic {
 		assertEquals('I', testMap[1][0]);
 	}
 
-	@Test
+	@Test 
 	public void testOpenDoor() {
 		Hero testHero = new Hero();
 		KeepLevel testLevel = new KeepLevel(testMap, testHero);

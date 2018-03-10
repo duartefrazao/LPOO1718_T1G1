@@ -24,7 +24,7 @@ public class Main {
 		
 		Dungeon d = new Dungeon(levels);
 		
-		Dungeon.GAME_STATE state;
+		Dungeon.GAME_STATE state; 
 		
 	    do {
 	    	

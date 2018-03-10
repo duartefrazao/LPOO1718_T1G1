@@ -18,7 +18,7 @@ public class Hero extends MovingObject {
 
 	public char getSymbol() {
 		return this.Symbol;
-	}
+	} 
 
 	public void setSymbol(char symbol) {
 		if (symbol == 'K')

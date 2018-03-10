@@ -71,6 +71,11 @@ public class InitialLevel extends Level {
 		}
 	}
 	
+	public void setGuard(Guard newG)
+	{
+		this.guard= newG;
+	}
+	
 	public char[][] createMapToPrint() {
 
 		char[][] mapToPrint = new char[map.length][];
@@ -109,7 +114,7 @@ public class InitialLevel extends Level {
 		guard.move(guard.getMove(), map);
 		
 		int x = hero.getX();
-		int y = hero.getY();
+		int y = hero.getY(); 
 
 		if (x == Lever.getX() && y == Lever.getY()) {
 			
