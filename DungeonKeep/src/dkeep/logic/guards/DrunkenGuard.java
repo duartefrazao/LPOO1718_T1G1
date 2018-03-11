@@ -9,6 +9,8 @@ public class DrunkenGuard extends Guard {
 	static private int roundsLeftSleeping = 0;
 
 	static private boolean positiveDirection = true;
+
+	static private boolean wokeUp = false;
 	
 	public DrunkenGuard(int x, int y) {
 		super(x, y);
@@ -17,12 +19,22 @@ public class DrunkenGuard extends Guard {
 	@Override
 	public MOVEMENT_TYPE getMove() {
 
+        //Handle negative values
+        if (currentMovPos < 0)
+            currentMovPos = guardMovement.size() - 1;
+
+        //Handle circular iteration through possible movements
+        currentMovPos = (currentMovPos % guardMovement.size());
+
+
 		if (roundsLeftSleeping > 1) {
 			roundsLeftSleeping--;
 			return MovingObject.MOVEMENT_TYPE.NONE;
 		} else if (roundsLeftSleeping == 1) {
 			roundsLeftSleeping--;
 			this.Symbol = 'G';
+
+            wokeUp = true;
 			return MovingObject.MOVEMENT_TYPE.NONE;
 		}
 
@@ -33,24 +45,30 @@ public class DrunkenGuard extends Guard {
 		else
 			move = contrary(this.guardMovement.elementAt(currentMovPos));
 
+
+		if(wokeUp) {
+            Random randDirectionChanger = new Random();
+            int directionChanger = randDirectionChanger.nextInt(4); // Value from 0 to 3 (1/4 chance of changing direction)
+
+            if (directionChanger == 0) {
+                positiveDirection = (!positiveDirection);
+
+                //When changing direction it need's to change to the last/next directions
+                if (positiveDirection) currentMovPos--;
+                else currentMovPos++;
+            }
+
+            wokeUp= false;
+        }
+
 		Random randSleep = new Random();
-		int fallAsleep = randSleep.nextInt(10); // Value from 0 to 9 (1/10 chance of falling asleep)
+		int fallAsleep = randSleep.nextInt(7); // Value from 0 to 6 (1/6 chance of falling asleep)
 
 		if (fallAsleep == 0) {
 			roundsLeftSleeping = randSleep.nextInt(5) + 1; //Value from 1 to 5 (Up to 5 rounds asleep)
 			Symbol = 'g';
 		}
- 
-		Random randDirectionChanger = new Random();
-		int directionChanger = randDirectionChanger.nextInt(10); // Value from 0 to 9 (1/10 chance of changing direction)
 
-		if (directionChanger == 0) {
-			positiveDirection = (!positiveDirection);
-			
-			//When changing direction it need's to change to the last/next directions
-			if(positiveDirection) currentMovPos--;
-			else currentMovPos++;
-		}
 
 		if (positiveDirection)
 			currentMovPos++;
