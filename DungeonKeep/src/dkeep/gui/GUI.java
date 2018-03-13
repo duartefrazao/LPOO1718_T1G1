@@ -1,6 +1,7 @@
 package dkeep.gui;
 
-import com.intellij.openapi.vcs.history.VcsRevisionNumber;
+import dkeep.logic.Dungeon;
+import dkeep.logic.MovingObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +26,12 @@ public class GUI {
     private JButton rightButton;
     private JTextField gameStatus;
     private JButton downButton;
+    private Dungeon dungeon;
 
     public void printMap(char[][] map) {
+
+
+        this.gameArea.setText("");
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -37,7 +42,10 @@ public class GUI {
 
     }
 
-    public GUI() {
+    public GUI(Dungeon d) {
+
+        this.dungeon = d;
+
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +69,10 @@ public class GUI {
                     leftButton.setEnabled(true);
                     downButton.setEnabled(true);
                     rightButton.setEnabled(true);
+
+                    printMap(dungeon.getMap());
+
+
                 } else {
                     gameStatus.setText("Please insert a number of Ogres!");
                 }
@@ -76,7 +88,29 @@ public class GUI {
         upButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dungeon.game(MovingObject.MOVEMENT_TYPE.UP);
+                printMap(dungeon.getMap());
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dungeon.game(MovingObject.MOVEMENT_TYPE.DOWN);
+                printMap(dungeon.getMap());
+            }
+        });
+        rightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dungeon.game(MovingObject.MOVEMENT_TYPE.RIGHT);
+                printMap(dungeon.getMap());
+            }
+        });
+        leftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dungeon.game(MovingObject.MOVEMENT_TYPE.LEFT);
+                printMap(dungeon.getMap());
             }
         });
     }
@@ -100,6 +134,7 @@ public class GUI {
         panel1.setLayout(new GridBagLayout());
         Font panel1Font = this.$$$getFont$$$("Monospaced", -1, -1, panel1.getFont());
         if (panel1Font != null) panel1.setFont(panel1Font);
+        panel1.setMaximumSize(new Dimension(845, 711));
         Ogres = new JLabel();
         Ogres.setHorizontalAlignment(11);
         Ogres.setHorizontalTextPosition(10);

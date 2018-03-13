@@ -13,16 +13,8 @@ public class Main {
 
     public static void main(String args[]){
 
-        JFrame frame = new JFrame("GUI");
 
-        GUI gui = new GUI();
-
-        frame.setContentPane(gui.getContent());
-
-        frame.pack();
-
-        frame.setVisible(true);
-
+        //---- Setting up Game Elements
 
         Hero hero = new Hero();
 
@@ -33,13 +25,20 @@ public class Main {
         levels.add(level1);
         levels.add(level2);
 
-        Dungeon d = new Dungeon(levels);
-
-        Dungeon.GAME_STATE state;
-
-       gui.printMap(d.getMap());
+        Dungeon dungeon = new Dungeon(levels);
 
 
+        //---- Setting up JFrame and GUI ----
+
+        JFrame frame = new JFrame("GUI");
+
+        GUI gui = new GUI(dungeon);
+
+        frame.setContentPane(gui.getContent());
+
+        frame.pack();
+
+        frame.setVisible(true);
 
 
 
