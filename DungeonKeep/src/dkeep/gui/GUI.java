@@ -42,6 +42,28 @@ public class GUI {
 
     }
 
+    public void processGame(MovingObject.MOVEMENT_TYPE move) {
+
+
+        Dungeon.GAME_STATE state = dungeon.game(move);
+
+        printMap(dungeon.getMap());
+
+        if (state != Dungeon.GAME_STATE.PLAYING) {
+            upButton.setEnabled(false);
+            leftButton.setEnabled(false);
+            downButton.setEnabled(false);
+            rightButton.setEnabled(false);
+
+            gameStatus.setText("Game Over");
+
+            //TO-DO
+            //Here we have to reset the game, still wasn't able to do it
+            System.exit(0);
+
+        }
+    }
+
     public GUI(Dungeon d) {
 
         this.dungeon = d;
@@ -85,32 +107,34 @@ public class GUI {
                 System.exit(0);
             }
         });
+
         upButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dungeon.game(MovingObject.MOVEMENT_TYPE.UP);
-                printMap(dungeon.getMap());
+
+                processGame(MovingObject.MOVEMENT_TYPE.UP);
+
             }
         });
+
         downButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dungeon.game(MovingObject.MOVEMENT_TYPE.DOWN);
-                printMap(dungeon.getMap());
+                processGame(MovingObject.MOVEMENT_TYPE.DOWN);
             }
         });
+
         rightButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dungeon.game(MovingObject.MOVEMENT_TYPE.RIGHT);
-                printMap(dungeon.getMap());
+                processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
             }
         });
+
         leftButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dungeon.game(MovingObject.MOVEMENT_TYPE.LEFT);
-                printMap(dungeon.getMap());
+                processGame(MovingObject.MOVEMENT_TYPE.LEFT);
             }
         });
     }

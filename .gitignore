@@ -1,0 +1,10 @@
+
+DungeonKeep/\.idea/
+
+DungeonKeep/bin/com/intellij/uiDesigner/core/
+
+*.html
+
+DungeonKeep/DungeonKeep\.iml
+
+DungeonKeep/report/201803111619/mutations\.xml
