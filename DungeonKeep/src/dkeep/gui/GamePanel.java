@@ -13,7 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class GUI {
+
+public class GamePanel extends JPanel {
     public JPanel getContent() {
 
         return this.panel1;
@@ -29,8 +30,10 @@ public class GUI {
     private JButton leftButton;
     private JButton upButton;
     private JButton rightButton;
-    private JTextField gameStatus;
+    //private JTextField gameStatus;
     private JButton downButton;
+    private JPanel statusP;
+    private StatusPanel status;
 
 
     private Dungeon dungeon;
@@ -63,12 +66,12 @@ public class GUI {
             downButton.setEnabled(false);
             rightButton.setEnabled(false);
 
-            gameStatus.setText("Game Over");
+            //gameStatus.setText("Game Over");
 
         }
     }
 
-    public GUI() {
+    public GamePanel() {
 
 
         startGame.addActionListener(new ActionListener() {
@@ -85,7 +88,7 @@ public class GUI {
                     try {
                         numberOgres = Integer.parseInt(s);
                     } catch (NumberFormatException exc) {
-                        gameStatus.setText("Please insert a valid number!");
+                        //gameStatus.setText("Please insert a valid number!");
                         noOgres.setText("");
                         return;
                     }
@@ -110,7 +113,7 @@ public class GUI {
 
 
                 } else {
-                    gameStatus.setText("Please insert a number of Ogres!");
+                    //gameStatus.setText("Please insert a number of Ogres!");
                 }
 
             }
@@ -151,6 +154,18 @@ public class GUI {
                 processGame(MovingObject.MOVEMENT_TYPE.LEFT);
             }
         });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+
+        g.setColor(Color.ORANGE);
     }
 
     {
@@ -212,6 +227,7 @@ public class GUI {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.ipadx = 70;
         panel1.add(comboBox1, gbc);
@@ -225,8 +241,8 @@ public class GUI {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 5;
-        gbc.gridwidth = 3;
-        gbc.gridheight = 6;
+        gbc.gridwidth = 4;
+        gbc.gridheight = 7;
         gbc.fill = GridBagConstraints.BOTH;
         panel1.add(gameArea, gbc);
         final JPanel spacer3 = new JPanel();
@@ -247,14 +263,14 @@ public class GUI {
         startGame = new JButton();
         startGame.setText("New Game");
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
+        gbc.gridx = 7;
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(startGame, gbc);
         final JPanel spacer5 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 5;
         gbc.gridy = 6;
         gbc.gridheight = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -269,15 +285,15 @@ public class GUI {
         panel1.add(spacer6, gbc);
         final JPanel spacer7 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 8;
+        gbc.gridx = 9;
         gbc.gridy = 8;
-        gbc.gridheight = 3;
+        gbc.gridheight = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 25;
         panel1.add(spacer7, gbc);
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 4;
         gbc.gridy = 13;
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.ipady = 25;
@@ -285,8 +301,8 @@ public class GUI {
         exitButton = new JButton();
         exitButton.setText("Exit");
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
-        gbc.gridy = 10;
+        gbc.gridx = 7;
+        gbc.gridy = 11;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(exitButton, gbc);
@@ -297,14 +313,14 @@ public class GUI {
         upButton.setPreferredSize(new Dimension(64, 33));
         upButton.setText("Up");
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
+        gbc.gridx = 7;
         gbc.gridy = 7;
         gbc.ipadx = 10;
         gbc.ipady = 1;
         panel1.add(upButton, gbc);
         final JPanel spacer9 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
+        gbc.gridx = 7;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.ipady = 163;
@@ -318,25 +334,14 @@ public class GUI {
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 1;
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 0, 15);
         panel1.add(noOgres, gbc);
-        gameStatus = new JTextField();
-        gameStatus.setEditable(false);
-        Font gameStatusFont = this.$$$getFont$$$("Loma", -1, -1, gameStatus.getFont());
-        if (gameStatusFont != null) gameStatus.setFont(gameStatusFont);
-        gameStatus.setHorizontalAlignment(0);
-        gameStatus.setText("Welcome to Dungeon Keep!");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 12;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(gameStatus, gbc);
         final JPanel spacer10 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 11;
+        gbc.gridy = 12;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer10, gbc);
         leftButton = new JButton();
@@ -346,7 +351,7 @@ public class GUI {
         leftButton.setPreferredSize(new Dimension(64, 33));
         leftButton.setText("Left");
         gbc = new GridBagConstraints();
-        gbc.gridx = 5;
+        gbc.gridx = 6;
         gbc.gridy = 8;
         gbc.ipadx = 10;
         gbc.ipady = 1;
@@ -358,7 +363,7 @@ public class GUI {
         rightButton.setPreferredSize(new Dimension(64, 33));
         rightButton.setText("Right");
         gbc = new GridBagConstraints();
-        gbc.gridx = 7;
+        gbc.gridx = 8;
         gbc.gridy = 8;
         gbc.ipadx = 10;
         gbc.ipady = 1;
@@ -370,11 +375,18 @@ public class GUI {
         downButton.setPreferredSize(new Dimension(64, 33));
         downButton.setText("Down");
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
+        gbc.gridx = 7;
         gbc.gridy = 9;
         gbc.ipadx = 10;
         gbc.ipady = 1;
         panel1.add(downButton, gbc);
+        statusP = new JPanel();
+        statusP.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel1.add(statusP, gbc);
     }
 
     /**
