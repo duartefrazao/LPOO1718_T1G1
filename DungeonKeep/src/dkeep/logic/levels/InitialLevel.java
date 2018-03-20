@@ -6,35 +6,40 @@ import dkeep.logic.Pair;
 import dkeep.logic.guards.*;
 
 public class InitialLevel extends Level {
-	
-	 static char map1[][] =
-		{
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-        {'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-        {'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-        {'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-        {'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'}, 
-        {'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
-        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-        };
 
-	public InitialLevel( Hero globalHero) {
-		super(map1,globalHero);
+	public InitialLevel(Hero globalHero) {
 
-		findGameElements();
-		findPassageDoors();
-	}
+		super(globalHero);
 
-	
-	public InitialLevel(char[][] level, Hero globalHero) {
-		super(level, globalHero);
+		char initialLevelMap[][] =
+				{
+						{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+						{'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
+						{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+						{'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
+						{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
+						{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+						{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+						{'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'},
+						{'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
+						{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+				};
+
+		this.map = initialLevelMap;
 
 		findGameElements();
 		findPassageDoors();
 	}
+
+    public InitialLevel(char[][] map, Hero globalHero) {
+
+        super(globalHero);
+
+        this.map = map;
+
+        findGameElements();
+        findPassageDoors();
+    }
 
 	private boolean guardDefined = false;
 	

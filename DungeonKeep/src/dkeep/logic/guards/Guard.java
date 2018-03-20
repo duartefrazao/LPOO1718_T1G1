@@ -14,7 +14,7 @@ public abstract class Guard extends MovingObject{
 
     protected Vector<MOVEMENT_TYPE> guardMovement = new Vector<MovingObject.MOVEMENT_TYPE>(0);
 
-    public static int currentMovPos = 0;
+    public  int currentMovPos = 0;
 
     public abstract MovingObject.MOVEMENT_TYPE getMove();
 

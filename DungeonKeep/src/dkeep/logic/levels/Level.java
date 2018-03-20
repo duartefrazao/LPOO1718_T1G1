@@ -87,8 +87,7 @@ public abstract class Level {
 
 	}
 
-	public Level(char level[][], Hero globalHero) {
-		this.map = level;
+	public Level(Hero globalHero) {
 		this.hero = globalHero;
 
 	}

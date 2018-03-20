@@ -1,12 +1,17 @@
 package dkeep.gui;
 
 import dkeep.logic.Dungeon;
+import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
+import dkeep.logic.levels.InitialLevel;
+import dkeep.logic.levels.KeepLevel;
+import dkeep.logic.levels.Level;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class GUI {
     public JPanel getContent() {
@@ -26,7 +31,10 @@ public class GUI {
     private JButton rightButton;
     private JTextField gameStatus;
     private JButton downButton;
+
+
     private Dungeon dungeon;
+    private Hero hero;
 
     public void printMap(char[][] map) {
 
@@ -57,16 +65,11 @@ public class GUI {
 
             gameStatus.setText("Game Over");
 
-            //TO-DO
-            //Here we have to reset the game, still wasn't able to do it
-            System.exit(0);
-
         }
     }
 
-    public GUI(Dungeon d) {
+    public GUI() {
 
-        this.dungeon = d;
 
         startGame.addActionListener(new ActionListener() {
             @Override
@@ -86,6 +89,17 @@ public class GUI {
                         noOgres.setText("");
                         return;
                     }
+
+                    hero = new Hero();
+
+                    Level level2 = new KeepLevel(hero, numberOgres);
+                    Level level1 = new InitialLevel(hero);
+
+                    Vector<Level> levels = new Vector<>();
+                    levels.add(level1);
+                    levels.add(level2);
+
+                    dungeon = new Dungeon(levels);
 
                     upButton.setEnabled(true);
                     leftButton.setEnabled(true);

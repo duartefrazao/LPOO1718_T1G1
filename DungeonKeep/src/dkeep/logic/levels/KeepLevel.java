@@ -11,37 +11,43 @@ import dkeep.logic.Pair;
 import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level {
-
-	static char map2[][] =
-		{
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		};
-	
-	
-	
-	public KeepLevel(char[][] level, Hero globalHero) {
-		super(level, globalHero);
-		this.heroWeapon = new Weapon();
-		findGameElements();
-		findPassageDoors();
-
-	}
 	
 	public KeepLevel(Hero globalHero) {
-		super(map2, globalHero);
-		this.heroWeapon = new Weapon();
+	    this(globalHero,ThreadLocalRandom.current().nextInt(1, 3 + 1) );
+	}
+
+	public KeepLevel(Hero globalHero, int hordeSize){
+        super(globalHero);
+
+        char keepLevelMap[][] =
+                {
+                        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                        {'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X'},
+                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+                        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+                };
+
+        this.map = keepLevelMap;
+        this.heroWeapon = new Weapon();
+		this.setHordeSize(hordeSize);
 		findGameElements();
 		findPassageDoors();
-
 	}
+
+    public KeepLevel(char[][] map, Hero globalHero){
+        super(globalHero);
+
+        this.map = map;
+        this.heroWeapon = new Weapon();
+        this.setHordeSize(hordeSize);
+        findGameElements();
+        findPassageDoors();
+    }
 
 	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
 
@@ -53,12 +59,11 @@ public class KeepLevel extends Level {
 		return crazyHorde;
 	}
 
-	public void setCrazyHorde(Vector<Ogre> crazyHorde) {
-		this.crazyHorde = crazyHorde;
-	}
+	private int hordeSize;
 
-	// will be used next
-	private int hordeSize = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+	public void setHordeSize(int size){
+		this.hordeSize = size;
+	}
 
 	public boolean checkOgreCollision() {
 
@@ -96,26 +101,18 @@ public class KeepLevel extends Level {
 
 					Ogre ogre = new Ogre(i, j);
 
-					/*
-					 * now we need to move the weapon one time to place it in a random valid
-					 * position
-					 */
 					MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
 					
 					ogre.getClub().move(clubMov, map);
 
 					this.crazyHorde.add(ogre);
 
-					for (int k = 0; k < this.hordeSize; k++) {
+					for (int k = 1; k < this.hordeSize; k++) {
 
 						Pair randomPos = this.getRandomEmptyPositions();
 
 						ogre = new Ogre(randomPos.getX(), randomPos.getY());
 
-						/*
-						 * now we need to move the weapon one time to place it in a random valid
-						 * position
-						 */
 						clubMov = ogre.getClub().getMove(map, ogre.getPosition());
 						
 						ogre.getClub().move(clubMov, map);
@@ -134,8 +131,6 @@ public class KeepLevel extends Level {
 					heroOriginalPos.setY(j);
 					
 					MOVEMENT_TYPE swordMove = heroWeapon.getMove(map, hero.getPosition());
-
-					//System.out.println(swordMove);
 					
 					heroWeapon.move(swordMove, map);
 
@@ -187,12 +182,10 @@ public class KeepLevel extends Level {
 			else
 				mapToPrint[i][j] = tempOgre.getSymbol();
 
-			// his club must be stored as well
 			i = tempOgre.getClub().getX();
 			j = tempOgre.getClub().getY();
 
 			if (map[i][j] == 'k')
-				// if (i == this.Key.getX() && j == this.Key.getY())
 				mapToPrint[i][j] = '$';
 			else
 				mapToPrint[i][j] = tempOgre.getClub().getSymbol();
