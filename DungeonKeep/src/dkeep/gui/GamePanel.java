@@ -1,5 +1,16 @@
 package dkeep.gui;
 
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.SwingConstants;
+
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
@@ -7,411 +18,221 @@ import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
-
+import java.awt.event.ActionEvent;
 
 public class GamePanel extends JPanel {
-    public JPanel getContent() {
 
-        return this.panel1;
-    }
+	private JButton btnNewGame;
+	private JButton btnUp;
+	private JButton btnDown;
+	private JButton btnLeft;
+	private JButton btnRight;
+	private JButton btnExit;
+	private Dungeon dungeon;
+	private Hero hero;
+	private JTextArea gameArea;
 
-    private JPanel panel1;
-    private JLabel Ogres;
-    private JTextField noOgres;
-    private JComboBox comboBox1;
-    private JTextArea gameArea;
-    private JButton startGame;
-    private JButton exitButton;
-    private JButton leftButton;
-    private JButton upButton;
-    private JButton rightButton;
-    //private JTextField gameStatus;
-    private JButton downButton;
-    private JPanel statusP;
-    private StatusPanel status;
+	public void printMap(char[][] map) {
 
+		this.gameArea.setText("");
 
-    private Dungeon dungeon;
-    private Hero hero;
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				this.gameArea.append(map[i][j] + " ");
+			}
+			this.gameArea.append("\n");
+		}
 
-    public void printMap(char[][] map) {
+	}
 
+	public void processGame(MovingObject.MOVEMENT_TYPE move) {
 
-        this.gameArea.setText("");
+		Dungeon.GAME_STATE state = dungeon.game(move);
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                this.gameArea.append(map[i][j] + " ");
-            }
-            this.gameArea.append("\n");
-        }
+		printMap(dungeon.getMap());
 
-    }
+		if (state != Dungeon.GAME_STATE.PLAYING) {
+			btnUp.setEnabled(false);
+			btnLeft.setEnabled(false);
+			btnRight.setEnabled(false);
+			btnDown.setEnabled(false);
 
-    public void processGame(MovingObject.MOVEMENT_TYPE move) {
+			// gameStatus.setText("Game Over");
 
+		}
+	}
 
-        Dungeon.GAME_STATE state = dungeon.game(move);
+	/**
+	 * Create the panel.
+	 */
+	public GamePanel() {
 
-        printMap(dungeon.getMap());
+		this.initialize();
 
-        if (state != Dungeon.GAME_STATE.PLAYING) {
-            upButton.setEnabled(false);
-            leftButton.setEnabled(false);
-            downButton.setEnabled(false);
-            rightButton.setEnabled(false);
+	}
 
-            //gameStatus.setText("Game Over");
+	public void initialize() {
 
-        }
-    }
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 0, 0, 492, 17, 0, 73, 0, 0, 44, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 162, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		setLayout(gridBagLayout);
 
-    public GamePanel() {
+		this.initializeButtons();
 
+	}
 
-        startGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+	public void initializeButtons() {
 
-                int numberOgres = 0;
+		gameArea = new JTextArea();
+		Font panel1Font = this.getFont("Monospaced", -1, -1, gameArea.getFont());
+		if (panel1Font != null)
+			gameArea.setFont(panel1Font);
+		gameArea.setEditable(false);
+		GridBagConstraints gbc_gameArea = new GridBagConstraints();
+		gbc_gameArea.gridheight = 6;
+		gbc_gameArea.insets = new Insets(0, 0, 5, 5);
+		gbc_gameArea.fill = GridBagConstraints.BOTH;
+		gbc_gameArea.gridx = 2;
+		gbc_gameArea.gridy = 1;
+		add(gameArea, gbc_gameArea);
 
-                String s = noOgres.getText();
+		btnNewGame = new JButton("New Game");
+		btnNewGame.setVerticalAlignment(SwingConstants.TOP);
+		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
+		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewGame.gridx = 5;
+		gbc_btnNewGame.gridy = 1;
+		add(btnNewGame, gbc_btnNewGame);
 
+		btnUp = new JButton("Up");
+		btnUp.setEnabled(false);
+		GridBagConstraints gbc_btnUp = new GridBagConstraints();
+		gbc_btnUp.insets = new Insets(0, 0, 5, 5);
+		gbc_btnUp.gridx = 5;
+		gbc_btnUp.gridy = 2;
+		add(btnUp, gbc_btnUp);
 
-                if (!s.isEmpty()) {
+		btnLeft = new JButton("Left");
+		btnLeft.setEnabled(false);
+		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
+		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLeft.gridx = 4;
+		gbc_btnLeft.gridy = 3;
+		add(btnLeft, gbc_btnLeft);
 
-                    try {
-                        numberOgres = Integer.parseInt(s);
-                    } catch (NumberFormatException exc) {
-                        //gameStatus.setText("Please insert a valid number!");
-                        noOgres.setText("");
-                        return;
-                    }
+		btnRight = new JButton("Right");
+		btnRight.setEnabled(false);
+		GridBagConstraints gbc_btnRight = new GridBagConstraints();
+		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRight.gridx = 6;
+		gbc_btnRight.gridy = 3;
+		add(btnRight, gbc_btnRight);
 
-                    hero = new Hero();
+		btnDown = new JButton("Down");
+		btnDown.setEnabled(false);
+		GridBagConstraints gbc_btnDown = new GridBagConstraints();
+		gbc_btnDown.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDown.gridx = 5;
+		gbc_btnDown.gridy = 4;
+		add(btnDown, gbc_btnDown);
 
-                    Level level2 = new KeepLevel(hero, numberOgres);
-                    Level level1 = new InitialLevel(hero);
+		btnExit = new JButton("Exit");
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
+		gbc_btnExit.gridx = 5;
+		gbc_btnExit.gridy = 6;
+		add(btnExit, gbc_btnExit);
 
-                    Vector<Level> levels = new Vector<>();
-                    levels.add(level1);
-                    levels.add(level2);
+		this.initializeActions();
 
-                    dungeon = new Dungeon(levels);
+	}
 
-                    upButton.setEnabled(true);
-                    leftButton.setEnabled(true);
-                    downButton.setEnabled(true);
-                    rightButton.setEnabled(true);
+	public void initializeActions() {
 
-                    printMap(dungeon.getMap());
+		btnNewGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
+				int numberOgres = 3;
 
-                } else {
-                    //gameStatus.setText("Please insert a number of Ogres!");
-                }
+				hero = new Hero();
 
-            }
-        });
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+				Level level2 = new KeepLevel(hero, numberOgres);
+				Level level1 = new InitialLevel(hero);
 
-        upButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+				Vector<Level> levels = new Vector<>();
+				levels.add(level1);
+				levels.add(level2);
 
-                processGame(MovingObject.MOVEMENT_TYPE.UP);
+				dungeon = new Dungeon(levels);
 
-            }
-        });
+				btnUp.setEnabled(true);
+				btnLeft.setEnabled(true);
+				btnRight.setEnabled(true);
+				btnDown.setEnabled(true);
 
-        downButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processGame(MovingObject.MOVEMENT_TYPE.DOWN);
-            }
-        });
+				printMap(dungeon.getMap());
 
-        rightButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
-            }
-        });
+			}
 
-        leftButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processGame(MovingObject.MOVEMENT_TYPE.LEFT);
-            }
-        });
-    }
+		});
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+		btnExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
-    @Override
-    public void paintComponent(Graphics g) {
+		btnUp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processGame(MovingObject.MOVEMENT_TYPE.UP);
+			}
+		});
 
-        super.paintComponent(g);
+		btnDown.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processGame(MovingObject.MOVEMENT_TYPE.DOWN);
+			}
+		});
 
-        g.setColor(Color.ORANGE);
-    }
+		btnRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
+			}
+		});
 
-    {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
-    }
+		btnLeft.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processGame(MovingObject.MOVEMENT_TYPE.LEFT);
+			}
+		});
+	}
 
-    /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
-     */
-    private void $$$setupUI$$$() {
-        panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
-        Font panel1Font = this.$$$getFont$$$("Monospaced", -1, -1, panel1.getFont());
-        if (panel1Font != null) panel1.setFont(panel1Font);
-        panel1.setMaximumSize(new Dimension(845, 711));
-        Ogres = new JLabel();
-        Ogres.setHorizontalAlignment(11);
-        Ogres.setHorizontalTextPosition(10);
-        Ogres.setText("Number of Ogres:");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(Ogres, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer2, gbc);
-        final JLabel label1 = new JLabel();
-        label1.setText("Guard Personality:");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(label1, gbc);
-        comboBox1 = new JComboBox();
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        defaultComboBoxModel1.addElement("Novice");
-        defaultComboBoxModel1.addElement("Suspicious");
-        defaultComboBoxModel1.addElement("Drunken");
-        comboBox1.setModel(defaultComboBoxModel1);
-        comboBox1.setToolTipText("Chose a Personality");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.ipadx = 70;
-        panel1.add(comboBox1, gbc);
-        gameArea = new JTextArea();
-        gameArea.setEditable(false);
-        Font gameAreaFont = this.$$$getFont$$$("Monospaced", -1, -1, gameArea.getFont());
-        if (gameAreaFont != null) gameArea.setFont(gameAreaFont);
-        gameArea.setMaximumSize(new Dimension(500, 500));
-        gameArea.setMinimumSize(new Dimension(500, 500));
-        gameArea.setPreferredSize(new Dimension(500, 500));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.gridwidth = 4;
-        gbc.gridheight = 7;
-        gbc.fill = GridBagConstraints.BOTH;
-        panel1.add(gameArea, gbc);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipady = 10;
-        panel1.add(spacer3, gbc);
-        final JPanel spacer4 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridheight = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 10;
-        panel1.add(spacer4, gbc);
-        startGame = new JButton();
-        startGame.setText("New Game");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(startGame, gbc);
-        final JPanel spacer5 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 5;
-        gbc.gridy = 6;
-        gbc.gridheight = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 25;
-        panel1.add(spacer5, gbc);
-        final JPanel spacer6 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipady = 25;
-        panel1.add(spacer6, gbc);
-        final JPanel spacer7 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 9;
-        gbc.gridy = 8;
-        gbc.gridheight = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 25;
-        panel1.add(spacer7, gbc);
-        final JPanel spacer8 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 4;
-        gbc.gridy = 13;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipady = 25;
-        panel1.add(spacer8, gbc);
-        exitButton = new JButton();
-        exitButton.setText("Exit");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 11;
-        gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(exitButton, gbc);
-        upButton = new JButton();
-        upButton.setEnabled(false);
-        upButton.setMaximumSize(new Dimension(64, 33));
-        upButton.setMinimumSize(new Dimension(64, 33));
-        upButton.setPreferredSize(new Dimension(64, 33));
-        upButton.setText("Up");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 7;
-        gbc.ipadx = 10;
-        gbc.ipady = 1;
-        panel1.add(upButton, gbc);
-        final JPanel spacer9 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipady = 163;
-        panel1.add(spacer9, gbc);
-        noOgres = new JTextField();
-        noOgres.setColumns(0);
-        noOgres.setMaximumSize(new Dimension(50, 25));
-        noOgres.setMinimumSize(new Dimension(50, 25));
-        noOgres.setPreferredSize(new Dimension(50, 25));
-        noOgres.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 0, 15);
-        panel1.add(noOgres, gbc);
-        final JPanel spacer10 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 12;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer10, gbc);
-        leftButton = new JButton();
-        leftButton.setEnabled(false);
-        leftButton.setMaximumSize(new Dimension(64, 33));
-        leftButton.setMinimumSize(new Dimension(64, 33));
-        leftButton.setPreferredSize(new Dimension(64, 33));
-        leftButton.setText("Left");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 6;
-        gbc.gridy = 8;
-        gbc.ipadx = 10;
-        gbc.ipady = 1;
-        panel1.add(leftButton, gbc);
-        rightButton = new JButton();
-        rightButton.setEnabled(false);
-        rightButton.setMaximumSize(new Dimension(64, 33));
-        rightButton.setMinimumSize(new Dimension(64, 33));
-        rightButton.setPreferredSize(new Dimension(64, 33));
-        rightButton.setText("Right");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 8;
-        gbc.gridy = 8;
-        gbc.ipadx = 10;
-        gbc.ipady = 1;
-        panel1.add(rightButton, gbc);
-        downButton = new JButton();
-        downButton.setEnabled(false);
-        downButton.setMaximumSize(new Dimension(64, 33));
-        downButton.setMinimumSize(new Dimension(64, 33));
-        downButton.setPreferredSize(new Dimension(64, 33));
-        downButton.setText("Down");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 9;
-        gbc.ipadx = 10;
-        gbc.ipady = 1;
-        panel1.add(downButton, gbc);
-        statusP = new JPanel();
-        statusP.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 13;
-        gbc.fill = GridBagConstraints.BOTH;
-        panel1.add(statusP, gbc);
-    }
+	private Font getFont(String fontName, int style, int size, Font currentFont) {
+		if (currentFont == null)
+			return null;
+		String resultName;
+		if (fontName == null) {
+			resultName = currentFont.getName();
+		} else {
+			Font testFont = new Font(fontName, Font.PLAIN, 10);
+			if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+				resultName = fontName;
+			} else {
+				resultName = currentFont.getName();
+			}
+		}
+		return new Font(resultName, style >= 0 ? style : currentFont.getStyle(),
+				size >= 0 ? size : currentFont.getSize());
+	}
 
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    public JComponent $$$getRootComponent$$$() {
-        return panel1;
-    }
 }

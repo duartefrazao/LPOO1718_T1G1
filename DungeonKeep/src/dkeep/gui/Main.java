@@ -20,9 +20,9 @@ public class Main {
 
         JFrame frame = new JFrame("GUI");
 
-        GamePanel gui = new GamePanel();
+        GamePanel gamePanel = new GamePanel();
 
-        frame.setContentPane(gui.getContent());
+        frame.setContentPane(gamePanel);
 
         StatusPanel statusP = new StatusPanel();
 
