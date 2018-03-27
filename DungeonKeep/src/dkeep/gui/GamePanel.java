@@ -5,8 +5,8 @@ import java.awt.GridBagConstraints;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
@@ -20,6 +20,7 @@ import dkeep.logic.levels.Level;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class GamePanel extends JPanel {
 
@@ -31,26 +32,163 @@ public class GamePanel extends JPanel {
 	private JButton btnExit;
 	private Dungeon dungeon;
 	private Hero hero;
-	private JTextArea gameArea;
+	// private gameGraphicPanel gameGraphics;
+	private Resources resources;
+	private gameGraphicPanel gameArea;
 
-	public void printMap(char[][] map) {
-
-		this.gameArea.setText("");
-
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				this.gameArea.append(map[i][j] + " ");
-			}
-			this.gameArea.append("\n");
-		}
-
+	/**
+	 * @return the btnNewGame
+	 */
+	public JButton getBtnNewGame() {
+		return btnNewGame;
 	}
+
+	/**
+	 * @param btnNewGame
+	 *            the btnNewGame to set
+	 */
+	public void setBtnNewGame(JButton btnNewGame) {
+		this.btnNewGame = btnNewGame;
+	}
+
+	/**
+	 * @return the btnUp
+	 */
+	public JButton getBtnUp() {
+		return btnUp;
+	}
+
+	/**
+	 * @param btnUp
+	 *            the btnUp to set
+	 */
+	public void setBtnUp(JButton btnUp) {
+		this.btnUp = btnUp;
+	}
+
+	/**
+	 * @return the btnDown
+	 */
+	public JButton getBtnDown() {
+		return btnDown;
+	}
+
+	/**
+	 * @param btnDown
+	 *            the btnDown to set
+	 */
+	public void setBtnDown(JButton btnDown) {
+		this.btnDown = btnDown;
+	}
+
+	/**
+	 * @return the btnLeft
+	 */
+	public JButton getBtnLeft() {
+		return btnLeft;
+	}
+
+	/**
+	 * @param btnLeft
+	 *            the btnLeft to set
+	 */
+	public void setBtnLeft(JButton btnLeft) {
+		this.btnLeft = btnLeft;
+	}
+
+	/**
+	 * @return the btnRight
+	 */
+	public JButton getBtnRight() {
+		return btnRight;
+	}
+
+	/**
+	 * @param btnRight
+	 *            the btnRight to set
+	 */
+	public void setBtnRight(JButton btnRight) {
+		this.btnRight = btnRight;
+	}
+
+	/**
+	 * @return the btnExit
+	 */
+	public JButton getBtnExit() {
+		return btnExit;
+	}
+
+	/**
+	 * @param btnExit
+	 *            the btnExit to set
+	 */
+	public void setBtnExit(JButton btnExit) {
+		this.btnExit = btnExit;
+	}
+
+	/**
+	 * @return the dungeon
+	 */
+	public Dungeon getDungeon() {
+		return dungeon;
+	}
+
+	/**
+	 * @param dungeon
+	 *            the dungeon to set
+	 */
+	public void setDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
+
+	/**
+	 * @return the hero
+	 */
+	public Hero getHero() {
+		return hero;
+	}
+
+	/**
+	 * @param hero
+	 *            the hero to set
+	 */
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
+
+	/**
+	 * @return the resources
+	 */
+	public Resources getResources() {
+		return resources;
+	}
+
+	/**
+	 * @param resources
+	 *            the resources to set
+	 */
+	public void setResources(Resources resources) {
+		this.resources = resources;
+	}
+
+	// public void printMap(char[][] map) {
+	//
+	// this.gameArea.setText("");
+	//
+	// for (int i = 0; i < map.length; i++) {
+	// for (int j = 0; j < map[i].length; j++) {
+	// this.gameArea.append(map[i][j] + " ");
+	// }
+	// this.gameArea.append("\n");
+	// }
+	//
+	// }
 
 	public void processGame(MovingObject.MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
-		printMap(dungeon.getMap());
+		// printMap(dungeon.getMap());
 
 		if (state != Dungeon.GAME_STATE.PLAYING) {
 			btnUp.setEnabled(false);
@@ -61,12 +199,19 @@ public class GamePanel extends JPanel {
 			// gameStatus.setText("Game Over");
 
 		}
+		
+		resources.setMap(dungeon.getMap());
+
+		this.gameArea.repaint();
+		repaint();
 	}
 
 	/**
 	 * Create the panel.
 	 */
-	public GamePanel() {
+	public GamePanel(Resources resources) {
+
+		this.resources = resources;
 
 		this.initialize();
 
@@ -78,7 +223,7 @@ public class GamePanel extends JPanel {
 		gridBagLayout.columnWidths = new int[] { 0, 0, 492, 17, 0, 73, 0, 0, 44, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 162, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		this.initializeButtons();
@@ -87,11 +232,8 @@ public class GamePanel extends JPanel {
 
 	public void initializeButtons() {
 
-		gameArea = new JTextArea();
-		Font panel1Font = this.getFont("Monospaced", -1, -1, gameArea.getFont());
-		if (panel1Font != null)
-			gameArea.setFont(panel1Font);
-		gameArea.setEditable(false);
+		gameArea = new gameGraphicPanel(resources);
+		gameArea.setBackground(Color.GRAY);
 		GridBagConstraints gbc_gameArea = new GridBagConstraints();
 		gbc_gameArea.gridheight = 6;
 		gbc_gameArea.insets = new Insets(0, 0, 5, 5);
@@ -167,7 +309,6 @@ public class GamePanel extends JPanel {
 				Vector<Level> levels = new Vector<>();
 				levels.add(level1);
 				levels.add(level2);
-
 				dungeon = new Dungeon(levels);
 
 				btnUp.setEnabled(true);
@@ -175,7 +316,9 @@ public class GamePanel extends JPanel {
 				btnRight.setEnabled(true);
 				btnDown.setEnabled(true);
 
-				printMap(dungeon.getMap());
+				resources.setMap(dungeon.getMap());
+				
+				gameArea.repaint();
 
 			}
 
@@ -217,22 +360,23 @@ public class GamePanel extends JPanel {
 		});
 	}
 
-	private Font getFont(String fontName, int style, int size, Font currentFont) {
-		if (currentFont == null)
-			return null;
-		String resultName;
-		if (fontName == null) {
-			resultName = currentFont.getName();
-		} else {
-			Font testFont = new Font(fontName, Font.PLAIN, 10);
-			if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-				resultName = fontName;
-			} else {
-				resultName = currentFont.getName();
-			}
-		}
-		return new Font(resultName, style >= 0 ? style : currentFont.getStyle(),
-				size >= 0 ? size : currentFont.getSize());
-	}
+	// private Font getFont(String fontName, int style, int size, Font currentFont)
+	// {
+	// if (currentFont == null)
+	// return null;
+	// String resultName;
+	// if (fontName == null) {
+	// resultName = currentFont.getName();
+	// } else {
+	// Font testFont = new Font(fontName, Font.PLAIN, 10);
+	// if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+	// resultName = fontName;
+	// } else {
+	// resultName = currentFont.getName();
+	// }
+	// }
+	// return new Font(resultName, style >= 0 ? style : currentFont.getStyle(),
+	// size >= 0 ? size : currentFont.getSize());
+	// }
 
 }
