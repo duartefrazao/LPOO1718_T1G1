@@ -19,10 +19,12 @@ import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements KeyListener{
 
 	private JButton btnNewGame;
 	private JButton btnUp;
@@ -213,8 +215,11 @@ public class GamePanel extends JPanel {
 
 		this.resources = resources;
 
+		addKeyListener(this);
+		
 		this.initialize();
 
+	
 	}
 
 	public void initialize() {
@@ -273,7 +278,7 @@ public class GamePanel extends JPanel {
 		gbc_btnRight.gridx = 6;
 		gbc_btnRight.gridy = 3;
 		add(btnRight, gbc_btnRight);
-
+ 
 		btnDown = new JButton("Down");
 		btnDown.setEnabled(false);
 		GridBagConstraints gbc_btnDown = new GridBagConstraints();
@@ -290,7 +295,8 @@ public class GamePanel extends JPanel {
 		add(btnExit, gbc_btnExit);
 
 		this.initializeActions();
-
+		
+		grabFocus();
 	}
 
 	public void initializeActions() {
@@ -319,7 +325,10 @@ public class GamePanel extends JPanel {
 				resources.setMap(dungeon.getMap());
 				
 				gameArea.repaint();
+				
 
+				requestFocusInWindow();
+				
 			}
 
 		});
@@ -360,6 +369,45 @@ public class GamePanel extends JPanel {
 		});
 	}
 
+	
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		MovingObject.MOVEMENT_TYPE move;
+
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_LEFT:
+				move = MovingObject.MOVEMENT_TYPE.LEFT;
+				break;
+			case KeyEvent.VK_RIGHT:
+				move = MovingObject.MOVEMENT_TYPE.RIGHT;
+				break;
+			case KeyEvent.VK_UP:
+				move = MovingObject.MOVEMENT_TYPE.UP;
+				break;
+			case KeyEvent.VK_DOWN:
+				move = MovingObject.MOVEMENT_TYPE.DOWN;
+				break;
+			default:
+				move = MovingObject.MOVEMENT_TYPE.RIGHT;
+				return;
+		}
+		processGame(move); 
+	}
+
+
+	@Override
+    public void keyReleased(KeyEvent e) {
+     
+    }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	// private Font getFont(String fontName, int style, int size, Font currentFont)
 	// {
 	// if (currentFont == null)

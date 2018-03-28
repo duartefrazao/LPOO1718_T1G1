@@ -26,14 +26,14 @@ public class GUI {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				} 
 			}
 		});
 	}
 
 	/**
 	 * Create the application.
-	 * 
+	 *  
 	 * @throws IOException
 	 */
 	public GUI() throws IOException {
