@@ -34,7 +34,6 @@ public class GamePanel extends JPanel implements KeyListener{
 	private JButton btnExit;
 	private Dungeon dungeon;
 	private Hero hero;
-	// private gameGraphicPanel gameGraphics;
 	private Resources resources;
 	private gameGraphicPanel gameArea;
 
@@ -173,19 +172,6 @@ public class GamePanel extends JPanel implements KeyListener{
 		this.resources = resources;
 	}
 
-	// public void printMap(char[][] map) {
-	//
-	// this.gameArea.setText("");
-	//
-	// for (int i = 0; i < map.length; i++) {
-	// for (int j = 0; j < map[i].length; j++) {
-	// this.gameArea.append(map[i][j] + " ");
-	// }
-	// this.gameArea.append("\n");
-	// }
-	//
-	// }
-
 	public void processGame(MovingObject.MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
@@ -201,7 +187,7 @@ public class GamePanel extends JPanel implements KeyListener{
 			// gameStatus.setText("Game Over");
 
 		}
-		
+
 		resources.setMap(dungeon.getMap());
 
 		this.gameArea.repaint();
@@ -214,6 +200,8 @@ public class GamePanel extends JPanel implements KeyListener{
 	public GamePanel(Resources resources) {
 
 		this.resources = resources;
+		
+		this.setVisible(true);
 
 		addKeyListener(this);
 		
@@ -323,7 +311,7 @@ public class GamePanel extends JPanel implements KeyListener{
 				btnDown.setEnabled(true);
 
 				resources.setMap(dungeon.getMap());
-				
+
 				gameArea.repaint();
 				
 

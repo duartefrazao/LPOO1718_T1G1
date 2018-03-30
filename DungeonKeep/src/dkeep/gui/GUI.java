@@ -46,18 +46,22 @@ public class GUI {
 	private void initialize() throws IOException {
 
 		frame = new JFrame();
+		frame.setBounds(0, 0, 1000, 1000);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources();
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		gamePanel = new GamePanel(this.resources);
 
-		frame.setContentPane(gamePanel);
+		gamePanel.setBounds(100, 100, 1000, 700);
+
+		//frame.setContentPane(gamePanel);
+		
+		frame.add(gamePanel);
 
 		statusP = new StatusPanel();
 
-		frame.getContentPane().add(statusP);
+		//frame.getContentPane().add(statusP);
 
 		frame.pack();
 
