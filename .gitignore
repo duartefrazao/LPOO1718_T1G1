@@ -5,6 +5,8 @@ DungeonKeep/bin/com/intellij/uiDesigner/core/
 
 *.html
 
+*.class
+
 DungeonKeep/DungeonKeep\.iml
 
 DungeonKeep/report/201803111619/mutations\.xml
