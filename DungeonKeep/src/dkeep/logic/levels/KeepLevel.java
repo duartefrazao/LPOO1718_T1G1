@@ -11,43 +11,40 @@ import dkeep.logic.Pair;
 import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level {
-	
+
 	public KeepLevel(Hero globalHero) {
-	    this(globalHero,ThreadLocalRandom.current().nextInt(1, 3 + 1) );
+		this(globalHero, ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
 
-	public KeepLevel(Hero globalHero, int hordeSize){
-        super(globalHero);
+	public KeepLevel(Hero globalHero, int hordeSize) {
+		super(globalHero);
 
-        char keepLevelMap[][] =
-                {
-                        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-                        {'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X'},
-                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-                        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-                };
+		char keepLevelMap[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, };
 
-        this.map = keepLevelMap;
-        this.heroWeapon = new Weapon();
+		this.map = keepLevelMap;
+		this.heroWeapon = new Weapon();
 		this.setHordeSize(hordeSize);
 		findGameElements();
 		findPassageDoors();
 	}
 
-    public KeepLevel(char[][] map, Hero globalHero){
-        super(globalHero);
+	public KeepLevel(char[][] map, Hero globalHero) {
+		super(globalHero);
 
-        this.map = map;
-        this.heroWeapon = new Weapon();
-        this.setHordeSize(hordeSize);
-        findGameElements();
-        findPassageDoors();
-    }
+		this.map = map;
+		this.heroWeapon = new Weapon();
+		this.setHordeSize(hordeSize);
+		findGameElements();
+		findPassageDoors();
+	}
 
 	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
 
@@ -61,7 +58,7 @@ public class KeepLevel extends Level {
 
 	private int hordeSize;
 
-	public void setHordeSize(int size){
+	public void setHordeSize(int size) {
 		this.hordeSize = size;
 	}
 
@@ -102,7 +99,7 @@ public class KeepLevel extends Level {
 					Ogre ogre = new Ogre(i, j);
 
 					MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
-					
+
 					ogre.getClub().move(clubMov, map);
 
 					this.crazyHorde.add(ogre);
@@ -114,7 +111,7 @@ public class KeepLevel extends Level {
 						ogre = new Ogre(randomPos.getX(), randomPos.getY());
 
 						clubMov = ogre.getClub().getMove(map, ogre.getPosition());
-						
+
 						ogre.getClub().move(clubMov, map);
 
 						this.crazyHorde.add(ogre);
@@ -129,9 +126,9 @@ public class KeepLevel extends Level {
 
 					heroOriginalPos.setX(i);
 					heroOriginalPos.setY(j);
-					
+
 					MOVEMENT_TYPE swordMove = heroWeapon.getMove(map, hero.getPosition());
-					
+
 					heroWeapon.move(swordMove, map);
 
 					break;
@@ -271,6 +268,51 @@ public class KeepLevel extends Level {
 			return LEVEL_STATE.DEATH;
 
 		return LEVEL_STATE.NONE;
+	}
+
+	/**
+	 * @return the key
+	 */
+	public Pair getKey() {
+		return Key;
+	}
+
+	/**
+	 * @param key
+	 *            the key to set
+	 */
+	public void setKey(Pair key) {
+		Key = key;
+	}
+
+	/**
+	 * @return the heroWeapon
+	 */
+	public Weapon getHeroWeapon() {
+		return heroWeapon;
+	}
+
+	/**
+	 * @param heroWeapon
+	 *            the heroWeapon to set
+	 */
+	public void setHeroWeapon(Weapon heroWeapon) {
+		this.heroWeapon = heroWeapon;
+	}
+
+	/**
+	 * @return the hordeSize
+	 */
+	public int getHordeSize() {
+		return hordeSize;
+	}
+
+	/**
+	 * @param crazyHorde
+	 *            the crazyHorde to set
+	 */
+	public void setCrazyHorde(Vector<Ogre> crazyHorde) {
+		this.crazyHorde = crazyHorde;
 	}
 
 }

@@ -11,19 +11,16 @@ public class InitialLevel extends Level {
 
 		super(globalHero);
 
-		char initialLevelMap[][] =
-				{
-						{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-						{'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X'},
-						{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-						{'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X'},
-						{'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X'},
-						{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-						{'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
-						{'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X'},
-						{'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X'},
-						{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-				};
+		char initialLevelMap[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		this.map = initialLevelMap;
 
@@ -31,24 +28,25 @@ public class InitialLevel extends Level {
 		findPassageDoors();
 	}
 
-    public InitialLevel(char[][] map, Hero globalHero) {
+	public InitialLevel(char[][] map, Hero globalHero) {
 
-        super(globalHero);
+		super(globalHero);
 
-        this.map = map;
+		this.map = map;
 
-        findGameElements();
-        findPassageDoors();
-    }
+		findGameElements();
+		findPassageDoors();
+	}
 
 	private boolean guardDefined = false;
-	
+
 	private Guard guard;
 
 	private Pair Lever = new Pair(0, 0);
-	
-	public void findGameElements()
-	{
+
+	private boolean leverOff = true;
+
+	public void findGameElements() {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 
@@ -75,12 +73,11 @@ public class InitialLevel extends Level {
 
 		}
 	}
-	
-	public void setGuard(Guard newG)
-	{
-		this.guard= newG;
+
+	public void setGuard(Guard newG) {
+		this.guard = newG;
 	}
-	
+
 	public char[][] createMapToPrint() {
 
 		char[][] mapToPrint = new char[map.length][];
@@ -109,39 +106,39 @@ public class InitialLevel extends Level {
 			mapToPrint[i][j] = this.guard.getSymbol();
 		}
 
-
 		return mapToPrint;
 	}
-	
+
 	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
 		hero.move(move, map);
 		guard.move(guard.getMove(), map);
-		
+
 		int x = hero.getX();
-		int y = hero.getY(); 
+		int y = hero.getY();
 
 		if (x == Lever.getX() && y == Lever.getY()) {
-			
-			
-			for(int i = 0; i < this.passageDoors.size(); i++) {
+
+			this.leverOff = false;
+
+			for (int i = 0; i < this.passageDoors.size(); i++) {
 				int door_x = passageDoors.elementAt(i).getX();
 				int door_y = passageDoors.elementAt(i).getY();
-				
+
 				map[door_x][door_y] = 'S';
 			}
-			
 
 		}
 
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
-        	//Needs to test with 1 space difference for general guard and 
-        	//With 0 space difference (adjacent) for a sleeping guard
-        	if(guard.getSymbol() == 'G' && collision(guard, 1)) return LEVEL_STATE.DEATH;
-        	else if(guard.getSymbol() == 'g' && collision(guard, 0)) return LEVEL_STATE.DEATH;
-       
-		
+		// Needs to test with 1 space difference for general guard and
+		// With 0 space difference (adjacent) for a sleeping guard
+		if (guard.getSymbol() == 'G' && collision(guard, 1))
+			return LEVEL_STATE.DEATH;
+		else if (guard.getSymbol() == 'g' && collision(guard, 0))
+			return LEVEL_STATE.DEATH;
+
 		return LEVEL_STATE.NONE;
 	}
 
@@ -149,6 +146,33 @@ public class InitialLevel extends Level {
 		return guard;
 	}
 
+	/**
+	 * @return the leverOff
+	 */
+	public boolean isLeverOff() {
+		return leverOff;
+	}
 
+	/**
+	 * @param leverOff
+	 *            the leverOff to set
+	 */
+	public void setLeverOff(boolean leverOff) {
+		this.leverOff = leverOff;
+	}
+
+	/**
+	 * @return the lever
+	 */
+	public Pair getLever() {
+		return Lever;
+	}
+
+	/**
+	 * @param lever the lever to set
+	 */
+	public void setLever(Pair lever) {
+		Lever = lever;
+	}
 
 }

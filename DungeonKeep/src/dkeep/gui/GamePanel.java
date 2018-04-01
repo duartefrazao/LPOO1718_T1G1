@@ -24,7 +24,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class GamePanel extends JPanel implements KeyListener{
+public class GamePanel extends JPanel implements KeyListener {
 
 	private JButton btnNewGame;
 	private JButton btnUp;
@@ -176,8 +176,6 @@ public class GamePanel extends JPanel implements KeyListener{
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
-		// printMap(dungeon.getMap());
-
 		if (state != Dungeon.GAME_STATE.PLAYING) {
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
@@ -200,14 +198,13 @@ public class GamePanel extends JPanel implements KeyListener{
 	public GamePanel(Resources resources) {
 
 		this.resources = resources;
-		
+
 		this.setVisible(true);
 
 		addKeyListener(this);
-		
+
 		this.initialize();
 
-	
 	}
 
 	public void initialize() {
@@ -266,7 +263,7 @@ public class GamePanel extends JPanel implements KeyListener{
 		gbc_btnRight.gridx = 6;
 		gbc_btnRight.gridy = 3;
 		add(btnRight, gbc_btnRight);
- 
+
 		btnDown = new JButton("Down");
 		btnDown.setEnabled(false);
 		GridBagConstraints gbc_btnDown = new GridBagConstraints();
@@ -283,7 +280,7 @@ public class GamePanel extends JPanel implements KeyListener{
 		add(btnExit, gbc_btnExit);
 
 		this.initializeActions();
-		
+
 		grabFocus();
 	}
 
@@ -312,11 +309,12 @@ public class GamePanel extends JPanel implements KeyListener{
 
 				resources.setMap(dungeon.getMap());
 
+				gameArea.setDungeon(dungeon);
+
 				gameArea.repaint();
-				
 
 				requestFocusInWindow();
-				
+
 			}
 
 		});
@@ -357,45 +355,42 @@ public class GamePanel extends JPanel implements KeyListener{
 		});
 	}
 
-	
-
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+
 		MovingObject.MOVEMENT_TYPE move;
 
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_LEFT:
-				move = MovingObject.MOVEMENT_TYPE.LEFT;
-				break;
-			case KeyEvent.VK_RIGHT:
-				move = MovingObject.MOVEMENT_TYPE.RIGHT;
-				break;
-			case KeyEvent.VK_UP:
-				move = MovingObject.MOVEMENT_TYPE.UP;
-				break;
-			case KeyEvent.VK_DOWN:
-				move = MovingObject.MOVEMENT_TYPE.DOWN;
-				break;
-			default:
-				move = MovingObject.MOVEMENT_TYPE.RIGHT;
-				return;
+		case KeyEvent.VK_LEFT:
+			move = MovingObject.MOVEMENT_TYPE.LEFT;
+			break;
+		case KeyEvent.VK_RIGHT:
+			move = MovingObject.MOVEMENT_TYPE.RIGHT;
+			break;
+		case KeyEvent.VK_UP:
+			move = MovingObject.MOVEMENT_TYPE.UP;
+			break;
+		case KeyEvent.VK_DOWN:
+			move = MovingObject.MOVEMENT_TYPE.DOWN;
+			break;
+		default:
+			move = MovingObject.MOVEMENT_TYPE.RIGHT;
+			return;
 		}
-		processGame(move); 
+		processGame(move);
 	}
 
-
 	@Override
-    public void keyReleased(KeyEvent e) {
-     
-    }
+	public void keyReleased(KeyEvent e) {
+
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	// private Font getFont(String fontName, int style, int size, Font currentFont)
 	// {
 	// if (currentFont == null)

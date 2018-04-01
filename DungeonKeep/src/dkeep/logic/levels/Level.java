@@ -97,6 +97,20 @@ public abstract class Level {
 		hero.setY(heroOriginalPos.getY());
 		hero.setSymbol('H');
 	}
+
+	/**
+	 * @return the hero
+	 */
+	public Hero getHero() {
+		return hero;
+	}
+
+	/**
+	 * @param hero the hero to set
+	 */
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
 	
 
 }

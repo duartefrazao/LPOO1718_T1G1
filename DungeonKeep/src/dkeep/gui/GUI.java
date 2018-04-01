@@ -26,14 +26,14 @@ public class GUI {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				} 
+				}
 			}
 		});
 	}
 
 	/**
 	 * Create the application.
-	 *  
+	 * 
 	 * @throws IOException
 	 */
 	public GUI() throws IOException {
@@ -46,22 +46,23 @@ public class GUI {
 	private void initialize() throws IOException {
 
 		frame = new JFrame();
-		frame.setBounds(0, 0, 1000, 1000);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setSize(1000, 1000);
 
 		resources = new Resources();
 
 		gamePanel = new GamePanel(this.resources);
-
-		gamePanel.setBounds(100, 100, 1000, 700);
-
-		//frame.setContentPane(gamePanel);
 		
+		gamePanel.setSize(1000, 1000);
+
+		// frame.setContentPane(gamePanel);
+
 		frame.add(gamePanel);
 
 		statusP = new StatusPanel();
 
-		//frame.getContentPane().add(statusP);
+		// frame.getContentPane().add(statusP);
 
 		frame.pack();
 

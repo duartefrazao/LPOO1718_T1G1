@@ -26,8 +26,8 @@ public class Resources {
 
 	private BufferedImage key;
 
-	private BufferedImage lever;
-	private BufferedImage leverActivated;
+	private BufferedImage leverOff;
+	private BufferedImage leverOn;
 
 	private BufferedImage door;
 	private BufferedImage doorOpened;
@@ -100,29 +100,29 @@ public class Resources {
 			System.exit(1);
 		}
 
-		// try {
-		// guardSleeping = ImageIO.read(new File("guardSleeping.jpg"));
-		// } catch (IOException e) {
-		// System.exit(1);
-		// }
-		//
-		// try {
-		// key = ImageIO.read(new File("key.jpg"));
-		// } catch (IOException e) {
-		// System.exit(1);
-		// }
-		//
-		// try {
-		// lever = ImageIO.read(new File("lever.jpg"));
-		// } catch (IOException e) {
-		// System.exit(1);
-		// }
-		//
-		// try {
-		// leverActivated = ImageIO.read(new File("leverActivated.jpg"));
-		// } catch (IOException e) {
-		// System.exit(1);
-		// }
+		try {
+			guardSleeping = ImageIO.read(new File("res/guardSleeping.jpg"));
+		} catch (IOException e) {
+			System.exit(1);
+		}
+
+		try {
+			key = ImageIO.read(new File("res/key.jpg"));
+		} catch (IOException e) {
+			System.exit(1);
+		}
+
+		try {
+			leverOn = ImageIO.read(new File("res/leverOn.jpg"));
+		} catch (IOException e) {
+			System.exit(1);
+		}
+
+		try {
+			leverOff = ImageIO.read(new File("res/leverOff.jpg"));
+		} catch (IOException e) {
+			System.exit(1);
+		}
 
 		try {
 			door = ImageIO.read(new File("res/door.jpg"));
@@ -290,36 +290,6 @@ public class Resources {
 	}
 
 	/**
-	 * @return the lever
-	 */
-	public BufferedImage getLever() {
-		return lever;
-	}
-
-	/**
-	 * @param lever
-	 *            the lever to set
-	 */
-	public void setLever(BufferedImage lever) {
-		this.lever = lever;
-	}
-
-	/**
-	 * @return the leverActivated
-	 */
-	public BufferedImage getLeverActivated() {
-		return leverActivated;
-	}
-
-	/**
-	 * @param leverActivated
-	 *            the leverActivated to set
-	 */
-	public void setLeverActivated(BufferedImage leverActivated) {
-		this.leverActivated = leverActivated;
-	}
-
-	/**
 	 * @return the door
 	 */
 	public BufferedImage getDoor() {
@@ -372,11 +342,41 @@ public class Resources {
 	}
 
 	/**
-	 * @param ogreWeapon the ogreWeapon to set
+	 * @param ogreWeapon
+	 *            the ogreWeapon to set
 	 */
 	public void setOgreWeapon(BufferedImage ogreWeapon) {
 		this.ogreWeapon = ogreWeapon;
 	}
-	
+
+	/**
+	 * @return the leverOff
+	 */
+	public BufferedImage getLeverOff() {
+		return leverOff;
+	}
+
+	/**
+	 * @param leverOff
+	 *            the leverOff to set
+	 */
+	public void setLeverOff(BufferedImage leverOff) {
+		this.leverOff = leverOff;
+	}
+
+	/**
+	 * @return the leverOn
+	 */
+	public BufferedImage getLeverOn() {
+		return leverOn;
+	}
+
+	/**
+	 * @param leverOn
+	 *            the leverOn to set
+	 */
+	public void setLeverOn(BufferedImage leverOn) {
+		this.leverOn = leverOn;
+	}
 
 }

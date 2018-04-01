@@ -12,6 +12,10 @@ public class DrunkenGuard extends Guard {
 
 	static private boolean wokeUp = false;
 	
+	public boolean isSleeping() {
+		return this.roundsLeftSleeping != 0;
+	}
+	
 	public DrunkenGuard(int x, int y) {
 		super(x, y);
 	}
