@@ -10,10 +10,16 @@ public class GUI {
 	private JFrame frame;
 
 	private GamePanel gamePanel;
+	
+	private OptionsPanel optionsPanel;
+	
+	private StateMachine stateMachine;
 
-	private StatusPanel statusP;
+	//private StatusPanel statusP;
 
 	private Resources resources;
+
+	private MainMenu mainMenu;
 
 	/**
 	 * Launch the application.
@@ -45,28 +51,32 @@ public class GUI {
 	 */
 	private void initialize() throws IOException {
 
+		
 		frame = new JFrame();
+		
+		
+		frame.setBounds(0,0,1000, 1000); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setSize(1000, 1000);
+	   
 
 		resources = new Resources();
-
-		gamePanel = new GamePanel(this.resources);
+		stateMachine  = new StateMachine(resources);
 		
-		gamePanel.setSize(1000, 1000);
-
-		// frame.setContentPane(gamePanel);
-
-		frame.add(gamePanel);
-
-		statusP = new StatusPanel();
-
-		// frame.getContentPane().add(statusP);
-
-		frame.pack();
-
-		frame.setVisible(true);
+		gamePanel = new GamePanel(this.resources, stateMachine);
+		gamePanel.setSize(1000, 1000); 
+		frame.getContentPane().add(gamePanel);
+		
+		optionsPanel = new OptionsPanel(stateMachine);
+		optionsPanel.setSize(1000, 1000); 
+		frame.getContentPane().add(optionsPanel);
+		
+		mainMenu = new MainMenu(stateMachine);
+		mainMenu.setSize(1000, 1000); 
+		frame.getContentPane().add(mainMenu);
+		
+		
+		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
+import dkeep.logic.guards.*;
 import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
@@ -36,7 +37,47 @@ public class GamePanel extends JPanel implements KeyListener {
 	private Hero hero;
 	private Resources resources;
 	private gameGraphicPanel gameArea;
+	private StateMachine stateMachine;
+	private guardType guardPersonality = guardType.Drunken;
+	private Integer numOgres = 3;
+	
+	public guardType getGuardPersonality() {
+		return guardPersonality;
+	}
 
+	public void setGuardPersonality(guardType object) {
+		this.guardPersonality = object;
+	}
+
+	public int getNumOgres() {
+		return numOgres;
+	}
+
+	public void setNumOgres(int nO) {
+		this.numOgres = nO;
+	}
+
+	public int getMazeSize() {
+		return mazeSize;
+	}
+
+	public void setMazeSize(int mazeSize) {
+		this.mazeSize = mazeSize;
+	}
+
+	private int mazeSize = 0;
+
+
+	public enum guardType{
+		Drunken, Rookie, Suspicious
+	}
+	
+	
+	
+	public void setGameAreaVisible() {
+		//gameArea.setVisible(true);
+	}
+	
 	/**
 	 * @return the btnNewGame
 	 */
@@ -161,7 +202,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * @return the resources
 	 */
 	public Resources getResources() {
-		return resources;
+		return resources; 
 	}
 
 	/**
@@ -182,6 +223,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 
+			stateMachine.update(StateMachine.Event.endGame);
 			// gameStatus.setText("Game Over");
 
 		}
@@ -195,15 +237,65 @@ public class GamePanel extends JPanel implements KeyListener {
 	/**
 	 * Create the panel.
 	 */
-	public GamePanel(Resources resources) {
+	public GamePanel(Resources resources, StateMachine st) {
+		
+		
+		
+		this.stateMachine= st;
 
 		this.resources = resources;
 
-		this.setVisible(true);
+		this.setVisible(false);
 
-		addKeyListener(this);
 
+	    addKeyListener(this); 
+		
 		this.initialize();
+		
+
+		newGame( );
+
+
+	}
+	
+	public void newGame() {
+
+		hero = new Hero();
+
+		KeepLevel level2 = new KeepLevel(hero, numOgres);
+		InitialLevel level1 = new InitialLevel(hero);
+
+		Vector<Level> levels = new Vector<>();
+		levels.add(level1);
+		levels.add(level2);
+
+		switch(guardPersonality) {
+			case Drunken:
+				level1.setGuard(new DrunkenGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+				break;
+			case Suspicious:
+				level1.setGuard(new SuspiciousGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+				break;
+			case Rookie:
+				level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+				break;
+		}
+		dungeon = new Dungeon(levels);
+		
+		btnUp.setEnabled(true);
+		btnLeft.setEnabled(true);
+		btnRight.setEnabled(true);
+		btnDown.setEnabled(true);
+
+		resources.setMap(dungeon.getMap());
+		
+		gameArea.setVisible(true);
+
+		gameArea.setDungeon(dungeon);
+
+		gameArea.repaint();
+
+		requestFocusInWindow();
 
 	}
 
@@ -215,6 +307,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
+		
+		this.setVisible(false);
 
 		this.initializeButtons();
 
@@ -232,13 +326,6 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_gameArea.gridy = 1;
 		add(gameArea, gbc_gameArea);
 
-		btnNewGame = new JButton("New Game");
-		btnNewGame.setVerticalAlignment(SwingConstants.TOP);
-		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
-		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewGame.gridx = 5;
-		gbc_btnNewGame.gridy = 1;
-		add(btnNewGame, gbc_btnNewGame);
 
 		btnUp = new JButton("Up");
 		btnUp.setEnabled(false);
@@ -281,43 +368,11 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.initializeActions();
 
-		grabFocus();
 	}
 
 	public void initializeActions() {
 
-		btnNewGame.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				int numberOgres = 3;
-
-				hero = new Hero();
-
-				Level level2 = new KeepLevel(hero, numberOgres);
-				Level level1 = new InitialLevel(hero);
-
-				Vector<Level> levels = new Vector<>();
-				levels.add(level1);
-				levels.add(level2);
-				dungeon = new Dungeon(levels);
-
-				btnUp.setEnabled(true);
-				btnLeft.setEnabled(true);
-				btnRight.setEnabled(true);
-				btnDown.setEnabled(true);
-
-				resources.setMap(dungeon.getMap());
-
-				gameArea.setDungeon(dungeon);
-
-				gameArea.repaint();
-
-				requestFocusInWindow();
-
-			}
-
-		});
+	
 
 		btnExit.addActionListener(new ActionListener() {
 			@Override
@@ -382,7 +437,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		
 	}
 
 	@Override

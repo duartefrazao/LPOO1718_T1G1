@@ -23,6 +23,7 @@ public class gameGraphicPanel extends JPanel {
 	public gameGraphicPanel(Resources resources) {
 
 		this.resources = resources;
+		this.setVisible(false);
 	}
 
 	@Override
@@ -159,7 +160,7 @@ public class gameGraphicPanel extends JPanel {
 
 	/**
 	 * @return the resources
-	 */
+	 */ 
 	public Resources getResources() {
 		return resources;
 	}

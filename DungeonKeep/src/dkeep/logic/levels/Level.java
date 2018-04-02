@@ -22,6 +22,8 @@ public abstract class Level {
 
 	protected Vector<Pair> passageDoors = new Vector<Pair>(0);
 
+
+
 	public Pair getRandomEmptyPositions() {
 
 		Pair randomPos = new Pair(0, 0);
