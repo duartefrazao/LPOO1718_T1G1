@@ -1,10 +1,12 @@
 package dkeep.gui;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 public class Resources {
 
@@ -36,9 +38,23 @@ public class Resources {
 
 	private char[][] map;
 
-	public Resources() {
+	private JFrame windowFrame;
+
+	public Resources(JFrame frame) {
+
+		this.windowFrame = frame;
 
 		this.loadImages();
+	}
+
+	public void resizeGUIWindow() {
+
+		Dimension newOne = new Dimension(getMapWidth() + 300, getMapHeigth() + 50);
+
+		windowFrame.setPreferredSize(newOne);
+		windowFrame.setMinimumSize(newOne);
+		windowFrame.setMaximumSize(newOne);
+
 	}
 
 	public void loadImages() {
@@ -377,6 +393,14 @@ public class Resources {
 	 */
 	public void setLeverOn(BufferedImage leverOn) {
 		this.leverOn = leverOn;
+	}
+
+	public int getMapHeigth() {
+		return this.map.length * 78;
+	}
+
+	public int getMapWidth() {
+		return this.map[0].length * 78;
 	}
 
 }

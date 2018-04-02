@@ -1,34 +1,52 @@
 package dkeep.logic;
+
+
+/**
+ * Pair.class - a simple class representing a 2D position (x, y).
+ * @author pedro
+ *
+ */
 public class Pair {
 
-    private int x;
-    private int y;
+	private int x;
+	private int y;
 
+	/**
+	 * Retrieves the x position of the pair
+	 * @return the x
+	 */
+	public int getX() {
+		return x;
+	}
 
-    public Pair(int a, int b){
-        this.x = a;
-        this.y = b;
-    }
+	/**
+	 * Sets the x position of the pair
+	 * @param x the x to set
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
 
+	/**
+	 * Retrieves the y position of the pair
+	 * @return the y
+	 */
+	public int getY() {
+		return y;
+	}
 
+	/**
+	 * Sets the y position of the pair
+	 * @param y the y to set
+	 */
+	public void setY(int y) {
+		this.y = y;
+	}
 
-    public int getX(){
-        return this.x;
-    }
-
-    public int getY(){
-        return this.y;
-    }
-
-    public void setX(int a){
-        this.x = a;
-    }
-
-    public void setY(int b){
-        this.y = b;
-    }
-
-
+	public Pair(int a, int b) {
+		this.x = a;
+		this.y = b;
+	}
 
 	@Override
 	public int hashCode() {
@@ -39,9 +57,11 @@ public class Pair {
 		return result;
 	}
 
-
-
 	@Override
+	/**
+	 * Equal operator
+	 * @return true if the two pairs are the same, i.e. equal x and y, false otherwise
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -57,6 +77,4 @@ public class Pair {
 		return true;
 	}
 
-
-   
 }

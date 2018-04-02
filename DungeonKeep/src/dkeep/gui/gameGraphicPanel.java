@@ -1,5 +1,6 @@
 package dkeep.gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Vector;
 
@@ -30,7 +31,13 @@ public class gameGraphicPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+		
+		Dimension newOne = new Dimension(this.resources.getMapWidth(), this.resources.getMapHeigth());
 
+		this.setPreferredSize(newOne);
+		this.setMinimumSize(newOne);
+		this.setMaximumSize(newOne);
+		
 		char[][] map = this.resources.getMap();
 
 		for (int i = 0; i < map.length; i++) {

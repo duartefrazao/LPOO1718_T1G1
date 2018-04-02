@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class GamePanel extends JPanel implements KeyListener {
 
@@ -43,6 +44,13 @@ public class GamePanel extends JPanel implements KeyListener {
 	
 	public guardType getGuardPersonality() {
 		return guardPersonality;
+	}
+
+	public void resizeWindow() {
+		Dimension newOne = new Dimension(this.resources.getMapWidth(), this.resources.getMapHeigth());
+		this.setPreferredSize(newOne);
+		this.setMinimumSize(newOne);
+		this.setMaximumSize(newOne);
 	}
 
 	public void setGuardPersonality(guardType object) {
@@ -317,11 +325,11 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void initializeButtons() {
 
 		gameArea = new gameGraphicPanel(resources);
-		gameArea.setBackground(Color.GRAY);
+
 		GridBagConstraints gbc_gameArea = new GridBagConstraints();
 		gbc_gameArea.gridheight = 6;
 		gbc_gameArea.insets = new Insets(0, 0, 5, 5);
-		gbc_gameArea.fill = GridBagConstraints.BOTH;
+		gbc_gameArea.fill = GridBagConstraints.CENTER;
 		gbc_gameArea.gridx = 2;
 		gbc_gameArea.gridy = 1;
 		add(gameArea, gbc_gameArea);
@@ -445,24 +453,5 @@ public class GamePanel extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
-
-	// private Font getFont(String fontName, int style, int size, Font currentFont)
-	// {
-	// if (currentFont == null)
-	// return null;
-	// String resultName;
-	// if (fontName == null) {
-	// resultName = currentFont.getName();
-	// } else {
-	// Font testFont = new Font(fontName, Font.PLAIN, 10);
-	// if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-	// resultName = fontName;
-	// } else {
-	// resultName = currentFont.getName();
-	// }
-	// }
-	// return new Font(resultName, style >= 0 ? style : currentFont.getStyle(),
-	// size >= 0 ? size : currentFont.getSize());
-	// }
 
 }
