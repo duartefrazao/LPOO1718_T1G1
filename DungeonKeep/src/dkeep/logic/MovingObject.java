@@ -1,11 +1,25 @@
 package dkeep.logic;
 
+import java.util.HashMap;
+
 /**
  * MovingObject.java - Base class for every moving object of the game
  * @author pedro
  *
  */
 public abstract class MovingObject {
+	
+	private static final  HashMap<MOVEMENT_TYPE,Pair> moves;
+	
+	 static
+	    {
+		 	moves = new HashMap<MOVEMENT_TYPE,Pair>();
+		 	moves.put(MOVEMENT_TYPE.DOWN,new Pair(1,0));
+		 	moves.put(MOVEMENT_TYPE.UP,new Pair(-1,0));
+		 	moves.put(MOVEMENT_TYPE.LEFT,new Pair(0,-1));
+		 	moves.put(MOVEMENT_TYPE.RIGHT,new Pair(0,1));
+		 	moves.put(MOVEMENT_TYPE.NONE,new Pair(0,0));
+	    }
 	
 	protected Pair position = new Pair(0,0);
 	
@@ -68,34 +82,16 @@ public abstract class MovingObject {
 		int x=position.getX();
 		int y= position.getY();
 		
-		switch (movement) {
-
-	       case UP: {
-	            if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-	                position.setX(--x); 
-	            }
-	            break;
-	        }
-	        case DOWN: {
-	            if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
-	                position.setX(++x);
-	            }
-	            break;
-	        }
-	        case LEFT: {
-	            if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
-	                position.setY(--y);
-	            }
-	            break;
-	        }
-	        case RIGHT: {
-	            if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
-	                position.setY(++y);
-	            }
-	            break;
-	        }
-	        case NONE:
-	        	break;
+		
+        if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I' && movement== MOVEMENT_TYPE.UP) {
+            position.setX(--x); 
+        }else if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I'  && movement== MOVEMENT_TYPE.DOWN) {
+	        position.setX(++x);
+        }else if(map[x][y - 1] != 'X' && map[x][y - 1] != 'I'  && movement== MOVEMENT_TYPE.LEFT) {
+	        position.setY(--y);
 	    }
+        else if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I'  && movement== MOVEMENT_TYPE.RIGHT) {
+	        position.setY(++y);
+        }
 	}
 }

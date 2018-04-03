@@ -83,6 +83,45 @@ public class KeepLevel extends Level {
 
 		return false;
 	}
+	
+	public void setOgrePos(int i, int j) {
+		map[i][j] = ' ';
+
+		Ogre ogre = new Ogre(i, j);
+
+		MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
+
+		ogre.getClub().move(clubMov, map);
+
+		this.crazyHorde.add(ogre);
+
+		for (int k = 1; k < this.hordeSize; k++) {
+
+			Pair randomPos = this.getRandomEmptyPositions();
+
+			ogre = new Ogre(randomPos.getX(), randomPos.getY());
+
+			clubMov = ogre.getClub().getMove(map, ogre.getPosition());
+
+			ogre.getClub().move(clubMov, map);
+
+			this.crazyHorde.add(ogre);
+
+		}
+	}
+	
+	public void setHeroPos(int i, int j) {
+		hero.setX(i);
+		hero.setY(j);
+		map[i][j] = ' ';
+
+		heroOriginalPos.setX(i);
+		heroOriginalPos.setY(j);
+
+		MOVEMENT_TYPE swordMove = heroWeapon.getMove(map, hero.getPosition());
+
+		heroWeapon.move(swordMove, map);
+	}
 
 	public void findGameElements() {
 		for (int i = 0; i < map.length; i++) {
@@ -94,43 +133,10 @@ public class KeepLevel extends Level {
 					Key.setY(j);
 					break;
 				case 'O':
-					map[i][j] = ' ';
-
-					Ogre ogre = new Ogre(i, j);
-
-					MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
-
-					ogre.getClub().move(clubMov, map);
-
-					this.crazyHorde.add(ogre);
-
-					for (int k = 1; k < this.hordeSize; k++) {
-
-						Pair randomPos = this.getRandomEmptyPositions();
-
-						ogre = new Ogre(randomPos.getX(), randomPos.getY());
-
-						clubMov = ogre.getClub().getMove(map, ogre.getPosition());
-
-						ogre.getClub().move(clubMov, map);
-
-						this.crazyHorde.add(ogre);
-
-					}
-
+					setOgrePos(i,j);
 					break;
 				case 'H':
-					hero.setX(i);
-					hero.setY(j);
-					map[i][j] = ' ';
-
-					heroOriginalPos.setX(i);
-					heroOriginalPos.setY(j);
-
-					MOVEMENT_TYPE swordMove = heroWeapon.getMove(map, hero.getPosition());
-
-					heroWeapon.move(swordMove, map);
-
+					setHeroPos(i,j);
 					break;
 
 				}
@@ -139,19 +145,9 @@ public class KeepLevel extends Level {
 		}
 	}
 
-	public char[][] createMapToPrint() {
+	public void createMapToPrintHeroPart(char[][] mapToPrint) {
 
-		char[][] mapToPrint = new char[map.length][];
-
-		for (int i = 0; i < map.length; i++) {
-			char[] line = map[i];
-			int line_size = line.length;
-			mapToPrint[i] = new char[line_size];
-			System.arraycopy(line, 0, mapToPrint[i], 0, line_size);
-		}
-
-		int i, j;
-
+		 int i,  j;
 		// ---- hero ----
 		i = this.hero.getX();
 		j = this.hero.getY();
@@ -165,7 +161,11 @@ public class KeepLevel extends Level {
 
 			mapToPrint[i][j] = heroWeapon.getSymbol();
 		}
+	}
+	
+	public void createMapToPrintOgrePart(char[][] mapToPrint) {
 
+		int i, j;
 		// ---- crazy horde ----
 		for (int k = 0; k < this.hordeSize; k++) {
 
@@ -188,14 +188,29 @@ public class KeepLevel extends Level {
 				mapToPrint[i][j] = tempOgre.getClub().getSymbol();
 
 		}
+	}
+	
+	public char[][] createMapToPrint() {
+
+		char[][] mapToPrint = new char[map.length][];
+
+		for (int i = 0; i < map.length; i++) {
+			char[] line = map[i];
+			int line_size = line.length;
+			mapToPrint[i] = new char[line_size];
+			System.arraycopy(line, 0, mapToPrint[i], 0, line_size);
+		}
+		
+		
+		createMapToPrintHeroPart(mapToPrint);
+
+		createMapToPrintOgrePart(mapToPrint);
 
 		return mapToPrint;
 	}
 
-	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
-
-		hero.move(move, map);
-
+	
+	public void ogreMovement() {
 		for (int i = 0; i < this.hordeSize; i++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(i);
@@ -206,10 +221,9 @@ public class KeepLevel extends Level {
 
 			tempOgre.getClub().move(clubMov, map);
 		}
-
-		int x = hero.getX();
-		int y = hero.getY();
-
+	}
+	
+	public void heroActions(int x, int y) {
 		if (x == Key.getX() && y == Key.getY()) {
 
 			hero.setSymbol('K');
@@ -226,42 +240,59 @@ public class KeepLevel extends Level {
 			map[x][y] = ' ';
 
 		}
-
+	}
+	
+	public void heroMovement(MOVEMENT_TYPE move, int x, int y) {
+		
 		if (hero.hasKey()) {
 
-			switch (move) {
-			case UP: {
-				x--;
-				break;
-			}
-			case DOWN: {
-				x++;
-				break;
-			}
-			case LEFT: {
-				y--;
-				break;
-			}
-			case RIGHT: {
-				y++;
-				break;
-			}
-			case NONE:
-				break;
-			}
+		switch (move) {
+		case UP: {
+			x--;
+			break;
+		}
+		case DOWN: {
+			x++;
+			break;
+		}
+		case LEFT: {
+			y--;
+			break;
+		}
+		case RIGHT: {
+			y++;
+			break;
+		}
+		case NONE:
+			break;
+		}
 
-			for (int i = 0; i < passageDoors.size(); i++) {
+		for (int i = 0; i < passageDoors.size(); i++) {
 
-				int a = passageDoors.elementAt(i).getX();
-				int b = passageDoors.elementAt(i).getY();
+			int a = passageDoors.elementAt(i).getX();
+			int b = passageDoors.elementAt(i).getY();
 
-				if (x == a && y == b)
-					map[a][b] = 'S';
-
-			}
+			if (x == a && y == b)
+				map[a][b] = 'S';
 
 		}
 
+	}
+
+	}
+	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
+
+		hero.move(move, map);
+
+		ogreMovement();
+
+		int x = hero.getX();
+		int y = hero.getY();
+
+		heroActions(x,y);
+		
+		heroMovement(move, x, y);
+		
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
 		else if (this.checkOgreCollision())

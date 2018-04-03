@@ -75,8 +75,6 @@ public class StateMachine {
 				mainMenu.requestFocusInWindow();
 				frame.pack();
 				break;
-		
-				
 		}
 	}
 

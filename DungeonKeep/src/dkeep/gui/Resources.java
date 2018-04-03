@@ -54,8 +54,6 @@ public class Resources {
 		windowFrame.setPreferredSize(newOne);
 		windowFrame.setMinimumSize(newOne);
 		windowFrame.setMaximumSize(newOne);
-		
-		windowFrame.pack();
 
 	}
 
@@ -63,93 +61,33 @@ public class Resources {
 
 		try {
 			setWall(ImageIO.read(new File("res/wall.jpg")));
-		} catch (IOException e) {
-			System.out.println("failed to open wall image");
-			System.exit(1);
-		}
-
-		try {
+		
 			setFloor(ImageIO.read(new File("res/floor.jpg")));
-		} catch (IOException e) {
-			System.out.println("failed to open floor image");
-			System.exit(1);
-		}
-
-		try {
+		
 			hero = ImageIO.read(new File("res/hero.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			heroArmed = ImageIO.read(new File("res/heroArmed.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			heroWeapon = ImageIO.read(new File("res/heroWeapon.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			ogreWeapon = ImageIO.read(new File("res/ogreWeapon.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			ogre = ImageIO.read(new File("res/ogre.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			ogreStunned = ImageIO.read(new File("res/ogreStunned.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			guard = ImageIO.read(new File("res/guard.jpg"));
-		} catch (IOException e) {
-			System.out.println("failed to open guard image");
-			System.exit(1);
-		}
-
-		try {
+	
 			guardSleeping = ImageIO.read(new File("res/guardSleeping.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			key = ImageIO.read(new File("res/key.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			leverOn = ImageIO.read(new File("res/leverOn.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			leverOff = ImageIO.read(new File("res/leverOff.jpg"));
-		} catch (IOException e) {
-			System.exit(1);
-		}
-
-		try {
+		
 			door = ImageIO.read(new File("res/door.jpg"));
-		} catch (IOException e) {
-			System.out.println("failed to open door image");
-			System.exit(1);
-		}
-
-		try {
+		
 			doorOpened = ImageIO.read(new File("res/doorOpened.jpg"));
 		} catch (IOException e) {
 			System.out.println("failed to open doorOpened image");

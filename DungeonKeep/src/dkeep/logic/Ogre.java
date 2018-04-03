@@ -89,29 +89,13 @@ public class Ogre extends MovingObject {
 		switch (movement) {
 
 		case UP: {
-			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-				position.setX(--x);
-			}
-			break;
-		}
+			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {position.setX(--x);}break;}
 		case DOWN: {
-			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
-				position.setX(++x);
-			}
-			break;
-		}
+			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {position.setX(++x);}break;}
 		case LEFT: {
-			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
-				position.setY(--y);
-			}
-			break;
-		}
+			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {position.setY(--y);}break;}
 		case RIGHT: {
-			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
-				position.setY(++y);
-			}
-			break;
-		}
+			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {position.setY(++y);}break;}
 		case NONE:
 			break;
 		}
