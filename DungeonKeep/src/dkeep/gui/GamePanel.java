@@ -85,7 +85,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.initialize();
 		this.initializeButtons();
-		this.initializeActions();
 	}
 
 	public void initialize() {
@@ -99,7 +98,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	}
 
-	public void initializeButtons() {
+	public void upButInit() {
 		btnUp = new JButton("Up");
 		btnUp.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_btnUp = new GridBagConstraints();
@@ -107,66 +106,39 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnUp.gridx = 2;
 		gbc_btnUp.gridy = 2;
 		add(btnUp, gbc_btnUp);
-
-		btnLeft = new JButton("Left");
-		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
-		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLeft.gridx = 1;
-		gbc_btnLeft.gridy = 3;
-		add(btnLeft, gbc_btnLeft);
-
-		btnRight = new JButton("Right");
-		GridBagConstraints gbc_btnRight = new GridBagConstraints();
-		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRight.gridx = 3;
-		gbc_btnRight.gridy = 3;
-		add(btnRight, gbc_btnRight);
-
-		btnDown = new JButton("Down");
-		GridBagConstraints gbc_btnDown = new GridBagConstraints();
-		gbc_btnDown.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDown.gridx = 2;
-		gbc_btnDown.gridy = 4;
-		add(btnDown, gbc_btnDown);
-
-		btnExit = new JButton("Exit");
-		GridBagConstraints gbc_btnExit = new GridBagConstraints();
-		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
-		gbc_btnExit.gridx = 2;
-		gbc_btnExit.gridy = 6;
-		add(btnExit, gbc_btnExit);
-	}
-
-	public void initializeActions() {
-
-		btnExit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-
+		
 		btnUp.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				processGame(MovingObject.MOVEMENT_TYPE.UP);
 			}
 		});
-
+	}
+	
+	public void downButInit() {
+		btnDown = new JButton("Down");
+		GridBagConstraints gbc_btnDown = new GridBagConstraints();
+		gbc_btnDown.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDown.gridx = 2;
+		gbc_btnDown.gridy = 4;
+		add(btnDown, gbc_btnDown);
+		
 		btnDown.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				processGame(MovingObject.MOVEMENT_TYPE.DOWN);
 			}
 		});
-
-		btnRight.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
-			}
-		});
-
+	}
+	
+	public void leftButInit() {
+		btnLeft = new JButton("Left");
+		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
+		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLeft.gridx = 1;
+		gbc_btnLeft.gridy = 3;
+		add(btnLeft, gbc_btnLeft);
+		
 		btnLeft.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -174,9 +146,51 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		});
 	}
+	
+	public void rightButInit() {
+		btnRight = new JButton("Right");
+		GridBagConstraints gbc_btnRight = new GridBagConstraints();
+		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRight.gridx = 3;
+		gbc_btnRight.gridy = 3;
+		add(btnRight, gbc_btnRight);
+		
+		btnRight.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
+			}
+		});
+	}
+	
+	public void exitButInit() {
+		btnExit = new JButton("Exit");
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
+		gbc_btnExit.gridx = 2;
+		gbc_btnExit.gridy = 6;
+		add(btnExit, gbc_btnExit);
+		
+		btnExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 
-	public void newGame() {
+	}
+	
+	public void initializeButtons() {
+		upButInit();
+		rightButInit();
+		downButInit();
+		leftButInit();
+		
+		exitButInit();
 
+	}
+
+	public void newGameDungeonSettings() {
 		hero = new Hero();
 
 		KeepLevel level2 = new KeepLevel(hero, numOgres);
@@ -198,7 +212,12 @@ public class GamePanel extends JPanel implements KeyListener {
 			break;
 		}
 		dungeon = new Dungeon(levels);
+	}
 
+	public void newGame() {
+		
+		newGameDungeonSettings();
+		
 		btnUp.setEnabled(true);
 		btnLeft.setEnabled(true);
 		btnRight.setEnabled(true);
