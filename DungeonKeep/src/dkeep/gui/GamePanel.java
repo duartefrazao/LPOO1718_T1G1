@@ -288,6 +288,7 @@ public class GamePanel extends JPanel implements KeyListener {
 				level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
 				break;
 		}
+		
 		dungeon = new Dungeon(levels);
 		
 		btnUp.setEnabled(true);
