@@ -22,22 +22,19 @@ public class gameGraphicPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public gameGraphicPanel(Resources resources) {
-
 		this.resources = resources;
-		this.setVisible(false);
+	}
+
+	public void setMapSize() {
+		Dimension newOne = new Dimension(this.resources.getMapWidth(), this.resources.getMapHeigth());
+		this.setSize(newOne);
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		
-		Dimension newOne = new Dimension(this.resources.getMapWidth(), this.resources.getMapHeigth());
 
-		this.setPreferredSize(newOne);
-		this.setMinimumSize(newOne);
-		this.setMaximumSize(newOne);
-		
 		char[][] map = this.resources.getMap();
 
 		for (int i = 0; i < map.length; i++) {
@@ -167,7 +164,7 @@ public class gameGraphicPanel extends JPanel {
 
 	/**
 	 * @return the resources
-	 */ 
+	 */
 	public Resources getResources() {
 		return resources;
 	}

@@ -54,6 +54,8 @@ public class Resources {
 		windowFrame.setPreferredSize(newOne);
 		windowFrame.setMinimumSize(newOne);
 		windowFrame.setMaximumSize(newOne);
+		
+		windowFrame.pack();
 
 	}
 

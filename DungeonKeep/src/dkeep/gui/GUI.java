@@ -11,12 +11,12 @@ public class GUI {
 	private JFrame frame;
 
 	private GamePanel gamePanel;
-	
+
 	private OptionsPanel optionsPanel;
-	
+
 	private StateMachine stateMachine;
 
-	//private StatusPanel statusP;
+	// private StatusPanel statusP;
 
 	private Resources resources;
 
@@ -52,41 +52,26 @@ public class GUI {
 	 */
 	private void initialize() throws IOException {
 
-		
 		frame = new JFrame();
-		
-		frame.setPreferredSize(new Dimension(1000, 700));
-		
-		frame.setResizable(false);
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources(frame);
 
-		gamePanel = new GamePanel(this.resources);
+		stateMachine = new StateMachine(resources, frame);
 
-		frame.getContentPane().add(gamePanel);
+		gamePanel = new GamePanel(this.resources, stateMachine);
+		
+
+		optionsPanel = new OptionsPanel(stateMachine);
+		
+
+		mainMenu = new MainMenu(stateMachine);
+	
+		frame.setContentPane(mainMenu);
+
+		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
 
 		frame.pack();
-
-		frame.setVisible(true);
-		resources = new Resources();
-		stateMachine  = new StateMachine(resources);
-		
-		gamePanel = new GamePanel(this.resources, stateMachine);
-		gamePanel.setSize(1000, 1000); 
-		frame.getContentPane().add(gamePanel);
-		
-		optionsPanel = new OptionsPanel(stateMachine);
-		optionsPanel.setSize(1000, 1000); 
-		frame.getContentPane().add(optionsPanel);
-		
-		mainMenu = new MainMenu(stateMachine);
-		mainMenu.setSize(1000, 1000); 
-		frame.getContentPane().add(mainMenu);
-		
-		
-		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
 	}
 
 }

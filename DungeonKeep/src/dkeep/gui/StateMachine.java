@@ -1,5 +1,9 @@
 package dkeep.gui;
 
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+
 import dkeep.gui.GamePanel.guardType;
 
 public class StateMachine {
@@ -9,7 +13,7 @@ public class StateMachine {
 	public MainMenu mainMenu;
 	public Resources resources;
 	public State state;
-	
+	private JFrame frame;
 	
 	public enum State{
 		mapCreator, game, options, mainMenu
@@ -21,8 +25,9 @@ public class StateMachine {
 	
 	//public 
 	
-	StateMachine(Resources rs){
+	StateMachine(Resources rs, JFrame frame){
 		resources = rs;
+		this.frame = frame;
 		state = State.options;
 	}
 	
@@ -41,27 +46,34 @@ public class StateMachine {
 				optionsPanel.setVisible(false);
 				mainMenu.setVisible(false);
 				gamePanel.setVisible(true);
+				frame.setContentPane(gamePanel);
 				gamePanel.setFocusable(true);
 				gamePanel.requestFocusInWindow();
+				frame.pack();
 				break;
 			case exitApp:
 				System.exit(0);
 				break;
 			case newGame:
 				state = State.options;
+				optionsPanel.setSize(new Dimension(500,500));
 				optionsPanel.setVisible(true);
 				optionsPanel.setFocusable(true);
+				frame.setContentPane(optionsPanel);
 				gamePanel.setVisible(false);
 				mainMenu.setVisible(false);
 				optionsPanel.requestFocusInWindow();
+				frame.pack();
 				break;
 			case endGame:
 				state = State.mainMenu;
 				mainMenu.setVisible(true);
 				mainMenu.setFocusable(true);
+				frame.setContentPane(mainMenu);
 				gamePanel.setVisible(false);
 				optionsPanel.setVisible(false);
 				mainMenu.requestFocusInWindow();
+				frame.pack();
 				break;
 		
 				
