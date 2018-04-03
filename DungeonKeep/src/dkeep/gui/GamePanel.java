@@ -1,6 +1,7 @@
 package dkeep.gui;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.util.Vector;
 
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject;
+import dkeep.logic.Ogre;
 import dkeep.logic.guards.*;
 import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;
@@ -26,6 +28,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JToggleButton;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class GamePanel extends JPanel implements KeyListener {
 
@@ -37,7 +41,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	private Integer numOgres = 3;
 
 	private int mazeSize = 0;
-	private gameGraphicPanel gameArea;
 	private JButton btnUp;
 	private JButton btnLeft;
 	private JButton btnRight;
@@ -49,8 +52,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	public void resizeWindow() {
-		Dimension newOne = new Dimension(this.resources.getMapWidth() + 500, this.resources.getMapHeigth() + 200);
-		this.setSize(newOne);
+		Dimension newOne = new Dimension(this.resources.getMapWidth() + 300, this.resources.getMapHeigth());
+		this.setPreferredSize(newOne);
 	}
 
 	public void processGame(MovingObject.MOVEMENT_TYPE move) {
@@ -67,8 +70,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		resources.setMap(dungeon.getMap());
 
-		this.gameArea.repaint();
-
 		repaint();
 	}
 
@@ -76,12 +77,12 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * Create the panel.
 	 */
 	public GamePanel(Resources resources, StateMachine st) {
-		
+
 		this.resources = resources;
 		this.stateMachine = st;
 
 		addKeyListener(this);
-		
+
 		this.initialize();
 		this.initializeButtons();
 		this.initializeActions();
@@ -90,21 +91,11 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void initialize() {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 266, 58, 0, 92, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 31, 0, 0, 0, 44, -17, -30, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.columnWidths = new int[] { 266, 87, 89, 0, 25, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 31, 0, 0, 0, 44, 16, 46, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-
-		gameArea = new gameGraphicPanel(resources);
-		gameArea.setBackground(Color.LIGHT_GRAY);
-		GridBagConstraints gbc_gameArea = new GridBagConstraints();
-		gbc_gameArea.gridheight = 6;
-		gbc_gameArea.insets = new Insets(0, 0, 5, 5);
-		gbc_gameArea.fill = GridBagConstraints.BOTH;
-		gbc_gameArea.gridx = 1;
-		gbc_gameArea.gridy = 1;
-		add(gameArea, gbc_gameArea);
 
 	}
 
@@ -113,35 +104,35 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnUp.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_btnUp = new GridBagConstraints();
 		gbc_btnUp.insets = new Insets(0, 0, 5, 5);
-		gbc_btnUp.gridx = 4;
+		gbc_btnUp.gridx = 2;
 		gbc_btnUp.gridy = 2;
 		add(btnUp, gbc_btnUp);
 
 		btnLeft = new JButton("Left");
 		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
 		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLeft.gridx = 3;
+		gbc_btnLeft.gridx = 1;
 		gbc_btnLeft.gridy = 3;
 		add(btnLeft, gbc_btnLeft);
 
 		btnRight = new JButton("Right");
 		GridBagConstraints gbc_btnRight = new GridBagConstraints();
 		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRight.gridx = 5;
+		gbc_btnRight.gridx = 3;
 		gbc_btnRight.gridy = 3;
 		add(btnRight, gbc_btnRight);
 
 		btnDown = new JButton("Down");
 		GridBagConstraints gbc_btnDown = new GridBagConstraints();
 		gbc_btnDown.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDown.gridx = 4;
+		gbc_btnDown.gridx = 2;
 		gbc_btnDown.gridy = 4;
 		add(btnDown, gbc_btnDown);
 
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
 		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
-		gbc_btnExit.gridx = 4;
+		gbc_btnExit.gridx = 2;
 		gbc_btnExit.gridy = 6;
 		add(btnExit, gbc_btnExit);
 	}
@@ -214,18 +205,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnDown.setEnabled(true);
 
 		resources.setMap(dungeon.getMap());
-
-		gameArea.setDungeon(dungeon);
-
-		gameArea.setMapSize();
-
 		this.resizeWindow();
-		
-		resources.resizeGUIWindow();
-
-		gameArea.setVisible(true);
-
-		gameArea.repaint();
 
 		requestFocusInWindow();
 
@@ -254,6 +234,138 @@ public class GamePanel extends JPanel implements KeyListener {
 			return;
 		}
 		processGame(move);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+
+		char[][] map = this.resources.getMap();
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+
+				switch (map[i][j]) {
+				case ' ':
+					g.drawImage(this.resources.getFloor(), j * 78, i * 78, this);
+					break;
+				case 'X':
+					g.drawImage(this.resources.getWall(), j * 78, i * 78, this);
+					break;
+				case 'I':
+					g.drawImage(this.resources.getDoor(), j * 78, i * 78, this);
+					break;
+				case 'S':
+					g.drawImage(this.resources.getDoorOpened(), j * 78, i * 78, this);
+					break;
+
+				default:
+					g.drawImage(this.resources.getFloor(), j * 78, i * 78, this);
+					break;
+
+				}
+
+			}
+		}
+
+		this.paintObjects(g);
+
+	}
+
+	public void paintObjects(Graphics g) {
+
+		if (dungeon.getCurrentLevel() instanceof InitialLevel) {
+
+			int g_i = ((InitialLevel) (this.dungeon.getCurrentLevel())).getGuard().getX();
+			int g_j = ((InitialLevel) (this.dungeon.getCurrentLevel())).getGuard().getY();
+			paintGuards(g, g_i, g_j);
+
+			boolean lever = ((InitialLevel) (this.dungeon.getCurrentLevel())).isLeverOff();
+			int l_i = ((InitialLevel) (this.dungeon.getCurrentLevel())).getLever().getX();
+			int l_j = ((InitialLevel) (this.dungeon.getCurrentLevel())).getLever().getY();
+
+			paintLever(g, l_i, l_j, lever);
+		} else {
+
+			Vector<Ogre> ogres = ((KeepLevel) (this.dungeon.getCurrentLevel())).getCrazyHorde();
+			paintOgres(g, ogres);
+
+			int k_i = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getX();
+			int k_j = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getY();
+			paintKey(g, k_i, k_j);
+		}
+
+		paintHero(g);
+
+	}
+
+	public void paintOgres(Graphics g, Vector<Ogre> ogres) {
+
+		for (int k = 0; k < ogres.size(); k++) {
+
+			Ogre tempOgre = ogres.elementAt(k);
+
+			int i = tempOgre.getX();
+			int j = tempOgre.getY();
+
+			if (!tempOgre.isStunned())
+				g.drawImage(this.resources.getOgre(), j * 78, i * 78, this);
+			else
+				g.drawImage(this.resources.getOgreStunned(), j * 78, i * 78, this);
+
+			i = tempOgre.getClub().getX();
+			j = tempOgre.getClub().getY();
+
+			g.drawImage(this.resources.getOgreWeapon(), j * 78, i * 78, this);
+
+		}
+
+	}
+
+	public void paintKey(Graphics g, int i, int j) {
+		g.drawImage(this.resources.getKey(), j * 78, i * 78, this);
+	}
+
+	public void paintGuards(Graphics g, int i, int j) {
+
+		if (((InitialLevel) dungeon.getCurrentLevel()).getGuard() instanceof DrunkenGuard)
+			if (((DrunkenGuard) ((InitialLevel) dungeon.getCurrentLevel()).getGuard()).isSleeping()) {
+				g.drawImage(this.resources.getGuardSleeping(), j * 78, i * 78, this);
+				return;
+			}
+
+		g.drawImage(this.resources.getGuard(), j * 78, i * 78, this);
+
+	}
+
+	public void paintLever(Graphics g, int i, int j, boolean mode) {
+		if (mode)
+			g.drawImage(this.resources.getLeverOn(), j * 78, i * 78, this);
+		else
+			g.drawImage(this.resources.getLeverOff(), j * 78, i * 78, this);
+
+	}
+
+	public void paintHero(Graphics g) {
+
+		int i = dungeon.getCurrentLevel().getHero().getX();
+		int j = dungeon.getCurrentLevel().getHero().getY();
+
+		if (dungeon.getCurrentLevel().getHero().isArmed())
+			g.drawImage(this.resources.getHeroArmed(), j * 78, i * 78, this);
+		else {
+			g.drawImage(this.resources.getHero(), j * 78, i * 78, this);
+
+			if (dungeon.getCurrentLevel() instanceof KeepLevel) {
+				int w_i = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getX();
+				int w_j = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getY();
+
+				g.drawImage(this.resources.getHeroWeapon(), w_j * 78, w_i * 78, this);
+			}
+
+		}
+
 	}
 
 	@Override
@@ -414,5 +526,4 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void setGameAreaVisible() {
 		// gameArea.setVisible(true);
 	}
-
 }
