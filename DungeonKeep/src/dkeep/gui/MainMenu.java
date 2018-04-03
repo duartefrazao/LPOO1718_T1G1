@@ -18,7 +18,7 @@ public class MainMenu extends JPanel {
 	private JButton btnNewGame;
 	private JButton btnSettings;
 	private JButton btnExit;
-	private Dimension dimension = new Dimension(235, 238);
+	private Dimension dimension = new Dimension(500, 500);
 
 	public MainMenu(StateMachine st) {
 

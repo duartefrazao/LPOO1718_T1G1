@@ -4,12 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import dkeep.gui.GamePanel.guardType;
-import dkeep.logic.Dungeon;
-import dkeep.logic.Hero;
-import dkeep.logic.MovingObject;
-import dkeep.logic.levels.InitialLevel;
-import dkeep.logic.levels.KeepLevel;
-import dkeep.logic.levels.Level;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -17,16 +11,12 @@ import javax.swing.JLabel;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
-
 import javax.swing.JComboBox;
 import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.JButton;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class OptionsPanel extends JPanel {
 	

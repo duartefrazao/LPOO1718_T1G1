@@ -42,14 +42,12 @@ public class StateMachine {
 		switch(event) {
 			case startGame:
 				gamePanel.newGame();
-				state = State.game;
-				optionsPanel.setVisible(false);
-				mainMenu.setVisible(false);
-				gamePanel.setVisible(true);
 				frame.setContentPane(gamePanel);
+				gamePanel.setVisible(true);
 				gamePanel.setFocusable(true);
 				gamePanel.requestFocusInWindow();
 				frame.pack();
+				state = State.game;
 				break;
 			case exitApp:
 				System.exit(0);
@@ -60,8 +58,6 @@ public class StateMachine {
 				optionsPanel.setVisible(true);
 				optionsPanel.setFocusable(true);
 				frame.setContentPane(optionsPanel);
-				gamePanel.setVisible(false);
-				mainMenu.setVisible(false);
 				optionsPanel.requestFocusInWindow();
 				frame.pack();
 				break;
@@ -70,8 +66,6 @@ public class StateMachine {
 				mainMenu.setVisible(true);
 				mainMenu.setFocusable(true);
 				frame.setContentPane(mainMenu);
-				gamePanel.setVisible(false);
-				optionsPanel.setVisible(false);
 				mainMenu.requestFocusInWindow();
 				frame.pack();
 				break;

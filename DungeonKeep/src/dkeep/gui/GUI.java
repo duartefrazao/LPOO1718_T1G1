@@ -1,6 +1,5 @@
 package dkeep.gui;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.io.IOException;
 
@@ -53,6 +52,7 @@ public class GUI {
 	private void initialize() throws IOException {
 
 		frame = new JFrame();
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources(frame);
@@ -60,13 +60,11 @@ public class GUI {
 		stateMachine = new StateMachine(resources, frame);
 
 		gamePanel = new GamePanel(this.resources, stateMachine);
-		
 
 		optionsPanel = new OptionsPanel(stateMachine);
-		
 
 		mainMenu = new MainMenu(stateMachine);
-	
+
 		frame.setContentPane(mainMenu);
 
 		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
