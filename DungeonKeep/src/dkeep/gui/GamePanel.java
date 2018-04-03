@@ -47,7 +47,13 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	public void resizeWindow() {
 		Dimension newOne = new Dimension(this.resources.getMapWidth() + 300, this.resources.getMapHeigth());
+		
 		this.setPreferredSize(newOne);
+		this.setMinimumSize(newOne);
+		this.setMaximumSize(newOne);
+		
+		System.out.println(newOne);
+		System.out.println(this.getSize());
 	}
 
 	public void processGame(MOVEMENT_TYPE move) {
@@ -61,9 +67,13 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnDown.setEnabled(false);
 			stateMachine.update(StateMachine.Event.endGame);
 		}
-
+		
+		this.resizeWindow();
+		this.resources.resizeGUIWindow();
+		
 		resources.setMap(dungeon.getMap());
-
+		
+		
 		repaint();
 	}
 
@@ -85,7 +95,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 266, 87, 89, 0, 25, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 31, 0, 0, 0, 44, 16, 46, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 31, 0, 0, 0, 44, 16, 10, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
@@ -100,7 +110,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnUp.gridx = 2;
 		gbc_btnUp.gridy = 2;
 		add(btnUp, gbc_btnUp);
-		
+
 		btnUp.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +118,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		});
 	}
-	
+
 	public void downButInit() {
 		btnDown = new JButton("Down");
 		GridBagConstraints gbc_btnDown = new GridBagConstraints();
@@ -116,7 +126,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnDown.gridx = 2;
 		gbc_btnDown.gridy = 4;
 		add(btnDown, gbc_btnDown);
-		
+
 		btnDown.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +134,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		});
 	}
-	
+
 	public void leftButInit() {
 		btnLeft = new JButton("Left");
 		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
@@ -132,7 +142,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnLeft.gridx = 1;
 		gbc_btnLeft.gridy = 3;
 		add(btnLeft, gbc_btnLeft);
-		
+
 		btnLeft.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +150,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		});
 	}
-	
+
 	public void rightButInit() {
 		btnRight = new JButton("Right");
 		GridBagConstraints gbc_btnRight = new GridBagConstraints();
@@ -148,7 +158,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnRight.gridx = 3;
 		gbc_btnRight.gridy = 3;
 		add(btnRight, gbc_btnRight);
-		
+
 		btnRight.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +166,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		});
 	}
-	
+
 	public void exitButInit() {
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
@@ -164,7 +174,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		gbc_btnExit.gridx = 2;
 		gbc_btnExit.gridy = 6;
 		add(btnExit, gbc_btnExit);
-		
+
 		btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,13 +183,12 @@ public class GamePanel extends JPanel implements KeyListener {
 		});
 
 	}
-	
+
 	public void initializeButtons() {
 		upButInit();
 		rightButInit();
 		downButInit();
 		leftButInit();
-		
 		exitButInit();
 
 	}
@@ -209,9 +218,9 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	public void newGame() {
-		
+
 		newGameDungeonSettings();
-		
+
 		btnUp.setEnabled(true);
 		btnLeft.setEnabled(true);
 		btnRight.setEnabled(true);

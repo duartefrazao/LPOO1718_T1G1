@@ -9,41 +9,58 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 
 public class MainMenu extends JPanel {
 
 	private StateMachine stateMachine;
+	private Dimension dimension = new Dimension(500, 500);
 	private JButton btnNewGame;
 	private JButton btnSettings;
 	private JButton btnExit;
-	private Dimension dimension = new Dimension(500, 500);
 
 	public MainMenu(StateMachine st) {
 
 		stateMachine = st;
+
 		this.initialize();
+
 		this.initializeButtons();
-		this.setPreferredSize(this.dimension);
-		this.setMinimumSize(dimension);
+
+		this.setPreferredSize(dimension);
+	}
+
+	public void initializeButtons() {
+		initNewGameButton();
+		initSettingsButton();
+		initExitButton();
 	}
 
 	public void initialize() {
-
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 119, 0, 116, 0 };
-		gridBagLayout.rowHeights = new int[] { 115, 0, 0, 0, 123, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.columnWidths = new int[] { 50, 0, 50, 0 };
+		gridBagLayout.rowHeights = new int[] { 50, 0, 0, 0, 50, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
+	}
 
+	public void initNewGameButton() {
 		btnNewGame = new JButton("New Game");
 		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
 		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewGame.gridx = 1;
 		gbc_btnNewGame.gridy = 1;
 		add(btnNewGame, gbc_btnNewGame);
+		btnNewGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				stateMachine.update(StateMachine.Event.startGame);
+			}
+
+		});
+	}
+
+	public void initSettingsButton() {
 
 		btnSettings = new JButton("Settings");
 		GridBagConstraints gbc_btnSettings = new GridBagConstraints();
@@ -52,30 +69,22 @@ public class MainMenu extends JPanel {
 		gbc_btnSettings.gridy = 2;
 		add(btnSettings, gbc_btnSettings);
 
+		btnSettings.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				stateMachine.update(StateMachine.Event.newGame);
+			}
+		});
+	}
+
+	public void initExitButton() {
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
 		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExit.gridx = 1;
 		gbc_btnExit.gridy = 3;
 		add(btnExit, gbc_btnExit);
-	}
 
-	public void initializeButtons() {
-		btnNewGame.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				stateMachine.update(StateMachine.Event.startGame);
-			}
-
-		});
-
-		btnSettings.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				stateMachine.update(StateMachine.Event.newGame);
-			}
-
-		});
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				stateMachine.update(StateMachine.Event.exitApp);
@@ -83,7 +92,4 @@ public class MainMenu extends JPanel {
 		});
 	}
 
-	public void initializeActions() {
-
-	}
 }

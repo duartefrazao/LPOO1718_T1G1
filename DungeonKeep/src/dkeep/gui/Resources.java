@@ -49,11 +49,11 @@ public class Resources {
 
 	public void resizeGUIWindow() {
 
-		Dimension newOne = new Dimension(getMapWidth() + 300, getMapHeigth() + 50);
+		Dimension newOne = new Dimension(getMapWidth() + 300, getMapHeigth());
 
-		windowFrame.setPreferredSize(newOne);
-		windowFrame.setMinimumSize(newOne);
-		windowFrame.setMaximumSize(newOne);
+		windowFrame.setSize(newOne);
+
+		windowFrame.pack();
 
 	}
 
@@ -61,33 +61,33 @@ public class Resources {
 
 		try {
 			setWall(ImageIO.read(new File("res/wall.jpg")));
-		
+
 			setFloor(ImageIO.read(new File("res/floor.jpg")));
-		
+
 			hero = ImageIO.read(new File("res/hero.jpg"));
-		
+
 			heroArmed = ImageIO.read(new File("res/heroArmed.jpg"));
-		
+
 			heroWeapon = ImageIO.read(new File("res/heroWeapon.jpg"));
-		
+
 			ogreWeapon = ImageIO.read(new File("res/ogreWeapon.jpg"));
-		
+
 			ogre = ImageIO.read(new File("res/ogre.jpg"));
-		
+
 			ogreStunned = ImageIO.read(new File("res/ogreStunned.jpg"));
-		
+
 			guard = ImageIO.read(new File("res/guard.jpg"));
-	
+
 			guardSleeping = ImageIO.read(new File("res/guardSleeping.jpg"));
-		
+
 			key = ImageIO.read(new File("res/key.jpg"));
-		
+
 			leverOn = ImageIO.read(new File("res/leverOn.jpg"));
-		
+
 			leverOff = ImageIO.read(new File("res/leverOff.jpg"));
-		
+
 			door = ImageIO.read(new File("res/door.jpg"));
-		
+
 			doorOpened = ImageIO.read(new File("res/doorOpened.jpg"));
 		} catch (IOException e) {
 			System.out.println("failed to open doorOpened image");

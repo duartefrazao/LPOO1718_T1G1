@@ -70,6 +70,8 @@ public class GUI {
 		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
 
 		frame.pack();
+
+		frame.setLocationRelativeTo(null);
 	}
 
 }
