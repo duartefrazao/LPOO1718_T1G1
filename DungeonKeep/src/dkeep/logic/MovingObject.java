@@ -1,7 +1,5 @@
 package dkeep.logic;
 
-import java.util.HashMap;
-
 /**
  * MovingObject.java - Base class for every moving object of the game
  * @author pedro
@@ -9,17 +7,7 @@ import java.util.HashMap;
  */
 public abstract class MovingObject {
 	
-	private static final  HashMap<MOVEMENT_TYPE,Pair> moves;
-	
-	 static
-	    {
-		 	moves = new HashMap<MOVEMENT_TYPE,Pair>();
-		 	moves.put(MOVEMENT_TYPE.DOWN,new Pair(1,0));
-		 	moves.put(MOVEMENT_TYPE.UP,new Pair(-1,0));
-		 	moves.put(MOVEMENT_TYPE.LEFT,new Pair(0,-1));
-		 	moves.put(MOVEMENT_TYPE.RIGHT,new Pair(0,1));
-		 	moves.put(MOVEMENT_TYPE.NONE,new Pair(0,0));
-	    }
+
 	
 	protected Pair position = new Pair(0,0);
 	

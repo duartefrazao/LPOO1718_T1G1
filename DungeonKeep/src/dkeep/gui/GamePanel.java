@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
-import dkeep.logic.MovingObject;
+import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.guards.*;
 import dkeep.logic.levels.InitialLevel;
@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		this.setPreferredSize(newOne);
 	}
 
-	public void processGame(MovingObject.MOVEMENT_TYPE move) {
+	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
@@ -104,7 +104,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnUp.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				processGame(MovingObject.MOVEMENT_TYPE.UP);
+				processGame(MOVEMENT_TYPE.UP);
 			}
 		});
 	}
@@ -120,7 +120,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnDown.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				processGame(MovingObject.MOVEMENT_TYPE.DOWN);
+				processGame(MOVEMENT_TYPE.DOWN);
 			}
 		});
 	}
@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnLeft.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				processGame(MovingObject.MOVEMENT_TYPE.LEFT);
+				processGame(MOVEMENT_TYPE.LEFT);
 			}
 		});
 	}
@@ -152,7 +152,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnRight.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				processGame(MovingObject.MOVEMENT_TYPE.RIGHT);
+				processGame(MOVEMENT_TYPE.RIGHT);
 			}
 		});
 	}
@@ -227,23 +227,23 @@ public class GamePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		MovingObject.MOVEMENT_TYPE move;
+		MOVEMENT_TYPE move;
 
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			move = MovingObject.MOVEMENT_TYPE.LEFT;
+			move = MOVEMENT_TYPE.LEFT;
 			break;
 		case KeyEvent.VK_RIGHT:
-			move = MovingObject.MOVEMENT_TYPE.RIGHT;
+			move = MOVEMENT_TYPE.RIGHT;
 			break;
 		case KeyEvent.VK_UP:
-			move = MovingObject.MOVEMENT_TYPE.UP;
+			move = MOVEMENT_TYPE.UP;
 			break;
 		case KeyEvent.VK_DOWN:
-			move = MovingObject.MOVEMENT_TYPE.DOWN;
+			move = MOVEMENT_TYPE.DOWN;
 			break;
 		default:
-			move = MovingObject.MOVEMENT_TYPE.RIGHT;
+			move = MOVEMENT_TYPE.RIGHT;
 			return;
 		}
 		processGame(move);

@@ -1,7 +1,7 @@
 package dkeep.logic.levels;
 
 import dkeep.logic.Hero;
-import dkeep.logic.MovingObject;
+import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Pair;
 import dkeep.logic.guards.*;
 
@@ -109,7 +109,7 @@ public class InitialLevel extends Level {
 		return mapToPrint;
 	}
 
-	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
+	public LEVEL_STATE updateLevel(MOVEMENT_TYPE move) {
 
 		hero.move(move, map);
 		guard.move(guard.getMove(), map);
