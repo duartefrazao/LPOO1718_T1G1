@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
+import java.awt.GridBagLayout; 
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 
@@ -27,7 +27,7 @@ import java.awt.Dimension;
 
 public class GamePanel extends JPanel implements KeyListener {
 
-	private Dungeon dungeon;
+	private Dungeon dungeon; 
 	private Hero hero;
 	private Resources resources;
 	private StateMachine stateMachine;
@@ -344,7 +344,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 
 	}
-
+ 
 	public void paintKey(Graphics g, int i, int j) {
 		g.drawImage(this.resources.getKey(), j * 78, i * 78, this);
 	}

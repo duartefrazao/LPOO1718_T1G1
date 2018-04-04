@@ -7,9 +7,10 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import dkeep.logic.Hero;
+import dkeep.logic.Hero; 
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
+import dkeep.logic.Pair;
 import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level.LEVEL_STATE;
 
@@ -38,7 +39,9 @@ public class TesteKeepLevelLogic {
 
 		testHero.move(MOVEMENT_TYPE.RIGHT, testMap);
 		testHero.move(MOVEMENT_TYPE.RIGHT, testMap);
-
+		/*testHero.move(MOVEMENT_TYPE.RIGHT, testMap);*/
+		
+		
 		assertTrue(testLevel.checkOgreCollision());
 
 	}
@@ -168,5 +171,29 @@ public class TesteKeepLevelLogic {
 		}
 
 	}
+	
+	@Test
+	public void testClassicMapCreation() {
+		Hero testHero = new Hero();
+		
+		KeepLevel testLevel = new KeepLevel(testHero);
+		
+		assertEquals(new Pair(7,1), testLevel.getHero().getPosition());
+		
+		assertEquals(new Pair(1,8), testLevel.getKey());
+		
+	}
 
+	@Test
+	public void testMapToPrint() {
+		
+		Hero testHero = new Hero();
+		
+		KeepLevel testLevel = new KeepLevel(testHero);
+		
+		char[][] testMap = testLevel.createMapToPrint();
+		
+		assertEquals('I', testMap[1][0]);
+		assertEquals('H', testMap[7][1]);
+	}
 }

@@ -181,7 +181,7 @@ public class TestDungeonGameLogic {
 
 		dG.move(MOVEMENT_TYPE.LEFT, map);
 		assertEquals(true, dG.getY() == gPos.getY());
-
+ 
 	}
 
 	@Test
@@ -220,7 +220,7 @@ public class TestDungeonGameLogic {
 		assertEquals(false, movs4.contains(wp.getMove(mapSword, hero.getPosition())));
 
 	}
-
+	
 	@Test
 	public void testDrunkenGuard() {
 
@@ -249,7 +249,7 @@ public class TestDungeonGameLogic {
 		int i = 0;
 		
 		while (guardMovs.size() <4 && ++i<200) {
-
+ 
 			MOVEMENT_TYPE guardMove = newG.getMove();
 
 			guardMovs.add(guardMove);
@@ -259,5 +259,103 @@ public class TestDungeonGameLogic {
 		
 		assertEquals(true, i< 200);
 	}
+	
+	
+	@Test
+	public void testHeroReset() {
+		Hero hero = new Hero();
+		InitialLevel testLevel = new InitialLevel(hero);
+		
+		assertEquals(new Pair(1,1), testLevel.getHero().getPosition());
+		
+		Hero newHero = new Hero();
+		newHero.setX(1);
+		newHero.setY(2);
+		testLevel.setHero(newHero);
+		
+		
+		assertEquals(new Pair(1,2), testLevel.getHero().getPosition());
+		
+		testLevel.resetElements();
+		
+		assertEquals(new Pair(1,1), testLevel.getHero().getPosition());
+	}
+	
+	@Test
+	public void testRookieGuard() {
+		char testMapGuard[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
+		boolean guardHasGoneEveryDirection = false;
+
+		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
+
+		Hero testHero = new Hero();
+		InitialLevel testLevel = new InitialLevel(testMapGuard, testHero);
+
+		RookieGuard newG = new RookieGuard(0,8);
+		
+		testLevel.setGuard(newG);
+		
+		int i = 0;
+		
+		while (guardMovs.size() <4 && ++i<200) {
+ 
+			MOVEMENT_TYPE guardMove = newG.getMove();
+
+			guardMovs.add(guardMove);
+
+			newG.move(guardMove, testMapGuard);
+		}
+		
+		assertEquals(true, i< 200);
+		
+	}
+	
+	@Test 
+	public void testSuspicousGuard() {
+		char testMapGuard[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', 'X', ' ', 'X' },
+				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+
+		boolean guardHasGoneEveryDirection = false;
+
+		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
+
+		Hero testHero = new Hero();
+		InitialLevel testLevel = new InitialLevel(testMapGuard, testHero);
+
+		SuspiciousGuard newG = new SuspiciousGuard(0,8);
+		
+		testLevel.setGuard(newG);
+		
+		int i = 0;
+		
+		while (guardMovs.size() <4 && ++i<200) {
+ 
+			MOVEMENT_TYPE guardMove = newG.getMove();
+
+			guardMovs.add(guardMove);
+
+			newG.move(guardMove, testMapGuard);
+		}
+		
+		assertEquals(true, i< 200);
+		
+	}
 }

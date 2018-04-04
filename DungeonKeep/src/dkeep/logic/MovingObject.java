@@ -36,7 +36,6 @@ public abstract class MovingObject {
 		position.setY(y);
 	}
 	
-	
 	/**
 	 * Retrieve the x position of the object
 	 * @return An integer representing the x position of the object
@@ -71,14 +70,14 @@ public abstract class MovingObject {
 		int y= position.getY();
 		
 		
-        if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I' && movement== MOVEMENT_TYPE.UP) {
+        if (movement== MOVEMENT_TYPE.UP && map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
             position.setX(--x); 
-        }else if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I'  && movement== MOVEMENT_TYPE.DOWN) {
+        }else if (movement== MOVEMENT_TYPE.DOWN && map[x + 1][y] != 'X' && map[x + 1][y] != 'I'  ) {
 	        position.setX(++x);
-        }else if(map[x][y - 1] != 'X' && map[x][y - 1] != 'I'  && movement== MOVEMENT_TYPE.LEFT) {
+        }else if( movement== MOVEMENT_TYPE.LEFT && map[x][y - 1] != 'X' && map[x][y - 1] != 'I' ) {
 	        position.setY(--y);
 	    }
-        else if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I'  && movement== MOVEMENT_TYPE.RIGHT) {
+        else if (movement== MOVEMENT_TYPE.RIGHT && map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
 	        position.setY(++y);
         }
 	}

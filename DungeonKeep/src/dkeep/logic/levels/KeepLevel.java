@@ -41,8 +41,8 @@ public class KeepLevel extends Level {
 
 		this.map = map;
 		this.heroWeapon = new Weapon();
-		this.setHordeSize(hordeSize);
-		findGameElements();
+		//this.setHordeSize(hordeSize);
+		findGameElementsOnlyInMap();
 		findPassageDoors();
 	}
 
@@ -64,6 +64,7 @@ public class KeepLevel extends Level {
 
 	public boolean checkOgreCollision() {
 
+		
 		for (int i = 0; i < this.hordeSize; i++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(i);
@@ -145,6 +146,36 @@ public class KeepLevel extends Level {
 		}
 	}
 
+	
+	public void findGameElementsOnlyInMap() {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+
+				switch (map[i][j]) {
+				case 'k':
+					Key.setX(i);
+					Key.setY(j);
+					break;
+				case 'O':
+					hordeSize++;
+					map[i][j] = ' ';
+
+					Ogre ogre = new Ogre(i, j);
+
+					MOVEMENT_TYPE clubMov = ogre.getClub().getMove(map, ogre.getPosition());
+
+					ogre.getClub().move(clubMov, map);
+
+					this.crazyHorde.add(ogre);
+					break;
+				case 'H':
+					setHeroPos(i,j);
+					break;
+
+				}
+			}
+		}
+	}
 	public void createMapToPrintHeroPart(char[][] mapToPrint) {
 
 		 int i,  j;
