@@ -19,8 +19,8 @@ public class TestDungeonLogic {
 	public void test() {
 		Hero hero = new Hero();
 
-		KeepLevel level2 = new KeepLevel(hero, 1);
-		InitialLevel level1 = new InitialLevel(hero);
+		KeepLevel level2 = new KeepLevel(1);
+		InitialLevel level1 = new InitialLevel();
 
 		Vector<Level> levels = new Vector<>();
 		levels.add(level1);

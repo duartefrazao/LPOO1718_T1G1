@@ -7,9 +7,9 @@ import dkeep.logic.guards.*;
 
 public class InitialLevel extends Level {
 
-	public InitialLevel(Hero globalHero) {
+	public InitialLevel() {
 
-		super(globalHero);
+		super();
 
 		char initialLevelMap[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
@@ -24,15 +24,53 @@ public class InitialLevel extends Level {
 
 		this.map = initialLevelMap;
 
+		initialMap = new char[initialLevelMap.length][];
+		
+		for (int i = 0; i < initialLevelMap.length; i++) {
+			char[] aMatrix = initialLevelMap[i];
+			int aLength = aMatrix.length;
+			initialMap[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
+		}
+
+
 		findGameElements();
 		findPassageDoors();
 	}
 
-	public InitialLevel(char[][] map, Hero globalHero) {
+	@Override
+	public void resetGameElements() {
 
-		super(globalHero);
+		map = new char[initialMap.length][0];
 
-		this.map = map;
+		map = new char[initialMap.length][];
+		for (int i = 0; i < initialMap.length; i++) {
+			char[] aMatrix = initialMap[i];
+			int aLength = aMatrix.length;
+			map[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, map[i], 0, aLength);
+		}
+
+		this.findGameElements();
+
+		this.findPassageDoors();
+
+	}
+
+	public InitialLevel(char[][] new_map) {
+
+		super();
+
+		this.map = new_map;
+
+
+		initialMap = new char[new_map.length][];
+		for (int i = 0; i < new_map.length; i++) {
+			char[] aMatrix = new_map[i];
+			int aLength = aMatrix.length;
+			initialMap[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
+		}
 
 		findGameElements();
 		findPassageDoors();
@@ -41,6 +79,8 @@ public class InitialLevel extends Level {
 	private boolean guardDefined = false;
 
 	private Guard guard;
+
+	private char[][] initialMap;
 
 	private Pair Lever = new Pair(0, 0);
 
@@ -61,6 +101,7 @@ public class InitialLevel extends Level {
 					guardDefined = true;
 					break;
 				case 'H':
+					this.hero = new Hero();
 					hero.setX(i);
 					hero.setY(j);
 					map[i][j] = ' ';
@@ -169,7 +210,8 @@ public class InitialLevel extends Level {
 	}
 
 	/**
-	 * @param lever the lever to set
+	 * @param lever
+	 *            the lever to set
 	 */
 	public void setLever(Pair lever) {
 		Lever = lever;

@@ -33,8 +33,10 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoFreeCell() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+		
+		InitialLevel testLevel = new InitialLevel(map);
+		
+		Hero hero = testLevel.getHero();
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
@@ -44,8 +46,11 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoWall() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+		
+		InitialLevel testLevel = new InitialLevel(map);
+		
+		Hero hero = testLevel.getHero();
+		
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.LEFT, map);
@@ -55,8 +60,11 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoAdjacentGuard() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+	
+		InitialLevel testLevel = new InitialLevel(map);
+		
+		Hero hero = testLevel.getHero();
+		
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.RIGHT, map);
@@ -68,8 +76,10 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoClosedDoor() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+	
+		InitialLevel testLevel = new InitialLevel(map);
+		
+		Hero hero = testLevel.getHero();
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
@@ -83,8 +93,9 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoLever() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+		
+		InitialLevel testLevel = new InitialLevel(map);
+		Hero hero = testLevel.getHero();
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
@@ -100,8 +111,9 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroMovementIntoOpenPassageDoor() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+		
+		InitialLevel testLevel = new InitialLevel(map);
+		Hero hero = testLevel.getHero();
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
@@ -117,16 +129,18 @@ public class TestDungeonGameLogic {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCreatedMap() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+	
+		InitialLevel testLevel = new InitialLevel(map);
+		Hero hero = testLevel.getHero();
 
 		assertEquals(cleanMap, testLevel.createMapToPrint());
 	}
 
 	@Test
 	public void testMove() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(map, hero);
+		
+		InitialLevel testLevel = new InitialLevel(map);
+		Hero hero = testLevel.getHero();
 
 		Pair hPos = new Pair(hero.getX(), hero.getY());
 
@@ -200,8 +214,10 @@ public class TestDungeonGameLogic {
 		HashSet<MOVEMENT_TYPE> movs4 = new HashSet<MOVEMENT_TYPE>();
 		movs2.add(MOVEMENT_TYPE.LEFT);
 
-		Hero hero = new Hero();
-		KeepLevel swordTestLevel = new KeepLevel(mapSword, hero);
+		
+		KeepLevel swordTestLevel = new KeepLevel(mapSword);
+		
+		Hero hero = swordTestLevel.getHero();
 
 		Weapon wp = new Weapon();
 
@@ -239,8 +255,10 @@ public class TestDungeonGameLogic {
 
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
-		Hero testHero = new Hero();
-		InitialLevel testLevel = new InitialLevel(testMapGuard, testHero);
+		
+		InitialLevel testLevel = new InitialLevel(testMapGuard);
+		
+		Hero hero = testLevel.getHero();
 
 		DrunkenGuard newG = new DrunkenGuard(0,8);
 		
@@ -263,8 +281,10 @@ public class TestDungeonGameLogic {
 	
 	@Test
 	public void testHeroReset() {
-		Hero hero = new Hero();
-		InitialLevel testLevel = new InitialLevel(hero);
+		
+		InitialLevel testLevel = new InitialLevel();
+		
+		Hero hero = testLevel.getHero();
 		
 		assertEquals(new Pair(1,1), testLevel.getHero().getPosition());
 		
@@ -298,8 +318,10 @@ public class TestDungeonGameLogic {
 
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
-		Hero testHero = new Hero();
-		InitialLevel testLevel = new InitialLevel(testMapGuard, testHero);
+		
+		InitialLevel testLevel = new InitialLevel(testMapGuard);
+		
+		Hero hero = testLevel.getHero();
 
 		RookieGuard newG = new RookieGuard(0,8);
 		
@@ -337,8 +359,10 @@ public class TestDungeonGameLogic {
 
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
-		Hero testHero = new Hero();
-		InitialLevel testLevel = new InitialLevel(testMapGuard, testHero);
+		
+		InitialLevel testLevel = new InitialLevel(testMapGuard);
+		
+		Hero hero = testLevel.getHero();
 
 		SuspiciousGuard newG = new SuspiciousGuard(0,8);
 		

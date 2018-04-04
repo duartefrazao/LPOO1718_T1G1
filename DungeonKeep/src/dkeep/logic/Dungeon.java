@@ -35,6 +35,14 @@ public class Dungeon {
 		levels.set(1, customLevel);
 
 	}
+	
+	public void resetCurrentLevel() {
+		this.currentLevel = 0;
+		
+
+		for(Level e : this.levels)
+			e.resetGameElements();
+	}
 
 	public Dungeon(Vector<Level> vLevels) {
 		this.levels = vLevels;

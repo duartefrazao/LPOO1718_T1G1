@@ -44,6 +44,7 @@ public class StateMachine {
 	public void update(Event event) {
 		switch (event) {
 		case startGame:
+			gamePanel.resetGame();
 			frame.setContentPane(gamePanel);
 			gamePanel.setFocusable(true);
 			gamePanel.requestFocusInWindow();
@@ -66,6 +67,7 @@ public class StateMachine {
 			gamePanel.newGame();
 			break;
 		case endGame:
+			gamePanel.resetGame();
 			state = State.mainMenu;
 			frame.setContentPane(mainMenu);
 			mainMenu.setFocusable(true);

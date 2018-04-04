@@ -12,12 +12,14 @@ import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level {
 
-	public KeepLevel(Hero globalHero) {
-		this(globalHero, ThreadLocalRandom.current().nextInt(1, 3 + 1));
+	public KeepLevel() {
+		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
 
-	public KeepLevel(Hero globalHero, int hordeSize) {
-		super(globalHero);
+	private char[][] initialMap;
+
+	public KeepLevel(int hordeSize) {
+		super();
 
 		char keepLevelMap[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 				{ 'I', ' ', ' ', ' ', 'O', ' ', ' ', ' ', 'k', 'X' },
@@ -32,18 +34,55 @@ public class KeepLevel extends Level {
 		this.map = keepLevelMap;
 		this.heroWeapon = new Weapon();
 		this.setHordeSize(hordeSize);
+
+		initialMap = new char[keepLevelMap.length][];
+
+		for (int i = 0; i < keepLevelMap.length; i++) {
+			char[] aMatrix = keepLevelMap[i];
+			int aLength = aMatrix.length;
+			initialMap[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
+		}
+
 		findGameElements();
 		findPassageDoors();
 	}
 
-	public KeepLevel(char[][] map, Hero globalHero) {
-		super(globalHero);
+	public KeepLevel(char[][] new_map) {
+		super();
 
-		this.map = map;
+		this.map = new_map;
 		this.heroWeapon = new Weapon();
-		//this.setHordeSize(hordeSize);
+
+		initialMap = new char[new_map.length][];
+		for (int i = 0; i < new_map.length; i++) {
+			char[] aMatrix = new_map[i];
+			int aLength = aMatrix.length;
+			initialMap[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
+		}
+
 		findGameElementsOnlyInMap();
 		findPassageDoors();
+	}
+
+	@Override
+	public void resetGameElements() {
+
+		map = new char[initialMap.length][0];
+
+		map = new char[initialMap.length][];
+		for (int i = 0; i < initialMap.length; i++) {
+			char[] aMatrix = initialMap[i];
+			int aLength = aMatrix.length;
+			map[i] = new char[aLength];
+			System.arraycopy(aMatrix, 0, map[i], 0, aLength);
+		}
+
+		this.findGameElementsOnlyInMap();
+
+		this.findPassageDoors();
+
 	}
 
 	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
@@ -64,7 +103,6 @@ public class KeepLevel extends Level {
 
 	public boolean checkOgreCollision() {
 
-		
 		for (int i = 0; i < this.hordeSize; i++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(i);
@@ -137,6 +175,7 @@ public class KeepLevel extends Level {
 					setOgrePos(i, j);
 					break;
 				case 'H':
+					this.hero = new Hero();
 					setHeroPos(i, j);
 					break;
 
@@ -146,7 +185,6 @@ public class KeepLevel extends Level {
 		}
 	}
 
-	
 	public void findGameElementsOnlyInMap() {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -169,13 +207,15 @@ public class KeepLevel extends Level {
 					this.crazyHorde.add(ogre);
 					break;
 				case 'H':
-					setHeroPos(i,j);
+					this.hero = new Hero();
+					setHeroPos(i, j);
 					break;
 
 				}
 			}
 		}
 	}
+
 	public void createMapToPrintHeroPart(char[][] mapToPrint) {
 
 		int i, j;

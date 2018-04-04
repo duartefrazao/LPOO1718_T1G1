@@ -214,10 +214,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	public void newGameDungeonSettings() {
-		hero = new Hero();
-
-		KeepLevel level2 = new KeepLevel(hero, numOgres);
-		InitialLevel level1 = new InitialLevel(hero);
+		KeepLevel level2 = new KeepLevel(numOgres);
+		InitialLevel level1 = new InitialLevel();
 
 		Vector<Level> levels = new Vector<>();
 		levels.add(level1);
@@ -236,6 +234,12 @@ public class GamePanel extends JPanel implements KeyListener {
 		}
 		dungeon = new Dungeon(levels);
 
+	}
+	
+	public void resetGame() {
+		
+		dungeon.resetCurrentLevel();
+		
 	}
 
 	public void newGame() {

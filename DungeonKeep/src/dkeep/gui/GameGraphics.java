@@ -62,10 +62,6 @@ public class GameGraphics extends JPanel {
 
 		updateImageSize();
 
-		System.out.println(this.imageHeight);
-		System.out.println(this.imageWidth);
-		System.out.println(this.getSize());
-
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 

@@ -3,6 +3,7 @@ package dkeep.gui;
 import javax.swing.*;
 
 import dkeep.logic.Dungeon;
+import dkeep.logic.Hero;
 import dkeep.logic.levels.KeepLevel;
 
 import java.awt.GridBagLayout;
@@ -192,7 +193,7 @@ public class MapCreator extends JPanel {
 					warning.pack();
 					warning.setVisible(true);
 				}else {
-					dungeon.substituteKeepLevel(new KeepLevel(map, dungeon.getHero()));
+					dungeon.substituteKeepLevel(new KeepLevel(map));
 					stateMachine.update(StateMachine.Event.startGame);
 				}
 			}

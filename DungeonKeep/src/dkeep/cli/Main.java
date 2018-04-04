@@ -15,8 +15,8 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		UI userInterface = new UI(s);
 
-		Level level2 = new KeepLevel( hero);
-		Level level1 = new InitialLevel( hero);
+		Level level2 = new KeepLevel();
+		Level level1 = new InitialLevel();
 		
 		Vector<Level> levels = new Vector<Level>();
 		levels.add(level1);

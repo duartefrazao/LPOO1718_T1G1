@@ -68,7 +68,9 @@ public abstract class Level {
 		}
 	}
 
-	protected abstract void findGameElements();
+	public abstract void resetGameElements();
+	
+	public abstract void findGameElements();
 	
 	public abstract char[][] createMapToPrint();
 	
@@ -89,9 +91,7 @@ public abstract class Level {
 
 	}
 
-	public Level(Hero globalHero) {
-		this.hero = globalHero;
-
+	public Level() {
 	}
 
 	public void resetElements() {
