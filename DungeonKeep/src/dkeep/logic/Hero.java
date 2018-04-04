@@ -7,6 +7,12 @@ public class Hero extends MovingObject {
 	private boolean hasKey = false;
 
 	private Weapon weapon;
+	
+	public void resetHero() {
+		this.Symbol = 'H';
+		this.hasKey = false;
+		this.weapon = null;
+	}
 
 	public boolean hasKey() {
 		return hasKey;

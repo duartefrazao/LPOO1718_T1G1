@@ -240,6 +240,20 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		dungeon.resetCurrentLevel();
 		
+		InitialLevel level1 = (InitialLevel) dungeon.getCurrentLevel();
+		
+		switch (guardPersonality) {
+		case Drunken:
+			level1.setGuard(new DrunkenGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+			break;
+		case Suspicious:
+			level1.setGuard(new SuspiciousGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+			break;
+		case Rookie:
+			level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
+			break;
+		}
+		
 	}
 
 	public void newGame() {

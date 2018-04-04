@@ -12,6 +12,8 @@ import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level {
 
+	private boolean isRandomlyGenerated;
+
 	public KeepLevel() {
 		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
@@ -34,6 +36,8 @@ public class KeepLevel extends Level {
 		this.map = keepLevelMap;
 		this.heroWeapon = new Weapon();
 		this.setHordeSize(hordeSize);
+
+		this.isRandomlyGenerated = true;
 
 		initialMap = new char[keepLevelMap.length][];
 
@@ -62,6 +66,8 @@ public class KeepLevel extends Level {
 			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
 		}
 
+		this.isRandomlyGenerated = false;
+
 		findGameElementsOnlyInMap();
 		findPassageDoors();
 	}
@@ -69,7 +75,9 @@ public class KeepLevel extends Level {
 	@Override
 	public void resetGameElements() {
 
-		map = new char[initialMap.length][0];
+		this.hero.resetHero();
+
+		this.crazyHorde.clear();
 
 		map = new char[initialMap.length][];
 		for (int i = 0; i < initialMap.length; i++) {
@@ -79,7 +87,10 @@ public class KeepLevel extends Level {
 			System.arraycopy(aMatrix, 0, map[i], 0, aLength);
 		}
 
-		this.findGameElementsOnlyInMap();
+		if (this.isRandomlyGenerated)
+			this.findGameElements();
+		else
+			this.findGameElementsOnlyInMap();
 
 		this.findPassageDoors();
 

@@ -44,7 +44,6 @@ public class StateMachine {
 	public void update(Event event) {
 		switch (event) {
 		case startGame:
-			gamePanel.resetGame();
 			frame.setContentPane(gamePanel);
 			gamePanel.setFocusable(true);
 			gamePanel.requestFocusInWindow();
@@ -64,7 +63,6 @@ public class StateMachine {
 			optionsPanel.setVisible(true);
 			frame.pack();
 			frame.setLocationRelativeTo(null);
-			gamePanel.newGame();
 			break;
 		case endGame:
 			gamePanel.resetGame();
@@ -77,7 +75,6 @@ public class StateMachine {
 			mainMenu.setVisible(true);
 			break;
 		case createMaze:
-			//gamePanel.newGame();
 			state = State.mapCreator;
 			frame.setContentPane(mapCreator);
 			mapCreator.setFocusable(true);
