@@ -34,8 +34,6 @@ public class Resources {
 	private BufferedImage door;
 	private BufferedImage doorOpened;
 
-	public final int IMAGE_SIZE = 78;
-
 	private char[][] map;
 
 	private JFrame windowFrame;
@@ -336,11 +334,11 @@ public class Resources {
 	}
 
 	public int getMapHeigth() {
-		return this.map.length * 78;
+		return this.map.length;
 	}
 
 	public int getMapWidth() {
-		return this.map[0].length * 78;
+		return this.map[0].length;
 	}
 
 }

@@ -15,11 +15,11 @@ public class GUI {
 
 	private StateMachine stateMachine;
 
-	// private StatusPanel statusP;
-
 	private Resources resources;
 
 	private MainMenu mainMenu;
+	
+	private MapCreator mapCreator;
 
 	/**
 	 * Launch the application.
@@ -64,10 +64,12 @@ public class GUI {
 		optionsPanel = new OptionsPanel(stateMachine);
 
 		mainMenu = new MainMenu(stateMachine);
+		
+		mapCreator = new MapCreator(stateMachine, resources);
 
 		frame.setContentPane(mainMenu);
 
-		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu);
+		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu, mapCreator);
 
 		frame.pack();
 

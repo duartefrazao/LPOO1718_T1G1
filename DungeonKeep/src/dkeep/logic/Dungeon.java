@@ -2,6 +2,7 @@ package dkeep.logic;
 
 import java.util.Vector;
 
+import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
 
 public class Dungeon {
@@ -21,9 +22,19 @@ public class Dungeon {
 		return this.levels.elementAt(currentLevel);
 
 	}
+	
+	public Hero getHero() {
+		return this.levels.elementAt(currentLevel).getHero();
+	}
 
 	private Vector<Level> levels;
 	private int currentLevel = 0;
+
+	public void substituteKeepLevel(KeepLevel customLevel) {
+
+		levels.set(1, customLevel);
+
+	}
 
 	public Dungeon(Vector<Level> vLevels) {
 		this.levels = vLevels;

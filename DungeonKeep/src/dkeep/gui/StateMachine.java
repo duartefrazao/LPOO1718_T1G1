@@ -14,13 +14,14 @@ public class StateMachine {
 	public Resources resources;
 	public State state;
 	private JFrame frame;
+	private MapCreator mapCreator;
 
 	public enum State {
 		mapCreator, game, options, mainMenu
 	}
 
 	public enum Event {
-		newGame, exitApp, startGame, endGame
+		newGame, exitApp, startGame, endGame, createMaze
 	}
 
 	// public
@@ -31,22 +32,24 @@ public class StateMachine {
 		state = State.options;
 	}
 
-	public void setPanels(OptionsPanel op, GamePanel gp, MainMenu mn) {
+	public void setPanels(OptionsPanel op, GamePanel gp, MainMenu mn, MapCreator mp) {
 		gamePanel = gp;
 		optionsPanel = op;
 		mainMenu = mn;
+		mapCreator = mp;
+		gamePanel.newGame();
+		mp.setDungeon(gamePanel.getDungeon());
 	}
 
 	public void update(Event event) {
 		switch (event) {
 		case startGame:
-			gamePanel.newGame();
 			frame.setContentPane(gamePanel);
-			gamePanel.setVisible(true);
 			gamePanel.setFocusable(true);
 			gamePanel.requestFocusInWindow();
 			frame.pack();
 			frame.setLocationRelativeTo(null);
+			gamePanel.setVisible(true);
 			state = State.game;
 			break;
 		case exitApp:
@@ -54,30 +57,41 @@ public class StateMachine {
 			break;
 		case newGame:
 			state = State.options;
-			optionsPanel.setSize(new Dimension(500, 500));
-			optionsPanel.setVisible(true);
 			optionsPanel.setFocusable(true);
-			frame.setContentPane(optionsPanel);
 			optionsPanel.requestFocusInWindow();
+			frame.setContentPane(optionsPanel);	
+			optionsPanel.setVisible(true);
 			frame.pack();
 			frame.setLocationRelativeTo(null);
+			gamePanel.newGame();
 			break;
 		case endGame:
 			state = State.mainMenu;
-			mainMenu.setVisible(true);
-			mainMenu.setFocusable(true);
 			frame.setContentPane(mainMenu);
+			mainMenu.setFocusable(true);
 			mainMenu.requestFocusInWindow();
 			frame.pack();
 			frame.setLocationRelativeTo(null);
+			mainMenu.setVisible(true);
 			break;
+		case createMaze:
+			//gamePanel.newGame();
+			state = State.mapCreator;
+			frame.setContentPane(mapCreator);
+			mapCreator.setFocusable(true);
+			mapCreator.requestFocusInWindow();
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			mapCreator.setVisible(true);
+			break;
+			
+
 		}
 	}
 
-	public void addOptions(Integer og, Object object, Integer mazeSize) {
+	public void addOptions(Integer og, Object object) {
 		gamePanel.setNumOgres(og);
 		gamePanel.setGuardPersonality((guardType) object);
-		gamePanel.setMazeSize(mazeSize);
 		gamePanel.newGame();
 	}
 }

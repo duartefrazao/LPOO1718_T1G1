@@ -17,6 +17,7 @@ public class MainMenu extends JPanel {
 	private JButton btnNewGame;
 	private JButton btnSettings;
 	private JButton btnExit;
+	private JButton btnCreateMaze;
 
 	public MainMenu(StateMachine st) {
 
@@ -27,20 +28,23 @@ public class MainMenu extends JPanel {
 		this.initializeButtons();
 
 		this.setPreferredSize(dimension);
+		this.setMinimumSize(dimension);
+		this.setMaximumSize(dimension);
 	}
 
 	public void initializeButtons() {
 		initNewGameButton();
 		initSettingsButton();
+		initCreateButton();
 		initExitButton();
 	}
 
 	public void initialize() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 50, 0, 50, 0 };
-		gridBagLayout.rowHeights = new int[] { 50, 0, 0, 0, 50, 0 };
+		gridBagLayout.rowHeights = new int[] { 50, 0, 0, 0, 0, 50, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 	}
 
@@ -78,11 +82,12 @@ public class MainMenu extends JPanel {
 	}
 
 	public void initExitButton() {
+
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
 		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExit.gridx = 1;
-		gbc_btnExit.gridy = 3;
+		gbc_btnExit.gridy = 4;
 		add(btnExit, gbc_btnExit);
 
 		btnExit.addActionListener(new ActionListener() {
@@ -90,6 +95,21 @@ public class MainMenu extends JPanel {
 				stateMachine.update(StateMachine.Event.exitApp);
 			}
 		});
+	}
+
+	public void initCreateButton() {
+		btnCreateMaze = new JButton("Create Maze");
+		btnCreateMaze.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stateMachine.update(StateMachine.Event.createMaze);
+			}
+		});
+		GridBagConstraints gbc_btnCreateMaze = new GridBagConstraints();
+		gbc_btnCreateMaze.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateMaze.gridx = 1;
+		gbc_btnCreateMaze.gridy = 3;
+		add(btnCreateMaze, gbc_btnCreateMaze);
+
 	}
 
 }

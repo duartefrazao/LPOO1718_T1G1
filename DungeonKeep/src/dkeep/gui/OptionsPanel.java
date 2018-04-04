@@ -1,7 +1,6 @@
 package dkeep.gui;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import dkeep.gui.GamePanel.guardType;
 
@@ -22,7 +21,6 @@ import javax.swing.JSlider;
 public class OptionsPanel extends JPanel {
 
 	private JComboBox<guardType> guardPersonality;
-	private JTextField mazeSize;
 	private JButton btnNewGame;
 	private StateMachine stateMachine;
 	private JSlider numOgres;
@@ -47,6 +45,9 @@ public class OptionsPanel extends JPanel {
 		setVisible(false);
 
 		this.setPreferredSize(new Dimension(500, 200));
+		this.setMinimumSize(new Dimension(500, 200));
+		this.setMaximumSize(new Dimension(500, 200));
+		//this.setSize(new Dimension(500, 200));
 
 		this.initMembers();
 
@@ -60,7 +61,6 @@ public class OptionsPanel extends JPanel {
 		initOgreLabel();
 		initPersonality();
 		initNewGameButton();
-		initMazeSize();
 	}
 
 	public void initPanel() {
@@ -147,31 +147,13 @@ public class OptionsPanel extends JPanel {
 		btnNewGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				stateMachine.addOptions(numOgres.getValue(), guardPersonality.getSelectedItem(),
-						Integer.valueOf(mazeSize.getText()));
+				stateMachine.addOptions(numOgres.getValue(), guardPersonality.getSelectedItem());
 				stateMachine.update(StateMachine.Event.startGame);
 			}
 
 		});
 	}
 
-	public void initMazeSize() {
-		JLabel lblNumberOfColums = new JLabel("Maze size");
-		GridBagConstraints gbc_lblNumberOfColums = new GridBagConstraints();
-		gbc_lblNumberOfColums.anchor = GridBagConstraints.EAST;
-		gbc_lblNumberOfColums.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfColums.gridx = 1;
-		gbc_lblNumberOfColums.gridy = 7;
-		panel.add(lblNumberOfColums, gbc_lblNumberOfColums);
 
-		mazeSize = new JTextField();
-		GridBagConstraints gbc_mazeSize = new GridBagConstraints();
-		gbc_mazeSize.insets = new Insets(0, 0, 5, 5);
-		gbc_mazeSize.fill = GridBagConstraints.HORIZONTAL;
-		gbc_mazeSize.gridx = 2;
-		gbc_mazeSize.gridy = 7;
-		panel.add(mazeSize, gbc_mazeSize);
-		mazeSize.setColumns(10);
-	}
 
 }

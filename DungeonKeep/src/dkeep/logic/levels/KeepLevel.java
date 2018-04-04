@@ -27,7 +27,7 @@ public class KeepLevel extends Level {
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, };
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		this.map = keepLevelMap;
 		this.heroWeapon = new Weapon();
@@ -84,7 +84,7 @@ public class KeepLevel extends Level {
 
 		return false;
 	}
-	
+
 	public void setOgrePos(int i, int j) {
 		map[i][j] = ' ';
 
@@ -110,7 +110,7 @@ public class KeepLevel extends Level {
 
 		}
 	}
-	
+
 	public void setHeroPos(int i, int j) {
 		hero.setX(i);
 		hero.setY(j);
@@ -134,10 +134,10 @@ public class KeepLevel extends Level {
 					Key.setY(j);
 					break;
 				case 'O':
-					setOgrePos(i,j);
+					setOgrePos(i, j);
 					break;
 				case 'H':
-					setHeroPos(i,j);
+					setHeroPos(i, j);
 					break;
 
 				}
@@ -178,7 +178,7 @@ public class KeepLevel extends Level {
 	}
 	public void createMapToPrintHeroPart(char[][] mapToPrint) {
 
-		 int i,  j;
+		int i, j;
 		// ---- hero ----
 		i = this.hero.getX();
 		j = this.hero.getY();
@@ -193,7 +193,7 @@ public class KeepLevel extends Level {
 			mapToPrint[i][j] = heroWeapon.getSymbol();
 		}
 	}
-	
+
 	public void createMapToPrintOgrePart(char[][] mapToPrint) {
 
 		int i, j;
@@ -220,7 +220,7 @@ public class KeepLevel extends Level {
 
 		}
 	}
-	
+
 	public char[][] createMapToPrint() {
 
 		char[][] mapToPrint = new char[map.length][];
@@ -231,8 +231,7 @@ public class KeepLevel extends Level {
 			mapToPrint[i] = new char[line_size];
 			System.arraycopy(line, 0, mapToPrint[i], 0, line_size);
 		}
-		
-		
+
 		createMapToPrintHeroPart(mapToPrint);
 
 		createMapToPrintOgrePart(mapToPrint);
@@ -240,7 +239,6 @@ public class KeepLevel extends Level {
 		return mapToPrint;
 	}
 
-	
 	public void ogreMovement() {
 		for (int i = 0; i < this.hordeSize; i++) {
 
@@ -253,7 +251,7 @@ public class KeepLevel extends Level {
 			tempOgre.getClub().move(clubMov, map);
 		}
 	}
-	
+
 	public void heroActions(int x, int y) {
 		if (x == Key.getX() && y == Key.getY()) {
 
@@ -272,45 +270,46 @@ public class KeepLevel extends Level {
 
 		}
 	}
-	
+
 	public void heroMovement(MOVEMENT_TYPE move, int x, int y) {
-		
+
 		if (hero.hasKey()) {
 
-		switch (move) {
-		case UP: {
-			x--;
-			break;
-		}
-		case DOWN: {
-			x++;
-			break;
-		}
-		case LEFT: {
-			y--;
-			break;
-		}
-		case RIGHT: {
-			y++;
-			break;
-		}
-		case NONE:
-			break;
-		}
+			switch (move) {
+			case UP: {
+				x--;
+				break;
+			}
+			case DOWN: {
+				x++;
+				break;
+			}
+			case LEFT: {
+				y--;
+				break;
+			}
+			case RIGHT: {
+				y++;
+				break;
+			}
+			case NONE:
+				break;
+			}
 
-		for (int i = 0; i < passageDoors.size(); i++) {
+			for (int i = 0; i < passageDoors.size(); i++) {
 
-			int a = passageDoors.elementAt(i).getX();
-			int b = passageDoors.elementAt(i).getY();
+				int a = passageDoors.elementAt(i).getX();
+				int b = passageDoors.elementAt(i).getY();
 
-			if (x == a && y == b)
-				map[a][b] = 'S';
+				if (x == a && y == b)
+					map[a][b] = 'S';
+
+			}
 
 		}
 
 	}
 
-	}
 	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
 
 		hero.move(move, map);
@@ -320,10 +319,10 @@ public class KeepLevel extends Level {
 		int x = hero.getX();
 		int y = hero.getY();
 
-		heroActions(x,y);
-		
+		heroActions(x, y);
+
 		heroMovement(move, x, y);
-		
+
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
 		else if (this.checkOgreCollision())
