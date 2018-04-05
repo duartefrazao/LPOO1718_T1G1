@@ -29,7 +29,7 @@ public class MapCreator extends JPanel {
 	private JButton btnOgres;
 	private Resources resources;
 	private JButton btnOk;
-
+ 
 	private JDialog warning;
 
 	private Integer mazeSize;
@@ -118,7 +118,6 @@ public class MapCreator extends JPanel {
 		setLayout(gridBagLayout);
 
 		gameArea = new CreatorGraphics(resources);
-		// gameArea = new JPanel();
 		gameArea.setBackground(SystemColor.info);
 		GridBagConstraints gbc_gameArea = new GridBagConstraints();
 		gbc_gameArea.anchor = GridBagConstraints.NORTHWEST;

@@ -18,10 +18,18 @@ public class Ogre extends MovingObject{
 
 	private Weapon club;
 
+	
+	/**
+	 * @return ogre club object
+	 */
 	public Weapon getClub() {
 		return club;
 	}
 
+	/**
+	 * Gets a new random ogre movement
+	 * @return ogre movement
+	 */
 	public MOVEMENT_TYPE getMove() {
 
 		int x = ThreadLocalRandom.current().nextInt(0, 3 + 1);

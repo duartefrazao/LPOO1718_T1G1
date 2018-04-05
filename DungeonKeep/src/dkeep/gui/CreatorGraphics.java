@@ -19,7 +19,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 
 	final private char WALL = 'X';
 	final private char OGRE = 'O';
-	final private char HERO = 'H';
+	final private char HERO = 'H' ;
 	final private char KEY = 'k';
 	final private char DOOR = 'I';
 	final private char FLOOR = ' ';
@@ -268,19 +268,17 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

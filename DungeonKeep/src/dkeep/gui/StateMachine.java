@@ -19,12 +19,11 @@ public class StateMachine {
 	public enum State {
 		mapCreator, game, options, mainMenu
 	}
-
+ 
 	public enum Event {
 		newGame, exitApp, startGame, endGame, createMaze
 	}
 
-	// public
 
 	StateMachine(Resources rs, JFrame frame) {
 		resources = rs;

@@ -79,7 +79,7 @@ public abstract class MovingObject implements Serializable{
 	 * nothing
 	 * 
 	 * @param movement
-	 *            - the given direction
+	 *            - the given direction 
 	 * @param map
 	 *            - the map in which the object will move
 	 */
@@ -97,7 +97,11 @@ public abstract class MovingObject implements Serializable{
 			position.setY(++y);
 		}
 	}  
-	
+	  
+	/**
+	 * Contrary of the selected movement
+	 * @return the contrary movement
+	 */
 	public MOVEMENT_TYPE contrary(MOVEMENT_TYPE move) {
 
 		MOVEMENT_TYPE contraryMove;

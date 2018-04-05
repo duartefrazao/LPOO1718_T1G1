@@ -20,7 +20,7 @@ public class GameGraphics extends JPanel {
 
 	private Dimension fixedDimension = new Dimension(700, 700);
 
-	private int imageWidth;
+	private int imageWidth;  
 	private int imageHeight;
 
 	public void updateImageSize() {
@@ -40,9 +40,6 @@ public class GameGraphics extends JPanel {
 
 	public void updateSize() {
 
-		// this.setPreferredSize(fixedDimension);
-		// this.setMinimumSize(fixedDimension);
-		// this.setMaximumSize(fixedDimension);
 		this.setSize(fixedDimension);
 	}
 

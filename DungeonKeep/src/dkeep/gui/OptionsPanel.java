@@ -31,7 +31,7 @@ public class OptionsPanel extends JPanel {
 		stateMachine = st;
 
 		this.initialize();
-	}
+	} 
 
 	public void initialize() {
 
@@ -47,7 +47,6 @@ public class OptionsPanel extends JPanel {
 		this.setPreferredSize(new Dimension(619, 221));
 		this.setMinimumSize(new Dimension(500, 200));
 		this.setMaximumSize(new Dimension(500, 200));
-		//this.setSize(new Dimension(500, 200));
 
 		this.initMembers();
 

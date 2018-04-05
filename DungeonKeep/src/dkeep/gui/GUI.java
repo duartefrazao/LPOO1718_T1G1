@@ -20,7 +20,7 @@ public class GUI {
 	private MainMenu mainMenu;
 	
 	private MapCreator mapCreator;
-
+  
 	/**
 	 * Launch the application.
 	 */

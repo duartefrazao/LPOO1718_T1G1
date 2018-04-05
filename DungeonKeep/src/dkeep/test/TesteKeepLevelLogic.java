@@ -187,7 +187,17 @@ public class TesteKeepLevelLogic {
 	
 	@Test
 	public void testValidWeaponSpawn() {
-		KeepLevel level2 = new KeepLevel(1);
+		char keepLevelMapNoOgres[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'k', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+		
+		KeepLevel level2 = new KeepLevel(keepLevelMapNoOgres);
 		InitialLevel level1 = new InitialLevel();
 
 		Vector<Level> levels = new Vector<>();
@@ -198,7 +208,7 @@ public class TesteKeepLevelLogic {
 		
 		dungeon.game(MOVEMENT_TYPE.DOWN);
 		
-		assertEquals(level1,dungeon.getCurrentLevel());
+		assertEquals(level1,dungeon.getCurrentLevel()); 
 		 
 		//Next to lever 
 		dungeon.getCurrentLevel().getHero().setX(8);
@@ -220,7 +230,9 @@ public class TesteKeepLevelLogic {
 		assertEquals(true, (dungeon.getCurrentLevel() instanceof KeepLevel));
 		
 		//Test spawn
-		assertEquals(true, dungeon.getKeepLevel().getHeroWeapon().getPosition().getX() == dungeon.getHero().getX() ||dungeon.getKeepLevel().getHeroWeapon().getPosition().getX() == dungeon.getHero().getX());
+		assertEquals(true, dungeon.getKeepLevel().getHeroWeapon().getPosition().getX() == dungeon.getHero().getX()
+				||dungeon.getKeepLevel().getHeroWeapon().getPosition().getY() == dungeon.getHero().getY());
+		
 		MOVEMENT_TYPE toSword = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getMove(dungeon.getMap(), dungeon.getHero().getPosition());
 		dungeon.game(dungeon.getHero().contrary(toSword));
 		

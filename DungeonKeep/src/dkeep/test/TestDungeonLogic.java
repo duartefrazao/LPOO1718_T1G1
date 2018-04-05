@@ -268,7 +268,7 @@ public class TestDungeonLogic {
 		GAME_STATE gs = dungeon.game(MOVEMENT_TYPE.LEFT);
 		assertEquals(GAME_STATE.PLAYING, gs);
 		assertEquals(true, (dungeon.getCurrentLevel() instanceof KeepLevel));
-		
+		  
 		//Get sword and test if it has it
 		MOVEMENT_TYPE toSword = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getMove(dungeon.getMap(), dungeon.getHero().getPosition());
 		dungeon.game(dungeon.getHero().contrary(toSword));

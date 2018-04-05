@@ -16,7 +16,7 @@ public class MainMenu extends JPanel {
 	private StateMachine stateMachine;
 	private Dimension dimension = new Dimension(500, 500);
 	private JButton btnNewGame;
-	private JButton btnSettings;
+	private JButton btnSettings; 
 	private JButton btnExit;
 	private JButton btnCreateMaze;
 	private Resources resources;

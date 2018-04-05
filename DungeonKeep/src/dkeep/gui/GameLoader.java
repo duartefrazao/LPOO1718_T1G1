@@ -18,7 +18,7 @@ public class GameLoader {
 			fout = new FileOutputStream("res/saved_games/" + filename, true);
 			oos = new ObjectOutputStream(fout);
 			oos.writeObject(dungeon);
-
+ 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

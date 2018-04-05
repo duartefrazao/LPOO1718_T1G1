@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private Resources resources;
 	private StateMachine stateMachine;
 	private guardType guardPersonality = guardType.Drunken;
-	private Integer numOgres = 3;
+	private Integer numOgres = 3; 
 	private JButton btnUp;
 	private JButton btnLeft;
 	private JButton btnRight;
@@ -131,7 +131,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void initializeGameArea() {
 
 		gameArea = new GameGraphics(resources);
-		// gameArea = new JPanel();
 		GridBagConstraints gbc_gameArea = new GridBagConstraints();
 		gbc_gameArea.fill = GridBagConstraints.NONE;
 		gbc_gameArea.gridheight = 8;

@@ -55,7 +55,7 @@ public class Resources {
 
 		windowFrame.pack();
 
-	}
+	} 
 
 	public void loadImages() {
 
