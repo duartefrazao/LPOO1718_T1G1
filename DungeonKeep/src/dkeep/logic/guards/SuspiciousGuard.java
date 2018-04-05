@@ -43,6 +43,10 @@ public class SuspiciousGuard extends Guard{
 		
 		return move;
 	}
+
+	public boolean getDirection() {
+		return positiveDirection;
+	}
 	
 
 

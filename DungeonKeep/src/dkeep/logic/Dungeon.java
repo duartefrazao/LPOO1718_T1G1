@@ -63,8 +63,6 @@ public class Dungeon implements Serializable{
 			}
 		case DEATH:
 			return GAME_STATE.GAME_OVER;
-		case NONE:
-			return GAME_STATE.PLAYING;
 		default:
 			return GAME_STATE.PLAYING;
 		}

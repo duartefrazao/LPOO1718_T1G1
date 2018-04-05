@@ -7,11 +7,15 @@ import java.util.Vector;
 
 import org.junit.Test;
 
+import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
+import dkeep.logic.Dungeon.GAME_STATE;
+import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;
+import dkeep.logic.levels.Level;
 import dkeep.logic.levels.Level.LEVEL_STATE;
 
 public class TesteKeepLevelLogic {
@@ -179,5 +183,49 @@ public class TesteKeepLevelLogic {
 
 		assertEquals('I', testMap[1][0]);
 		assertEquals('H', testMap[7][1]);
+	}
+	
+	@Test
+	public void testValidWeaponSpawn() {
+		KeepLevel level2 = new KeepLevel(1);
+		InitialLevel level1 = new InitialLevel();
+
+		Vector<Level> levels = new Vector<>();
+		levels.add(level1);
+		levels.add(level2);
+
+		Dungeon dungeon = new Dungeon(levels);
+		
+		dungeon.game(MOVEMENT_TYPE.DOWN);
+		
+		assertEquals(level1,dungeon.getCurrentLevel());
+		 
+		//Next to lever 
+		dungeon.getCurrentLevel().getHero().setX(8);
+		dungeon.getCurrentLevel().getHero().setY(8);
+		
+		assertEquals(8, dungeon.getCurrentLevel().getHero().getX());
+		
+		//Touch lever
+		dungeon.game(MOVEMENT_TYPE.LEFT);
+		assertEquals(false, ((InitialLevel) (dungeon.getCurrentLevel())).isLeverOff());
+		
+		//Take hero next to door
+		dungeon.getCurrentLevel().getHero().setX(5);
+		dungeon.getCurrentLevel().getHero().setY(1);
+		
+		//Pass to keep level
+		GAME_STATE gs = dungeon.game(MOVEMENT_TYPE.LEFT);
+		assertEquals(GAME_STATE.PLAYING, gs);
+		assertEquals(true, (dungeon.getCurrentLevel() instanceof KeepLevel));
+		
+		//Test spawn
+		assertEquals(true, dungeon.getKeepLevel().getHeroWeapon().getPosition().getX() == dungeon.getHero().getX() ||dungeon.getKeepLevel().getHeroWeapon().getPosition().getX() == dungeon.getHero().getX());
+		MOVEMENT_TYPE toSword = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getMove(dungeon.getMap(), dungeon.getHero().getPosition());
+		dungeon.game(dungeon.getHero().contrary(toSword));
+		
+		//Test if hero has sword and has a valid sword object
+		assertEquals(true, dungeon.getHero().isArmed());
+		assertNotEquals(null, dungeon.getHero().getWeapon());
 	}
 }

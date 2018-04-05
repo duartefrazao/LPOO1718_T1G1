@@ -80,7 +80,18 @@ public class TestDungeonLogic {
 	@Test
 	public void testVictory() {
 
-		KeepLevel level2 = new KeepLevel(1);
+		char keepLevelMapNoOgres[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
+				{ 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'k', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'H', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+
+		
+		KeepLevel level2 = new KeepLevel(keepLevelMapNoOgres);
 		InitialLevel level1 = new InitialLevel();
 
 		Vector<Level> levels = new Vector<>();
@@ -262,6 +273,7 @@ public class TestDungeonLogic {
 		MOVEMENT_TYPE toSword = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getMove(dungeon.getMap(), dungeon.getHero().getPosition());
 		dungeon.game(dungeon.getHero().contrary(toSword));
 		assertEquals(true, dungeon.getHero().isArmed());
+		
 		
 		
 		//Get to Ogre

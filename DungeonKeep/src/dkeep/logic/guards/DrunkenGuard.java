@@ -20,7 +20,10 @@ public class DrunkenGuard extends Guard {
 		super(x, y);
 	}
 
-	
+	public boolean getDirection() {
+		return positiveDirection;
+		
+	}
 
 	public void wokeUpHandler() {
 		if (wokeUp) {
