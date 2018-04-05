@@ -1,9 +1,15 @@
 package dkeep.logic.guards;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class DrunkenGuard extends Guard {
+public class DrunkenGuard extends Guard implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1593400630606381521L;
 
 	static private int roundsLeftSleeping = 0;
 

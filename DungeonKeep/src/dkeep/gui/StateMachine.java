@@ -15,13 +15,14 @@ public class StateMachine {
 	public State state;
 	private JFrame frame;
 	private MapCreator mapCreator;
+	private GameLoader gameLoader;
 
 	public enum State {
 		mapCreator, game, options, mainMenu
 	}
  
 	public enum Event {
-		newGame, exitApp, startGame, endGame, createMaze
+		newGame, exitApp, startGame, endGame, createMaze, loadGame
 	}
 
 
@@ -31,13 +32,15 @@ public class StateMachine {
 		state = State.options;
 	}
 
-	public void setPanels(OptionsPanel op, GamePanel gp, MainMenu mn, MapCreator mp) {
+	public void setPanels(OptionsPanel op, GamePanel gp, MainMenu mn, MapCreator mp, GameLoader gl) {
 		gamePanel = gp;
 		optionsPanel = op;
 		mainMenu = mn;
 		mapCreator = mp;
+		gameLoader = gl;
 		gamePanel.newGame();
 		mp.setDungeon(gamePanel.getDungeon());
+		gameLoader.setDungeon(gamePanel.getDungeon());
 	}
 
 	public void update(Event event) {
@@ -58,7 +61,7 @@ public class StateMachine {
 			state = State.options;
 			optionsPanel.setFocusable(true);
 			optionsPanel.requestFocusInWindow();
-			frame.setContentPane(optionsPanel);	
+			frame.setContentPane(optionsPanel);
 			optionsPanel.setVisible(true);
 			frame.pack();
 			frame.setLocationRelativeTo(null);
@@ -83,7 +86,14 @@ public class StateMachine {
 			frame.setLocationRelativeTo(null);
 			mapCreator.setVisible(true);
 			break;
-			
+		case loadGame:
+			frame.setContentPane(gameLoader);
+			gameLoader.setFocusable(true);
+			gameLoader.requestFocusInWindow();
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			gameLoader.setVisible(true);
+			break;
 
 		}
 	}

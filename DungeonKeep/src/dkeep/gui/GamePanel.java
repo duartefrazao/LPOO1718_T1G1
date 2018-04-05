@@ -69,14 +69,14 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
-			
+
 			this.textField.setText("YOU LOST! Press exit to try again!");
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
-			
+
 		} else {
 
 			this.updateText();
@@ -115,7 +115,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.resources = resources;
 		this.stateMachine = st;
-		this.gameLoader = new GameLoader();
 
 		addKeyListener(this);
 
@@ -260,14 +259,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				stateMachine.update(StateMachine.Event.endGame);
-				
-				try {
-					gameLoader.SaveGame(dungeon, "123");
-				} catch (IOException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-					System.exit(1);
-				}
+
 			}
 		});
 

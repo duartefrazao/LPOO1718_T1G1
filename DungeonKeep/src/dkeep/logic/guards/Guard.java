@@ -7,7 +7,12 @@ import dkeep.logic.MovingObject;
 public abstract class Guard extends MovingObject implements Serializable{
 	
 	
-    protected char Symbol = 'G';
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8052894892352592636L;
+
+	protected char Symbol = 'G';
 
     public char getSymbol(){ return this.Symbol;};
 

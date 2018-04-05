@@ -1,7 +1,15 @@
 package dkeep.logic.guards;
 
+import java.io.Serializable;
 
-public class RookieGuard extends Guard {
+import dkeep.logic.MovingObject;
+
+public class RookieGuard extends Guard implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5253836972117491759L;
 
 	public RookieGuard(int x, int y) {
 		super(x, y);

@@ -11,10 +11,11 @@ import dkeep.logic.Pair;
 
 public abstract class Level implements Serializable{
 
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8341778413317578800L;
 
 	public enum LEVEL_STATE {
 		PASSED_LEVEL, DEATH, NONE

@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 public class Hero extends MovingObject implements Serializable {
 
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7517163043808963297L;
 
 	private char Symbol = 'H';
 
