@@ -1,15 +1,11 @@
 package dkeep.gui;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.HashMap;
 
 import javax.swing.JPanel;
-
-import dkeep.logic.levels.InitialLevel;
 
 public class CreatorGraphics extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -22,7 +18,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 	final private char HERO = 'H' ;
 	final private char KEY = 'k';
 	final private char DOOR = 'I';
-	final private char FLOOR = ' ';
+	//final private char FLOOR = ' ';
 
 	private boolean isMazePossible = false;
 
@@ -87,11 +83,44 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		isMazePossible = false;
 
 		findHeroPos();
+		
+		mazeSearch(x_hero, y_hero);
+		
+		if(!isMazePossible)
+			return false;
+		else
+			isMazePossible = false;
 
 		mazeSearch(x_hero, y_hero);
 
 		return isMazePossible;
 
+	}
+	
+	public void mazeSearchKey(int x, int y) {
+		if (y < 0 || y > map.length || x < 0 || x > map[y].length)
+			return;
+
+		if (isMazePossible)
+			return;
+
+		if (visited[y][x])
+			return;
+		else
+			visited[y][x] = true;
+
+		if (map[y][x] == KEY) {
+			isMazePossible = true;
+			return;
+		}
+
+		if (map[y][x] == WALL)
+			return;
+
+		mazeSearch(x + 1, y);
+		mazeSearch(x - 1, y);
+		mazeSearch(x, y + 1);
+		mazeSearch(x, y - 1);
 	}
 
 	public void mazeSearch(int x, int y) {

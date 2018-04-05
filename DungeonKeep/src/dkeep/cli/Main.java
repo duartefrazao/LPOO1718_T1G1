@@ -11,7 +11,6 @@ public class Main {
 	
 	public static void main(String args[]) {
 		
-		Hero hero = new Hero();
 		Scanner s = new Scanner(System.in);
 		UI userInterface = new UI(s);
 

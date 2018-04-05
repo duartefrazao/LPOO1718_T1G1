@@ -14,7 +14,6 @@ import dkeep.logic.Dungeon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -37,6 +36,7 @@ public class GameLoader extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JTextField txtLoader;
+	private JButton btnBack;
 
 	public GameLoader(StateMachine stateMachine) {
 		this.stateMachine = stateMachine;
@@ -108,7 +108,6 @@ public class GameLoader extends JPanel {
 				try {
 					dungeon = loadGame(option);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					System.exit(1);
 				}
@@ -117,6 +116,19 @@ public class GameLoader extends JPanel {
 
 			}
 		});
+		{
+			btnBack = new JButton("Back");
+			btnBack.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					stateMachine.update(StateMachine.Event.back);
+				}
+			});
+			GridBagConstraints gbc_btnBack = new GridBagConstraints();
+			gbc_btnBack.insets = new Insets(0, 0, 0, 5);
+			gbc_btnBack.gridx = 1;
+			gbc_btnBack.gridy = 2;
+			add(btnBack, gbc_btnBack);
+		}
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 2;
@@ -154,6 +166,7 @@ public class GameLoader extends JPanel {
 			streamIn = new FileInputStream("res/saved_games/" + filename);
 			objectinputstream = new ObjectInputStream(streamIn);
 			dungeon = (Dungeon) objectinputstream.readObject();
+			this.stateMachine.gamePanel.setDungeon(dungeon);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);

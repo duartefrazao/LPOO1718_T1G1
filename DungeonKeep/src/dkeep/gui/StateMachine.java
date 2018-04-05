@@ -1,7 +1,5 @@
 package dkeep.gui;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 
 import dkeep.gui.GamePanel.guardType;
@@ -22,7 +20,7 @@ public class StateMachine {
 	}
  
 	public enum Event {
-		newGame, exitApp, startGame, endGame, createMaze, loadGame
+		newGame, exitApp, startGame, endGame, createMaze, loadGame, back
 	}
 
 
@@ -87,12 +85,23 @@ public class StateMachine {
 			mapCreator.setVisible(true);
 			break;
 		case loadGame:
+			gameLoader.addFilesOptions();
 			frame.setContentPane(gameLoader);
 			gameLoader.setFocusable(true);
 			gameLoader.requestFocusInWindow();
 			frame.pack();
 			frame.setLocationRelativeTo(null);
 			gameLoader.setVisible(true);
+			break;
+		case back:
+			state = State.mainMenu;
+			mainMenu.repaint();
+			frame.setContentPane(mainMenu);
+			mainMenu.setFocusable(true);
+			mainMenu.requestFocusInWindow();
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			mainMenu.setVisible(true);
 			break;
 
 		}

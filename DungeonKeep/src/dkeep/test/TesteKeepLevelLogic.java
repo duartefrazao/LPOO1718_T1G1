@@ -8,7 +8,6 @@ import java.util.Vector;
 import org.junit.Test;
 
 import dkeep.logic.Dungeon;
-import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
