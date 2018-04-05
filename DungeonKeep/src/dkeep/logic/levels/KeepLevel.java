@@ -22,7 +22,7 @@ public class KeepLevel extends Level implements Serializable {
 	public KeepLevel() {
 		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
- 
+
 	private char[][] initialMap;
 
 	public KeepLevel(int hordeSize) {
@@ -191,6 +191,17 @@ public class KeepLevel extends Level implements Serializable {
 	}
 
 	public void findGameElements() {
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				if (map[i][j] == 'H') {
+					this.hero = new Hero();
+					setHeroPos(i, j);
+					break;
+				}
+			}
+		}
+
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 
@@ -202,10 +213,6 @@ public class KeepLevel extends Level implements Serializable {
 				case 'O':
 					setOgrePos(i, j);
 					break;
-				case 'H':
-					this.hero = new Hero();
-					setHeroPos(i, j);
-					break;
 
 				}
 			}
@@ -214,6 +221,16 @@ public class KeepLevel extends Level implements Serializable {
 	}
 
 	public void findGameElementsOnlyInMap() {
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				if (map[i][j] == 'H') {
+					this.hero = new Hero();
+					setHeroPos(i, j);
+					break;
+				}
+			}
+		}
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 
@@ -233,10 +250,6 @@ public class KeepLevel extends Level implements Serializable {
 					ogre.getClub().move(clubMov, map);
 
 					this.crazyHorde.add(ogre);
-					break;
-				case 'H':
-					this.hero = new Hero();
-					setHeroPos(i, j);
 					break;
 
 				}
@@ -265,7 +278,7 @@ public class KeepLevel extends Level implements Serializable {
 	public void createMapToPrintOgrePart(char[][] mapToPrint) {
 
 		int i, j;
-		
+
 		for (int k = 0; k < this.hordeSize; k++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(k);

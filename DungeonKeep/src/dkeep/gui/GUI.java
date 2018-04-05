@@ -56,15 +56,13 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources(frame);
-		
-		
 
 		stateMachine = new StateMachine(resources, frame);
-
-		gamePanel = new GamePanel(this.resources, stateMachine);
 		
 		gameLoader = new GameLoader(stateMachine);
 
+		gamePanel = new GamePanel(this.resources, stateMachine, gameLoader);
+		
 		optionsPanel = new OptionsPanel(stateMachine);
 
 		mainMenu = new MainMenu(stateMachine, resources);

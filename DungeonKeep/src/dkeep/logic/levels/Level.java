@@ -41,7 +41,7 @@ public abstract class Level implements Serializable{
 			int x = ThreadLocalRandom.current().nextInt(0, map.length - 2);
 			int y = ThreadLocalRandom.current().nextInt(0, map[x].length - 2);
 
-			if (this.map[x][y] == ' ') {
+			if (this.map[x][y] == ' ' && Math.abs(x - this.hero.getX()) > 2 && Math.abs(y - this.hero.getY()) > 2) {
 
 				foundIt = true;
 

@@ -2,23 +2,18 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Vector;
 
 import org.junit.Test;
 
-import dkeep.cli.UI;
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
 import dkeep.logic.Weapon;
-import dkeep.logic.Dungeon.GAME_STATE;
 import dkeep.logic.guards.DrunkenGuard;
-import dkeep.logic.guards.Guard;
 import dkeep.logic.guards.RookieGuard;
 import dkeep.logic.guards.SuspiciousGuard;
 import dkeep.logic.levels.*;
@@ -132,7 +127,6 @@ public class TestInitialLevelLogic {
 	public void testCreatedMap() {
 
 		InitialLevel testLevel = new InitialLevel(map);
-		Hero hero = testLevel.getHero();
 
 		assertEquals(cleanMap, testLevel.createMapToPrint());
 	}
@@ -251,13 +245,11 @@ public class TestInitialLevelLogic {
 				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-		boolean guardHasGoneEveryDirection = false;
-
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
 		InitialLevel testLevel = new InitialLevel(testMapGuard);
 
-		Hero hero = testLevel.getHero();
+		
 
 		DrunkenGuard newG = new DrunkenGuard(0, 8);
 
@@ -281,8 +273,6 @@ public class TestInitialLevelLogic {
 	public void testHeroReset() {
 
 		InitialLevel testLevel = new InitialLevel();
-
-		Hero hero = testLevel.getHero();
 
 		assertEquals(new Pair(1, 1), testLevel.getHero().getPosition());
 
@@ -311,13 +301,10 @@ public class TestInitialLevelLogic {
 				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-		boolean guardHasGoneEveryDirection = false;
 
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
 		InitialLevel testLevel = new InitialLevel(testMapGuard);
-
-		Hero hero = testLevel.getHero();
 
 		RookieGuard newG = new RookieGuard(0, 8);
 
@@ -352,13 +339,10 @@ public class TestInitialLevelLogic {
 				{ 'X', ' ', 'I', ' ', 'I', ' ', 'X', 'k', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
-		boolean guardHasGoneEveryDirection = false;
 
 		HashSet<MOVEMENT_TYPE> guardMovs = new HashSet<>();
 
 		InitialLevel testLevel = new InitialLevel(testMapGuard);
-
-		Hero hero = testLevel.getHero();
 
 		SuspiciousGuard newG = new SuspiciousGuard(0, 8);
 

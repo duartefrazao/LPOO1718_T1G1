@@ -8,9 +8,7 @@ import org.junit.Test;
 
 import dkeep.logic.Dungeon;
 import dkeep.logic.Dungeon.GAME_STATE;
-import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
-import dkeep.logic.Ogre;
 import dkeep.logic.guards.*;
 import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;

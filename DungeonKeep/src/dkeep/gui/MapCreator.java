@@ -3,7 +3,6 @@ package dkeep.gui;
 import javax.swing.*;
 
 import dkeep.logic.Dungeon;
-import dkeep.logic.Hero;
 import dkeep.logic.levels.KeepLevel;
 
 import java.awt.GridBagLayout;
@@ -13,8 +12,6 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class MapCreator extends JPanel {
@@ -44,6 +41,7 @@ public class MapCreator extends JPanel {
 	private CreatorGraphics gameArea;
 
 	private StateMachine stateMachine;
+	private JButton btnBack;
 
 	public MapCreator(StateMachine st, Resources resources) {
 
@@ -139,6 +137,7 @@ public class MapCreator extends JPanel {
 		this.initBtnOK();
 		this.initTxtMazeSize();
 		this.initBtnClear();
+		this.initBackDoor();
 	}
 
 	public void initBtnHero() {
@@ -166,7 +165,7 @@ public class MapCreator extends JPanel {
 		GridBagConstraints gbc_btnCreateMaze = new GridBagConstraints();
 		gbc_btnCreateMaze.fill = GridBagConstraints.VERTICAL;
 		gbc_btnCreateMaze.gridwidth = 6;
-		gbc_btnCreateMaze.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCreateMaze.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCreateMaze.gridx = 0;
 		gbc_btnCreateMaze.gridy = 0;
 		add(btnCreateMaze, gbc_btnCreateMaze);
@@ -184,7 +183,7 @@ public class MapCreator extends JPanel {
 					warning = new JDialog(null, "Impossible Maze", ModalityType.APPLICATION_MODAL);
 					warning.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					JLabel label = new JLabel("Current Maze is impossible to solve.");
-					warning.add(label);
+					warning.getContentPane().add(label);
 					warning.setLocationRelativeTo(null);
 					label.setPreferredSize(new Dimension(300, 100));
 					warning.setPreferredSize(new Dimension(300, 200));
@@ -208,6 +207,7 @@ public class MapCreator extends JPanel {
 		});
 		btnClearCell.setEnabled(false);
 		GridBagConstraints gbc_btnClearCell = new GridBagConstraints();
+		gbc_btnClearCell.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnClearCell.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClearCell.gridx = 4;
 		gbc_btnClearCell.gridy = 6;
@@ -236,6 +236,7 @@ public class MapCreator extends JPanel {
 		btnOk = new JButton("OK!");
 
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
+		gbc_btnOk.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOk.insets = new Insets(0, 0, 5, 5);
 		gbc_btnOk.gridx = 4;
 		gbc_btnOk.gridy = 2;
@@ -280,6 +281,24 @@ public class MapCreator extends JPanel {
 		add(btnWalls, gbc_btnWalls);
 	}
 
+	public void initBackDoor() {
+
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stateMachine.update(StateMachine.Event.back);
+			}
+		});
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnBack.gridwidth = 2;
+		gbc_btnBack.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBack.gridx = 3;
+		gbc_btnBack.gridy = 3;
+		add(btnBack, gbc_btnBack);
+
+	}
+
 	public void initBtnDoor() {
 
 		btnExitDoor = new JButton("Exit Door");
@@ -291,6 +310,7 @@ public class MapCreator extends JPanel {
 
 		btnExitDoor.setEnabled(false);
 		GridBagConstraints gbc_btnExitDoor = new GridBagConstraints();
+		gbc_btnExitDoor.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnExitDoor.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExitDoor.gridx = 4;
 		gbc_btnExitDoor.gridy = 4;
@@ -324,6 +344,7 @@ public class MapCreator extends JPanel {
 		});
 		btnOgres.setEnabled(false);
 		GridBagConstraints gbc_btnOgres = new GridBagConstraints();
+		gbc_btnOgres.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnOgres.insets = new Insets(0, 0, 5, 5);
 		gbc_btnOgres.gridx = 4;
 		gbc_btnOgres.gridy = 5;

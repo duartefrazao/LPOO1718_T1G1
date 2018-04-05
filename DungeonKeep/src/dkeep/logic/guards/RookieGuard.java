@@ -2,8 +2,6 @@ package dkeep.logic.guards;
 
 import java.io.Serializable;
 
-import dkeep.logic.MovingObject;
-
 public class RookieGuard extends Guard implements Serializable{
 
 	/**

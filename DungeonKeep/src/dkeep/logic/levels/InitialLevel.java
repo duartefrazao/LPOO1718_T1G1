@@ -9,7 +9,6 @@ import dkeep.logic.guards.*;
 
 public class InitialLevel extends Level implements Serializable {
 
-
 	/**
 	 * 
 	 */
@@ -33,7 +32,7 @@ public class InitialLevel extends Level implements Serializable {
 		this.map = initialLevelMap;
 
 		initialMap = new char[initialLevelMap.length][];
-		
+
 		for (int i = 0; i < initialLevelMap.length; i++) {
 			char[] aMatrix = initialLevelMap[i];
 			int aLength = aMatrix.length;
@@ -41,15 +40,12 @@ public class InitialLevel extends Level implements Serializable {
 			System.arraycopy(aMatrix, 0, initialMap[i], 0, aLength);
 		}
 
-
 		findGameElements();
 		findPassageDoors();
 	}
 
-	@Override 
+	@Override
 	public void resetGameElements() {
-		
-		
 
 		map = new char[initialMap.length][0];
 
@@ -64,7 +60,7 @@ public class InitialLevel extends Level implements Serializable {
 		this.findGameElements();
 
 		this.findPassageDoors();
-		
+
 		this.leverOff = true;
 
 	}
@@ -74,7 +70,6 @@ public class InitialLevel extends Level implements Serializable {
 		super();
 
 		this.map = new_map;
-
 
 		initialMap = new char[new_map.length][];
 		for (int i = 0; i < new_map.length; i++) {
@@ -99,6 +94,21 @@ public class InitialLevel extends Level implements Serializable {
 	private boolean leverOff = true;
 
 	public void findGameElements() {
+
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				if (map[i][j] == 'H') {
+					this.hero = new Hero();
+					hero.setX(i);
+					hero.setY(j);
+					map[i][j] = ' ';
+					heroOriginalPos.setX(i);
+					heroOriginalPos.setY(j);
+					break;
+				}
+			}
+		}
+
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 
@@ -111,14 +121,6 @@ public class InitialLevel extends Level implements Serializable {
 					guard = new DrunkenGuard(i, j);
 					map[i][j] = ' ';
 					guardDefined = true;
-					break;
-				case 'H':
-					this.hero = new Hero();
-					hero.setX(i);
-					hero.setY(j);
-					map[i][j] = ' ';
-					heroOriginalPos.setX(i);
-					heroOriginalPos.setY(j);
 					break;
 
 				}
@@ -149,7 +151,6 @@ public class InitialLevel extends Level implements Serializable {
 
 		mapToPrint[i][j] = this.hero.getSymbol();
 
-
 		if (guardDefined) {
 			i = this.guard.getX();
 			j = this.guard.getY();
@@ -170,7 +171,7 @@ public class InitialLevel extends Level implements Serializable {
 
 		if (this.leverOff && x == Lever.getX() && y == Lever.getY()) {
 
-			this.leverOff = false;  
+			this.leverOff = false;
 
 			for (int i = 0; i < this.passageDoors.size(); i++) {
 				int door_x = passageDoors.elementAt(i).getX();

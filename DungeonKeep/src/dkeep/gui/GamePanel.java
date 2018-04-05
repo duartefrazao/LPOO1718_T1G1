@@ -1,7 +1,7 @@
 package dkeep.gui;
 
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
-import dkeep.logic.Ogre;
 import dkeep.logic.guards.*;
 import dkeep.logic.levels.InitialLevel;
 import dkeep.logic.levels.KeepLevel;
@@ -25,9 +24,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
-import java.awt.Color;
 
 public class GamePanel extends JPanel implements KeyListener {
 
@@ -45,6 +44,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private GameGraphics gameArea;
 	private JTextField textField;
 	private GameLoader gameLoader;
+	private JButton saveGame;
 
 	private Dimension fixedDimension = new Dimension(740 + 300, 740);
 
@@ -111,10 +111,11 @@ public class GamePanel extends JPanel implements KeyListener {
 	/**
 	 * Create the panel.
 	 */
-	public GamePanel(Resources resources, StateMachine st) {
+	public GamePanel(Resources resources, StateMachine st, GameLoader gameLoader) {
 
 		this.resources = resources;
 		this.stateMachine = st;
+		this.gameLoader = gameLoader;
 
 		addKeyListener(this);
 
@@ -165,6 +166,33 @@ public class GamePanel extends JPanel implements KeyListener {
 		leftButInit();
 		exitButInit();
 		initTextArea();
+		initSaveButton();
+
+	}
+
+	public void initSaveButton() {
+		saveGame = new JButton("Save Game");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 3;
+		gbc_btnNewButton.gridy = 6;
+		add(saveGame, gbc_btnNewButton);
+
+		saveGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String filename = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+				try {
+					gameLoader.SaveGame(dungeon, filename);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					System.exit(1);
+				}
+				
+				requestFocusInWindow();
+			}
+			
+		});
 
 	}
 
@@ -454,6 +482,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	 */
 	public void setDungeon(Dungeon dungeon) {
 		this.dungeon = dungeon;
+		this.gameArea.setDungeon(dungeon);
 	}
 
 	/**
