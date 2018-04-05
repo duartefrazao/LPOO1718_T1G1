@@ -49,7 +49,7 @@ public class TestDungeonGameLogic {
 		
 		InitialLevel testLevel = new InitialLevel(map);
 		
-		Hero hero = testLevel.getHero();
+		Hero hero = testLevel.getHero(); 
 		
 		assertEquals(new Pair(1, 1), hero.getPosition());
 
@@ -344,6 +344,7 @@ public class TestDungeonGameLogic {
 	
 	@Test 
 	public void testSuspicousGuard() {
+		
 		char testMapGuard[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
 				{ 'X', 'H', ' ', ' ', 'I', ' ', 'X', ' ', 'G', 'X' },
 				{ 'X', 'X', 'X', ' ', 'X', 'X', 'X', ' ', ' ', 'X' },
@@ -368,7 +369,7 @@ public class TestDungeonGameLogic {
 		
 		testLevel.setGuard(newG);
 		
-		int i = 0;
+		int i = 0; 
 		
 		while (guardMovs.size() <4 && ++i<200) {
  
@@ -382,4 +383,6 @@ public class TestDungeonGameLogic {
 		assertEquals(true, i< 200);
 		
 	}
+	
+	
 }

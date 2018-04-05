@@ -119,6 +119,10 @@ public abstract class Level implements Serializable{
 	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
+
+	public char[][] getMap() {
+		return this.map;
+	}
 	
 
 }

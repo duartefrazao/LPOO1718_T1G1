@@ -12,7 +12,7 @@ public class SuspiciousGuard extends Guard{
 		super(x, y);
 	}
 
-	@Override
+	@Override 
 	public MOVEMENT_TYPE getMove() {
 		
 		MovingObject.MOVEMENT_TYPE move;

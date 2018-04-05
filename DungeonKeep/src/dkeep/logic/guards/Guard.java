@@ -38,30 +38,7 @@ public abstract class Guard extends MovingObject implements Serializable{
             guardMovement.add(MovingObject.MOVEMENT_TYPE.UP);
     }
     
-    protected MovingObject.MOVEMENT_TYPE contrary(MovingObject.MOVEMENT_TYPE move) {
-    	
-    	MovingObject.MOVEMENT_TYPE contraryMove;
-    	
-    	switch (move)
-    	{
-    		case UP:
-    			contraryMove=MovingObject.MOVEMENT_TYPE.DOWN;
-    			break;
-    		case DOWN:
-    			contraryMove=MovingObject.MOVEMENT_TYPE.UP;
-    			break;
-    		case RIGHT:
-    			contraryMove=MovingObject.MOVEMENT_TYPE.LEFT;
-    			break;
-    		case LEFT:
-    			contraryMove=MovingObject.MOVEMENT_TYPE.RIGHT;
-    			break;
-    		default:
-    			contraryMove=MovingObject.MOVEMENT_TYPE.NONE;
-    	}
-    	
-    	return contraryMove;
-    }
+  
 
     public Guard(int x, int y)
     {
