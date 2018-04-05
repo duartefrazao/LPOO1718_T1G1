@@ -61,7 +61,7 @@ public class Pair implements Serializable{
 		result = prime * result + y;
 		return result;
 	}
-
+  
 	@Override
 	/**
 	 * Equal operator

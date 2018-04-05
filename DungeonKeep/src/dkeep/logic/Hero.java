@@ -35,7 +35,7 @@ public class Hero extends MovingObject implements Serializable {
 
 	public void setSymbol(char symbol) {
 		if (symbol == 'K')
-			hasKey = true;
+			hasKey = true; 
 
 		this.Symbol = symbol;
 	}

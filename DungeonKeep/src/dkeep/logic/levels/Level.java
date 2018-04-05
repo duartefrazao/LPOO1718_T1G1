@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dkeep.logic.Hero;
+import dkeep.logic.Hero; 
 import dkeep.logic.MovingObject;
 import dkeep.logic.Pair;
 
@@ -95,7 +95,7 @@ public abstract class Level implements Serializable{
 
 		return false;
 
-	}
+	} 
 
 	public Level() {
 	}
