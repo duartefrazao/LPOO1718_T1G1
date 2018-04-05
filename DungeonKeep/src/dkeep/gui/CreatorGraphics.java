@@ -167,8 +167,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 							this);
 					break;
 				case 'k':
-					g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
-							this);
+					g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, this);
 					break;
 				case 'O':
 					g.drawImage(this.resources.getOgre(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,

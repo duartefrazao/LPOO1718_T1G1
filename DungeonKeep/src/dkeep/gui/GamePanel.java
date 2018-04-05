@@ -6,7 +6,9 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout; 
+import javax.swing.JTextField;
+
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 
@@ -22,13 +24,14 @@ import dkeep.logic.levels.Level;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
 
 public class GamePanel extends JPanel implements KeyListener {
 
-	private Dungeon dungeon; 
+	private Dungeon dungeon;
 	private Hero hero;
 	private Resources resources;
 	private StateMachine stateMachine;
@@ -40,37 +43,69 @@ public class GamePanel extends JPanel implements KeyListener {
 	private JButton btnDown;
 	private JButton btnExit;
 	private GameGraphics gameArea;
+	private JTextField textField;
+	private GameLoader gameLoader;
 
 	private Dimension fixedDimension = new Dimension(740 + 300, 740);
 
 	public guardType getGuardPersonality() {
 		return guardPersonality;
 	}
-	
+
 	@Override
-    public Dimension getPreferredSize() {
-        return this.fixedDimension;
-    }
+	public Dimension getPreferredSize() {
+		return this.fixedDimension;
+	}
 
 	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
-		if (state != Dungeon.GAME_STATE.PLAYING) {
+		if (state == Dungeon.GAME_STATE.VICTORY) {
+			this.textField.setText("YOU WON! Press exit to play again!");
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
-			stateMachine.update(StateMachine.Event.endGame);
+			textField.requestFocusInWindow();
+		} else if (state != Dungeon.GAME_STATE.PLAYING) {
+			
+			this.textField.setText("YOU LOST! Press exit to try again!");
+			btnUp.setEnabled(false);
+			btnLeft.setEnabled(false);
+			btnRight.setEnabled(false);
+			btnDown.setEnabled(false);
+			textField.requestFocusInWindow();
+			
+		} else {
+
+			this.updateText();
+
+			resources.setMap(dungeon.getMap());
+
+			this.gameArea.updateSize();
+
+			requestFocusInWindow();
+
+			this.gameArea.repaint();
 		}
+	}
 
-		resources.setMap(dungeon.getMap());
-		
-		this.gameArea.updateSize();
-		
-		requestFocusInWindow();
+	public void updateText() {
 
-		this.gameArea.repaint();
+		if (dungeon.getCurrentLevel() instanceof InitialLevel) {
+
+			if (((InitialLevel) dungeon.getCurrentLevel()).isLeverOff())
+				textField.setText("The Lever is off! Set it on to escape!");
+			else
+				textField.setText("Congrats! You can now escape!");
+
+		} else {
+			if (dungeon.getCurrentLevel().getHero().hasKey())
+				textField.setText("You have the key! Now escape!");
+			else
+				textField.setText("Get the key so you can escape!");
+		}
 	}
 
 	/**
@@ -80,6 +115,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.resources = resources;
 		this.stateMachine = st;
+		this.gameLoader = new GameLoader();
 
 		addKeyListener(this);
 
@@ -95,7 +131,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void initializeGameArea() {
 
 		gameArea = new GameGraphics(resources);
-		//gameArea = new JPanel();
+		// gameArea = new JPanel();
 		GridBagConstraints gbc_gameArea = new GridBagConstraints();
 		gbc_gameArea.fill = GridBagConstraints.NONE;
 		gbc_gameArea.gridheight = 8;
@@ -105,10 +141,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		gameArea.updateSize();
 		add(gameArea, gbc_gameArea);
 		GridBagLayout gbl_gameArea = new GridBagLayout();
-		gbl_gameArea.columnWidths = new int[]{0};
-		gbl_gameArea.rowHeights = new int[]{0};
-		gbl_gameArea.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_gameArea.rowWeights = new double[]{Double.MIN_VALUE};
+		gbl_gameArea.columnWidths = new int[] { 0 };
+		gbl_gameArea.rowHeights = new int[] { 0 };
+		gbl_gameArea.columnWeights = new double[] { Double.MIN_VALUE };
+		gbl_gameArea.rowWeights = new double[] { Double.MIN_VALUE };
 		gameArea.setLayout(gbl_gameArea);
 
 	}
@@ -130,7 +166,22 @@ public class GamePanel extends JPanel implements KeyListener {
 		downButInit();
 		leftButInit();
 		exitButInit();
+		initTextArea();
 
+	}
+
+	public void initTextArea() {
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setEditable(false);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 3;
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 2;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
 	}
 
 	public void upButInit() {
@@ -209,7 +260,15 @@ public class GamePanel extends JPanel implements KeyListener {
 		btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				stateMachine.update(StateMachine.Event.endGame);
+				
+				try {
+					gameLoader.SaveGame(dungeon, "123");
+				} catch (IOException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+					System.exit(1);
+				}
 			}
 		});
 
@@ -237,13 +296,13 @@ public class GamePanel extends JPanel implements KeyListener {
 		dungeon = new Dungeon(levels);
 
 	}
-	
+
 	public void resetGame() {
-		
+
 		dungeon.resetCurrentLevel();
-		
+
 		InitialLevel level1 = (InitialLevel) dungeon.getCurrentLevel();
-		
+
 		switch (guardPersonality) {
 		case Drunken:
 			level1.setGuard(new DrunkenGuard(level1.getGuard().getX(), level1.getGuard().getY()));
@@ -255,7 +314,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
 			break;
 		}
-		
+
 	}
 
 	public void newGame() {
@@ -270,10 +329,12 @@ public class GamePanel extends JPanel implements KeyListener {
 		resources.setMap(dungeon.getMap());
 
 		this.gameArea.setDungeon(dungeon);
-		
+
 		this.gameArea.updateSize();
-		
+
 		this.initializeButtons();
+
+		this.updateText();
 
 		requestFocusInWindow();
 

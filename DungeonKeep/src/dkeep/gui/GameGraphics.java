@@ -142,7 +142,9 @@ public class GameGraphics extends JPanel {
 			i = tempOgre.getClub().getX();
 			j = tempOgre.getClub().getY();
 
-			g.drawImage(this.resources.getOgreWeapon(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
+			if (resources.getMap()[i][j] != 'O')
+				g.drawImage(this.resources.getOgreWeapon(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
+						this);
 
 		}
 
@@ -150,11 +152,6 @@ public class GameGraphics extends JPanel {
 
 	public void paintKey(Graphics g, int i, int j) {
 
-//		if (!dungeon.getCurrentLevel().getHero().hasKey())
-//			g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
-//		else
-//			g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
-		
 		if (!dungeon.getCurrentLevel().getHero().hasKey())
 			g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, this);
 		else

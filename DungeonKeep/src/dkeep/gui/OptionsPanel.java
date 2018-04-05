@@ -44,7 +44,7 @@ public class OptionsPanel extends JPanel {
 
 		setVisible(false);
 
-		this.setPreferredSize(new Dimension(500, 200));
+		this.setPreferredSize(new Dimension(619, 221));
 		this.setMinimumSize(new Dimension(500, 200));
 		this.setMaximumSize(new Dimension(500, 200));
 		//this.setSize(new Dimension(500, 200));
@@ -140,8 +140,9 @@ public class OptionsPanel extends JPanel {
 	public void initNewGameButton() {
 		btnNewGame = new JButton("New Game");
 		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
+		gbc_btnNewGame.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewGame.gridx = 3;
-		gbc_btnNewGame.gridy = 9;
+		gbc_btnNewGame.gridy = 8;
 		panel.add(btnNewGame, gbc_btnNewGame);
 
 		btnNewGame.addActionListener(new ActionListener() {

@@ -1,8 +1,14 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ogre extends MovingObject {
+public class Ogre extends MovingObject{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private char Symbol = 'O';
 

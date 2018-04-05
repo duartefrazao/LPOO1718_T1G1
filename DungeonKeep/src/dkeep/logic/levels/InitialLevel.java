@@ -40,6 +40,8 @@ public class InitialLevel extends Level {
 
 	@Override
 	public void resetGameElements() {
+		
+		
 
 		map = new char[initialMap.length][0];
 
@@ -54,6 +56,8 @@ public class InitialLevel extends Level {
 		this.findGameElements();
 
 		this.findPassageDoors();
+		
+		this.leverOff = true;
 
 	}
 

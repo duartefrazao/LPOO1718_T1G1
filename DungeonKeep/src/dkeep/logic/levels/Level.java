@@ -1,5 +1,6 @@
 package dkeep.logic.levels;
 
+import java.io.Serializable;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -8,7 +9,12 @@ import dkeep.logic.MovingObject;
 import dkeep.logic.Pair;
 
 
-public abstract class Level {
+public abstract class Level implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public enum LEVEL_STATE {
 		PASSED_LEVEL, DEATH, NONE

@@ -4,7 +4,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Weapon extends MovingObject {
 
-    private char Symbol = '*';
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private char Symbol = '*';
 
     public char getSymbol(){
         return Symbol;

@@ -1,9 +1,10 @@
 package dkeep.logic.guards;
+import java.io.Serializable;
 import java.util.Vector;
 
 import dkeep.logic.MovingObject;
 
-public abstract class Guard extends MovingObject{
+public abstract class Guard extends MovingObject implements Serializable{
 	
 	
     protected char Symbol = 'G';

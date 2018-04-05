@@ -1,6 +1,13 @@
 package dkeep.logic;
 
-public class Hero extends MovingObject {
+import java.io.Serializable;
+
+public class Hero extends MovingObject implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private char Symbol = 'H';
 

@@ -1,11 +1,17 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
 
-public class Dungeon {
+public class Dungeon implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public enum GAME_STATE {
 		GAME_OVER, VICTORY, PLAYING

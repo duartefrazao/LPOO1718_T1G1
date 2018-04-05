@@ -1,13 +1,18 @@
 package dkeep.logic;
 
+import java.io.Serializable;
 
 /**
  * Pair.class - a simple class representing a 2D position (x, y).
  * @author pedro
  *
  */
-public class Pair {
+public class Pair implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int x;
 	private int y;
 
