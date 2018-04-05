@@ -111,12 +111,13 @@ public class GameGraphics extends JPanel {
 			paintLever(g, l_i, l_j, lever);
 		} else {
 
-			Vector<Ogre> ogres = ((KeepLevel) (this.dungeon.getCurrentLevel())).getCrazyHorde();
-			paintOgres(g, ogres);
-
 			int k_i = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getX();
 			int k_j = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getY();
 			paintKey(g, k_i, k_j);
+
+			Vector<Ogre> ogres = ((KeepLevel) (this.dungeon.getCurrentLevel())).getCrazyHorde();
+			paintOgres(g, ogres);
+
 		}
 
 		paintHero(g);
@@ -149,10 +150,15 @@ public class GameGraphics extends JPanel {
 
 	public void paintKey(Graphics g, int i, int j) {
 
+//		if (!dungeon.getCurrentLevel().getHero().hasKey())
+//			g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
+//		else
+//			g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
+		
 		if (!dungeon.getCurrentLevel().getHero().hasKey())
-			g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
+			g.drawImage(this.resources.getKey(), j * imageHeight, i * imageWidth, this);
 		else
-			g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
+			g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, this);
 	}
 
 	public void paintGuards(Graphics g, int i, int j) {

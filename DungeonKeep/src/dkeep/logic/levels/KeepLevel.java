@@ -160,6 +160,18 @@ public class KeepLevel extends Level {
 		}
 	}
 
+	@Override
+	public void findPassageDoors() {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+
+				if (map[i][j] == 'I')
+					passageDoors.add(new Pair(i, j));
+			}
+		}
+
+	}
+
 	public void setHeroPos(int i, int j) {
 		hero.setX(i);
 		hero.setY(j);

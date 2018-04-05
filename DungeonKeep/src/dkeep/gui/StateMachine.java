@@ -67,6 +67,7 @@ public class StateMachine {
 		case endGame:
 			gamePanel.resetGame();
 			state = State.mainMenu;
+			mainMenu.repaint();
 			frame.setContentPane(mainMenu);
 			mainMenu.setFocusable(true);
 			mainMenu.requestFocusInWindow();

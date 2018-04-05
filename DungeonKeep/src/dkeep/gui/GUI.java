@@ -63,9 +63,11 @@ public class GUI {
 
 		optionsPanel = new OptionsPanel(stateMachine);
 
-		mainMenu = new MainMenu(stateMachine);
+		mainMenu = new MainMenu(stateMachine, resources);
 		
 		mapCreator = new MapCreator(stateMachine, resources);
+		
+		mainMenu.repaint();
 
 		frame.setContentPane(mainMenu);
 

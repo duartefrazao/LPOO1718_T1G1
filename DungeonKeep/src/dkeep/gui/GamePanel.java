@@ -67,6 +67,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		resources.setMap(dungeon.getMap());
 		
 		this.gameArea.updateSize();
+		
+		requestFocusInWindow();
 
 		this.gameArea.repaint();
 	}
@@ -270,6 +272,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		this.gameArea.setDungeon(dungeon);
 		
 		this.gameArea.updateSize();
+		
+		this.initializeButtons();
 
 		requestFocusInWindow();
 

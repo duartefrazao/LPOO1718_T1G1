@@ -33,6 +33,8 @@ public class Resources {
 
 	private BufferedImage door;
 	private BufferedImage doorOpened;
+	
+	private BufferedImage initialMenu;
 
 	private char[][] map;
 
@@ -58,37 +60,39 @@ public class Resources {
 	public void loadImages() {
 
 		try {
-			setWall(ImageIO.read(new File("res/wall.jpg")));
+			setWall(ImageIO.read(new File("res/wall.png")));
 
-			setFloor(ImageIO.read(new File("res/floor.jpg")));
+			setFloor(ImageIO.read(new File("res/floor.png")));
 
-			hero = ImageIO.read(new File("res/hero.jpg"));
+			hero = ImageIO.read(new File("res/hero.png"));
 
-			heroArmed = ImageIO.read(new File("res/heroArmed.jpg"));
+			heroArmed = ImageIO.read(new File("res/heroArmed.png"));
 
-			heroWeapon = ImageIO.read(new File("res/heroWeapon.jpg"));
+			heroWeapon = ImageIO.read(new File("res/heroWeapon.png"));
 
-			ogreWeapon = ImageIO.read(new File("res/ogreWeapon.jpg"));
+			ogreWeapon = ImageIO.read(new File("res/ogreWeapon.png"));
 
-			ogre = ImageIO.read(new File("res/ogre.jpg"));
+			ogre = ImageIO.read(new File("res/ogre.png"));
 
-			ogreStunned = ImageIO.read(new File("res/ogreStunned.jpg"));
+			ogreStunned = ImageIO.read(new File("res/ogreStunned.png"));
 
-			guard = ImageIO.read(new File("res/guard.jpg"));
+			guard = ImageIO.read(new File("res/guard.png"));
 
-			guardSleeping = ImageIO.read(new File("res/guardSleeping.jpg"));
+			guardSleeping = ImageIO.read(new File("res/guardSleeping.png"));
 
-			key = ImageIO.read(new File("res/key.jpg"));
+			key = ImageIO.read(new File("res/key.png"));
 
-			leverOn = ImageIO.read(new File("res/leverOn.jpg"));
+			leverOn = ImageIO.read(new File("res/leverOn.png"));
 
-			leverOff = ImageIO.read(new File("res/leverOff.jpg"));
+			leverOff = ImageIO.read(new File("res/leverOff.png"));
 
-			door = ImageIO.read(new File("res/door.jpg"));
+			door = ImageIO.read(new File("res/door.png"));
 
-			doorOpened = ImageIO.read(new File("res/doorOpened.jpg"));
+			doorOpened = ImageIO.read(new File("res/doorOpened.png"));
+			
+			initialMenu = ImageIO.read(new File("res/initialMenu.png"));
 		} catch (IOException e) {
-			System.out.println("failed to open doorOpened image");
+			System.out.println("failed to open  image");
 			System.exit(1);
 		}
 	}
@@ -331,6 +335,22 @@ public class Resources {
 	 */
 	public void setLeverOn(BufferedImage leverOn) {
 		this.leverOn = leverOn;
+	}
+	
+	
+
+	/**
+	 * @return the initialMenu
+	 */
+	public BufferedImage getInitialMenu() {
+		return initialMenu;
+	}
+
+	/**
+	 * @param initialMenu the initialMenu to set
+	 */
+	public void setInitialMenu(BufferedImage initialMenu) {
+		this.initialMenu = initialMenu;
 	}
 
 	public int getMapHeigth() {

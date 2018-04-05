@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
@@ -18,8 +19,18 @@ public class MainMenu extends JPanel {
 	private JButton btnSettings;
 	private JButton btnExit;
 	private JButton btnCreateMaze;
+	private Resources resources;
 
-	public MainMenu(StateMachine st) {
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		g.drawImage(resources.getInitialMenu(), 0, 0, this);
+	}
+
+	public MainMenu(StateMachine st, Resources resources) {
+
+		this.resources = resources;
 
 		stateMachine = st;
 
@@ -41,7 +52,7 @@ public class MainMenu extends JPanel {
 
 	public void initialize() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 50, 0, 50, 0 };
+		gridBagLayout.columnWidths = new int[] { 228, 0, 50, 0 };
 		gridBagLayout.rowHeights = new int[] { 50, 0, 0, 0, 0, 50, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };

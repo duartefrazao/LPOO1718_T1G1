@@ -33,7 +33,7 @@ public class MapCreator extends JPanel {
 	private JDialog warning;
 
 	private Integer mazeSize;
-	
+
 	private Dungeon dungeon;
 
 	private char map[][];
@@ -42,7 +42,7 @@ public class MapCreator extends JPanel {
 	private JButton btnClearCell;
 
 	private CreatorGraphics gameArea;
-	
+
 	private StateMachine stateMachine;
 
 	public MapCreator(StateMachine st, Resources resources) {
@@ -50,7 +50,7 @@ public class MapCreator extends JPanel {
 		super();
 
 		this.resources = resources;
-		
+
 		this.stateMachine = st;
 
 		this.setVisible(false);
@@ -182,7 +182,6 @@ public class MapCreator extends JPanel {
 				boolean isPossible = gameArea.isMazePossible();
 
 				if (!isPossible) {
-					System.out.println("heelo");
 					warning = new JDialog(null, "Impossible Maze", ModalityType.APPLICATION_MODAL);
 					warning.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					JLabel label = new JLabel("Current Maze is impossible to solve.");
@@ -192,7 +191,7 @@ public class MapCreator extends JPanel {
 					warning.setPreferredSize(new Dimension(300, 200));
 					warning.pack();
 					warning.setVisible(true);
-				}else {
+				} else {
 					dungeon.substituteKeepLevel(new KeepLevel(map));
 					stateMachine.update(StateMachine.Event.startGame);
 				}
@@ -550,7 +549,8 @@ public class MapCreator extends JPanel {
 	}
 
 	/**
-	 * @param dungeon the dungeon to set
+	 * @param dungeon
+	 *            the dungeon to set
 	 */
 	public void setDungeon(Dungeon dungeon) {
 		this.dungeon = dungeon;

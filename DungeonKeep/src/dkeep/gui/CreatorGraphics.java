@@ -75,7 +75,6 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 			}
 		}
 
-		System.out.println("x: " + x_hero + " y: " + y_hero);
 	}
 
 	public boolean isMazePossible() {
@@ -153,7 +152,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-
+				g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
 				switch (map[i][j]) {
 				case ' ':
 					g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
