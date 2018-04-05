@@ -13,7 +13,7 @@ public class Weapon extends MovingObject {
     public char getSymbol(){
         return Symbol;
     }
-    
+      
     public MOVEMENT_TYPE getMove(char map[][], Pair A) {
     	
     	 

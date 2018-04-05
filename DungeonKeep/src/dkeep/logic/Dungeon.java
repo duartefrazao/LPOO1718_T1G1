@@ -8,9 +8,7 @@ import dkeep.logic.levels.Level;
 
 public class Dungeon implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public enum GAME_STATE {
@@ -54,7 +52,7 @@ public class Dungeon implements Serializable{
 		switch (levels.elementAt(currentLevel).updateLevel(move)) {
 		case PASSED_LEVEL:
 
-			if (currentLevel == levels.size() - 1)
+			if (currentLevel == levels.size() - 1)  
 				return GAME_STATE.VICTORY;
 			else {
 				currentLevel++;
@@ -74,7 +72,6 @@ public class Dungeon implements Serializable{
 	}
 
 	public KeepLevel getKeepLevel() {
-		// TODO Auto-generated method stub
 		return (KeepLevel) this.levels.get(1);
 	}
 

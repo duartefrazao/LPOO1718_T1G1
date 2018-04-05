@@ -5,11 +5,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ogre extends MovingObject{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
+  
 	private char Symbol = 'O';
 
 	private char stunnedSymbol = '8';
@@ -24,7 +22,7 @@ public class Ogre extends MovingObject{
 		return club;
 	}
 
-	public MovingObject.MOVEMENT_TYPE getMove() {
+	public MOVEMENT_TYPE getMove() {
 
 		int x = ThreadLocalRandom.current().nextInt(0, 3 + 1);
 
@@ -81,7 +79,7 @@ public class Ogre extends MovingObject{
 	}
 
 	@Override
-	public void move(MovingObject.MOVEMENT_TYPE movement, char map[][]) {
+	public void move(MOVEMENT_TYPE movement, char map[][]) {
 		int x = position.getX();
 		int y = position.getY();
 

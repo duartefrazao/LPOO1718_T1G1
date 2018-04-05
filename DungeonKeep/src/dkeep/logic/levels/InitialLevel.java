@@ -136,13 +136,11 @@ public class InitialLevel extends Level {
 
 		int i, j;
 
-		// ---- hero ----
 		i = this.hero.getX();
 		j = this.hero.getY();
 
 		mapToPrint[i][j] = this.hero.getSymbol();
 
-		// ---- guards ----
 
 		if (guardDefined) {
 			i = this.guard.getX();
@@ -164,7 +162,7 @@ public class InitialLevel extends Level {
 
 		if (this.leverOff && x == Lever.getX() && y == Lever.getY()) {
 
-			this.leverOff = false;
+			this.leverOff = false;  
 
 			for (int i = 0; i < this.passageDoors.size(); i++) {
 				int door_x = passageDoors.elementAt(i).getX();
@@ -177,8 +175,6 @@ public class InitialLevel extends Level {
 
 		if (map[hero.getX()][hero.getY()] == 'S')
 			return LEVEL_STATE.PASSED_LEVEL;
-		// Needs to test with 1 space difference for general guard and
-		// With 0 space difference (adjacent) for a sleeping guard
 		if (guard.getSymbol() == 'G' && collision(guard, 1))
 			return LEVEL_STATE.DEATH;
 		else if (guard.getSymbol() == 'g' && collision(guard, 0))

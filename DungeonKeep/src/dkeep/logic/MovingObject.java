@@ -83,7 +83,7 @@ public abstract class MovingObject implements Serializable{
 	 * @param map
 	 *            - the map in which the object will move
 	 */
-	public void move(MovingObject.MOVEMENT_TYPE movement, char map[][]) {
+	public void move(MOVEMENT_TYPE movement, char map[][]) {
 		int x = position.getX();
 		int y = position.getY();
 
@@ -96,27 +96,27 @@ public abstract class MovingObject implements Serializable{
 		} else if (movement == MOVEMENT_TYPE.RIGHT && map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
 			position.setY(++y);
 		}
-	}
+	}  
 	
 	public MOVEMENT_TYPE contrary(MOVEMENT_TYPE move) {
 
-		MovingObject.MOVEMENT_TYPE contraryMove;
+		MOVEMENT_TYPE contraryMove;
 
 		switch (move) {
 		case UP:
-			contraryMove = MovingObject.MOVEMENT_TYPE.DOWN;
+			contraryMove = MOVEMENT_TYPE.DOWN;
 			break;
 		case DOWN:
-			contraryMove = MovingObject.MOVEMENT_TYPE.UP;
+			contraryMove = MOVEMENT_TYPE.UP;
 			break;
 		case RIGHT:
-			contraryMove = MovingObject.MOVEMENT_TYPE.LEFT;
+			contraryMove = MOVEMENT_TYPE.LEFT;
 			break;
 		case LEFT:
-			contraryMove = MovingObject.MOVEMENT_TYPE.RIGHT;
+			contraryMove = MOVEMENT_TYPE.RIGHT;
 			break;
 		default:
-			contraryMove = MovingObject.MOVEMENT_TYPE.NONE;
+			contraryMove = MOVEMENT_TYPE.NONE;
 		}
 
 		return contraryMove;

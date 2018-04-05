@@ -13,29 +13,29 @@ public abstract class Guard extends MovingObject implements Serializable{
 
     public void setSymbol(char symbol){ this.Symbol = symbol;  };
 
-    protected Vector<MOVEMENT_TYPE> guardMovement = new Vector<MovingObject.MOVEMENT_TYPE>(0);
+    protected Vector<MOVEMENT_TYPE> guardMovement = new Vector<MOVEMENT_TYPE>(0);
 
     public  int currentMovPos = 0;
-
-    public abstract MovingObject.MOVEMENT_TYPE getMove();
+ 
+    public abstract MOVEMENT_TYPE getMove();
 
     private void fillMovement(){
 
-        guardMovement.add(MovingObject.MOVEMENT_TYPE.LEFT);
+        guardMovement.add(MOVEMENT_TYPE.LEFT);
 
         for(int i = 0; i < 4; i++)
-            guardMovement.add(MovingObject.MOVEMENT_TYPE.DOWN);
+            guardMovement.add(MOVEMENT_TYPE.DOWN);
 
         for(int i = 0; i < 6; i++)
-            guardMovement.add(MovingObject.MOVEMENT_TYPE.LEFT);
+            guardMovement.add(MOVEMENT_TYPE.LEFT);
  
-        guardMovement.add(MovingObject.MOVEMENT_TYPE.DOWN);
+        guardMovement.add(MOVEMENT_TYPE.DOWN);
 
         for(int i = 0; i < 7; i++)
-            guardMovement.add(MovingObject.MOVEMENT_TYPE.RIGHT);
+            guardMovement.add(MOVEMENT_TYPE.RIGHT);
 
         for(int i = 0; i < 5; i++)
-            guardMovement.add(MovingObject.MOVEMENT_TYPE.UP);
+            guardMovement.add(MOVEMENT_TYPE.UP);
     }
     
   

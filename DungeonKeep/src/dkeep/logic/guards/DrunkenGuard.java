@@ -2,7 +2,6 @@ package dkeep.logic.guards;
 
 import java.util.Random;
 
-import dkeep.logic.MovingObject;
 
 public class DrunkenGuard extends Guard {
 
@@ -57,7 +56,7 @@ public class DrunkenGuard extends Guard {
 		if (positiveDirection)
 			currentMovPos++;
 		else {
-
+ 
 			currentMovPos--;
 			if (currentMovPos < 0)
 				currentMovPos = guardMovement.size() - 1;// Handle negative values
@@ -78,16 +77,16 @@ public class DrunkenGuard extends Guard {
 
 		if (roundsLeftSleeping > 1) {
 			roundsLeftSleeping--;
-			return MovingObject.MOVEMENT_TYPE.NONE;
+			return MOVEMENT_TYPE.NONE;
 		} else if (roundsLeftSleeping == 1) {
 			roundsLeftSleeping--;
 			this.Symbol = 'G';
 
 			wokeUp = true;
-			return MovingObject.MOVEMENT_TYPE.NONE;
+			return MOVEMENT_TYPE.NONE;
 		}
 
-		MovingObject.MOVEMENT_TYPE move = this.guardMovement.elementAt(currentMovPos);
+		MOVEMENT_TYPE move = this.guardMovement.elementAt(currentMovPos);
 
 		if (positiveDirection)
 			move = this.guardMovement.elementAt(currentMovPos);

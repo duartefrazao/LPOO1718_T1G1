@@ -4,7 +4,6 @@ import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
 import dkeep.logic.Hero;
-import dkeep.logic.MovingObject;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
@@ -17,7 +16,7 @@ public class KeepLevel extends Level {
 	public KeepLevel() {
 		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
-
+ 
 	private char[][] initialMap;
 
 	public KeepLevel(int hordeSize) {
@@ -260,7 +259,7 @@ public class KeepLevel extends Level {
 	public void createMapToPrintOgrePart(char[][] mapToPrint) {
 
 		int i, j;
-		// ---- crazy horde ----
+		
 		for (int k = 0; k < this.hordeSize; k++) {
 
 			Ogre tempOgre = this.crazyHorde.elementAt(k);
@@ -373,7 +372,7 @@ public class KeepLevel extends Level {
 
 	}
 
-	public LEVEL_STATE updateLevel(MovingObject.MOVEMENT_TYPE move) {
+	public LEVEL_STATE updateLevel(MOVEMENT_TYPE move) {
 
 		hero.move(move, map);
 
