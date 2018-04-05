@@ -16,7 +16,12 @@ public class SuspiciousGuard extends Guard implements Serializable{
 	public SuspiciousGuard(int x, int y) {
 		super(x, y);
 	}
-
+	
+	 /**
+     * Gets a new guard movement respecting restrictions
+     * @returns new guard movement
+     *
+     */
 	@Override 
 	public MOVEMENT_TYPE getMove() {
 		
@@ -37,7 +42,7 @@ public class SuspiciousGuard extends Guard implements Serializable{
 
 		
 		if(positiveDirection ) currentMovPos++;
-		else
+		else 
 		{
 			currentMovPos--;
 			if(currentMovPos<0) currentMovPos=guardMovement.size()-1;
@@ -48,6 +53,10 @@ public class SuspiciousGuard extends Guard implements Serializable{
 		return move;
 	}
 
+	/**
+	 * 
+	 * @return true if is going in general direction, false otherwise
+	 */
 	public boolean getDirection() {
 		return positiveDirection;
 	}

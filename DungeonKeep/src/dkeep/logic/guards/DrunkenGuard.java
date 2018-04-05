@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class DrunkenGuard extends Guard implements Serializable{
 
-	/**
+	/** 
 	 * 
 	 */
 	private static final long serialVersionUID = 1593400630606381521L;
@@ -17,29 +17,40 @@ public class DrunkenGuard extends Guard implements Serializable{
 
 	static private boolean wokeUp = false;
 
+	/**
+	 * @returns true if ogre is sleeping, false otherwise
+	 */
 	public boolean isSleeping() {
 		return this.roundsLeftSleeping != 0;
 	}
 
+	/**
+	 * Drunken Guard constructor
+	 * @returns new Drunken Guard object
+	 */
 	public DrunkenGuard(int x, int y) {
 		super(x, y);
 	}
 
+	/**
+	 * @returns true if moving in possible direction, false otherwise 
+	 */
 	public boolean getDirection() {
 		return positiveDirection;
 		
 	}
 
+	/**
+	 * Handles movement where guard wakes up
+	 */
 	public void wokeUpHandler() {
 		if (wokeUp) {
 			Random randDirectionChanger = new Random();
-			int directionChanger = randDirectionChanger.nextInt(4); // Value from 0 to 3 (1/4 chance of changing
-																	// direction)
+			int directionChanger = randDirectionChanger.nextInt(4); 
 
 			if (directionChanger == 0) {
 				positiveDirection = (!positiveDirection);
 
-				// When changing direction it need's to change to the last/next directions
 				if (positiveDirection)
 					currentMovPos--;
 				else
@@ -50,12 +61,16 @@ public class DrunkenGuard extends Guard implements Serializable{
 		}
 
 	}
+	
+	/**
+	 * Handles movement, changing direction and rounds left sleeping
+	 */
 	public void moveHandler() {
 		Random randSleep = new Random();
-		int fallAsleep = randSleep.nextInt(7); // Value from 0 to 6 (1/6 chance of falling asleep)
+		int fallAsleep = randSleep.nextInt(7); 
 
 		if (fallAsleep == 0) {
-			roundsLeftSleeping = randSleep.nextInt(5) + 1; // Value from 1 to 5 (Up to 5 rounds asleep)
+			roundsLeftSleeping = randSleep.nextInt(5) + 1;
 			Symbol = 'g';
 		}
 
@@ -65,20 +80,23 @@ public class DrunkenGuard extends Guard implements Serializable{
  
 			currentMovPos--;
 			if (currentMovPos < 0)
-				currentMovPos = guardMovement.size() - 1;// Handle negative values
+				currentMovPos = guardMovement.size() - 1;
 		}
 
 		currentMovPos = (currentMovPos % guardMovement.size());
 	}
 
+	/**
+	 * Gets a new Drunken Guard Movement
+	 * @return new Drunken Guard movement
+	 */
 	@Override
 	public MOVEMENT_TYPE getMove() {
 
-		// Handle negative values
+		
 		if (currentMovPos < 0)
 			currentMovPos = guardMovement.size() - 1;
 
-		// Handle circular iteration through possible movements
 		currentMovPos = (currentMovPos % guardMovement.size());
 
 		if (roundsLeftSleeping > 1) {

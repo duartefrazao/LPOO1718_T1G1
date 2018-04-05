@@ -1,4 +1,5 @@
 package dkeep.logic;
+
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -7,67 +8,63 @@ public class Weapon extends MovingObject {
 	 * 
 	 */
 	private static final long serialVersionUID = -1907280161972033828L;
-	
+
 	private char Symbol = '*';
 
 	/**
 	 * Sets the new x position of the object
 	 * 
-	 * @returns weapon symbol
+	 * @return weapon symbol
 	 */
-    public char getSymbol(){
-        return Symbol;
-    }
-     
+	public char getSymbol() {
+		return Symbol;
+	}
+
 	/**
 	 * Gets a new valid random movement for the weapon
 	 * 
 	 * @param map
-	 * 		-map to move weapon
+	 *            -map to move weapon
 	 * @param heroPos
-	 * 		-hero position
+	 *            -hero position
 	 * 
-	 * @returns random valid weapon movement
+	 * @return random valid weapon movement
 	 */
-    public MOVEMENT_TYPE getMove(char map[][], Pair heroPos) {
-    	
-    	 
-    	this.setX(heroPos.getX());
-    	this.setY(heroPos.getY());
-    	
-    	int x = heroPos.getX();
-        int y = heroPos.getY();
+	public MOVEMENT_TYPE getMove(char map[][], Pair heroPos) {
 
-        Vector<MOVEMENT_TYPE> possibleMovs = new Vector<>();
+		this.setX(heroPos.getX());
+		this.setY(heroPos.getY());
 
+		int x = heroPos.getX();
+		int y = heroPos.getY();
 
-        if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
-            possibleMovs.addElement(MOVEMENT_TYPE.UP);
-        } 
-        if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
-            possibleMovs.addElement(MOVEMENT_TYPE.DOWN);
-        }
-        if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
-            possibleMovs.addElement(MOVEMENT_TYPE.LEFT);
-        }
-        if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
-            possibleMovs.addElement(MOVEMENT_TYPE.RIGHT);
-        }
+		Vector<MOVEMENT_TYPE> possibleMovs = new Vector<>();
 
-        int rand = ThreadLocalRandom.current().nextInt(0, possibleMovs.size());
-    	
-        
-        return possibleMovs.elementAt(rand);
-    }
+		if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
+			possibleMovs.addElement(MOVEMENT_TYPE.UP);
+		}
+		if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
+			possibleMovs.addElement(MOVEMENT_TYPE.DOWN);
+		}
+		if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
+			possibleMovs.addElement(MOVEMENT_TYPE.LEFT);
+		}
+		if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
+			possibleMovs.addElement(MOVEMENT_TYPE.RIGHT);
+		}
 
-   
+		int rand = ThreadLocalRandom.current().nextInt(0, possibleMovs.size());
+
+		return possibleMovs.elementAt(rand);
+	}
+
 	/**
 	 * Weapon constructor
-	 * @returns new weapon object
+	 * 
+	 * @return new weapon object
 	 */
-    public Weapon() {
-    	super();
-    }
-
+	public Weapon() {
+		super();
+	}
 
 }

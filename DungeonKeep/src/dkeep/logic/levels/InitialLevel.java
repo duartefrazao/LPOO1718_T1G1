@@ -14,8 +14,11 @@ public class InitialLevel extends Level implements Serializable {
 	 */
 	private static final long serialVersionUID = 4723387839137665193L;
 
+	/**
+	 * Initial level constructor (default map)
+	 */
 	public InitialLevel() {
-
+  
 		super();
 
 		char initialLevelMap[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
@@ -44,6 +47,9 @@ public class InitialLevel extends Level implements Serializable {
 		findPassageDoors();
 	}
 
+	/**
+	 * Resets game elements to original
+	 */
 	@Override
 	public void resetGameElements() {
 
@@ -65,6 +71,11 @@ public class InitialLevel extends Level implements Serializable {
 
 	}
 
+	/**
+	 * Initial level constructor
+	 * @param new_map
+	 * 		-map to initialize level
+	 */
 	public InitialLevel(char[][] new_map) {
 
 		super();
@@ -93,6 +104,9 @@ public class InitialLevel extends Level implements Serializable {
 
 	private boolean leverOff = true;
 
+	/**
+	 * finds the game elements to initialize level
+	 */
 	public void findGameElements() {
 
 		for (int i = 0; i < map.length; i++) {
@@ -133,6 +147,11 @@ public class InitialLevel extends Level implements Serializable {
 		this.guard = newG;
 	}
 
+	/**
+	 * Creates the map to print
+	 * 
+	 * @return map formatted
+	 */
 	public char[][] createMapToPrint() {
 
 		char[][] mapToPrint = new char[map.length][];
@@ -161,6 +180,11 @@ public class InitialLevel extends Level implements Serializable {
 		return mapToPrint;
 	}
 
+	/**
+	 * @param move	
+	 * 		-hero movement
+	 * @return the consequent level state 
+	 */
 	public LEVEL_STATE updateLevel(MOVEMENT_TYPE move) {
 
 		hero.move(move, map);
@@ -192,6 +216,10 @@ public class InitialLevel extends Level implements Serializable {
 		return LEVEL_STATE.NONE;
 	}
 
+	/**
+	 * 
+	 * @return new guard object
+	 */
 	public Guard getGuard() {
 		return guard;
 	}
