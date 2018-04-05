@@ -3,16 +3,13 @@ package dkeep.logic;
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ogre extends MovingObject implements Serializable{
-
+public class Ogre extends MovingObject implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 620343092351729404L;
 
-	private static final long serialVersionUID = 1L;
-  
 	private char Symbol = 'O';
 
 	private char stunnedSymbol = '8';
@@ -98,13 +95,29 @@ public class Ogre extends MovingObject implements Serializable{
 		switch (movement) {
 
 		case UP: {
-			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {position.setX(--x);}break;}
+			if (map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
+				position.setX(--x);
+			}
+			break;
+		}
 		case DOWN: {
-			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {position.setX(++x);}break;}
+			if (map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
+				position.setX(++x);
+			}
+			break;
+		}
 		case LEFT: {
-			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {position.setY(--y);}break;}
+			if (map[x][y - 1] != 'X' && map[x][y - 1] != 'I') {
+				position.setY(--y);
+			}
+			break;
+		}
 		case RIGHT: {
-			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {position.setY(++y);}break;}
+			if (map[x][y + 1] != 'X' && map[x][y + 1] != 'I') {
+				position.setY(++y);
+			}
+			break;
+		}
 		case NONE:
 			break;
 		}
