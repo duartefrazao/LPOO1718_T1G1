@@ -11,11 +11,6 @@ public class Dungeon {
 		GAME_OVER, VICTORY, PLAYING
 	}
 
-	// static private GAME_STATE game_state = GAME_STATE.PLAYING;
-
-	public enum GAME_LEVEL {
-		INITIAL_LEVEL, KEEP_LEVEL
-	}
 
 	public Level getCurrentLevel() {
 
@@ -35,7 +30,7 @@ public class Dungeon {
 		levels.set(1, customLevel);
 
 	}
-	
+	 
 	public void resetCurrentLevel() {
 		this.currentLevel = 0;
 		
@@ -73,5 +68,11 @@ public class Dungeon {
 	public char[][] getMap() {
 		return levels.elementAt(currentLevel).createMapToPrint();
 	}
+
+	public KeepLevel getKeepLevel() {
+		// TODO Auto-generated method stub
+		return (KeepLevel) this.levels.get(1);
+	}
+
 
 }

@@ -38,7 +38,7 @@ public class InitialLevel extends Level {
 		findPassageDoors();
 	}
 
-	@Override
+	@Override 
 	public void resetGameElements() {
 
 		map = new char[initialMap.length][0];
@@ -158,7 +158,7 @@ public class InitialLevel extends Level {
 		int x = hero.getX();
 		int y = hero.getY();
 
-		if (x == Lever.getX() && y == Lever.getY()) {
+		if (this.leverOff && x == Lever.getX() && y == Lever.getY()) {
 
 			this.leverOff = false;
 
