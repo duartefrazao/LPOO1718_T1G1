@@ -10,18 +10,33 @@ public class Weapon extends MovingObject {
 	
 	private char Symbol = '*';
 
+	/**
+	 * Sets the new x position of the object
+	 * 
+	 * @returns weapon symbol
+	 */
     public char getSymbol(){
         return Symbol;
     }
-      
-    public MOVEMENT_TYPE getMove(char map[][], Pair A) {
+     
+	/**
+	 * Gets a new valid random movement for the weapon
+	 * 
+	 * @param map
+	 * 		-map to move weapon
+	 * @param heroPos
+	 * 		-hero position
+	 * 
+	 * @returns random valid weapon movement
+	 */
+    public MOVEMENT_TYPE getMove(char map[][], Pair heroPos) {
     	
     	 
-    	this.setX(A.getX());
-    	this.setY(A.getY());
+    	this.setX(heroPos.getX());
+    	this.setY(heroPos.getY());
     	
-    	int x = A.getX();
-        int y = A.getY();
+    	int x = heroPos.getX();
+        int y = heroPos.getY();
 
         Vector<MOVEMENT_TYPE> possibleMovs = new Vector<>();
 
@@ -46,7 +61,10 @@ public class Weapon extends MovingObject {
     }
 
    
-
+	/**
+	 * Weapon constructor
+	 * @returns new weapon object
+	 */
     public Weapon() {
     	super();
     }

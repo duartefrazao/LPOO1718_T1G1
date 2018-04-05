@@ -20,10 +20,12 @@ public class GUI {
 	private MainMenu mainMenu;
 	
 	private MapCreator mapCreator;
+	
+	private GameLoader gameLoader;
   
 	/**
 	 * Launch the application.
-	 */
+	 */  
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,12 +53,11 @@ public class GUI {
 	 */
 	private void initialize() throws IOException {
 
-		frame = new JFrame();
+		frame = new JFrame();  
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources(frame);
-		
 		
 
 		stateMachine = new StateMachine(resources, frame);

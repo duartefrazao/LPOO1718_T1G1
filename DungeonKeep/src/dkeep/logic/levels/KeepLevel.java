@@ -40,7 +40,7 @@ public class KeepLevel extends Level implements Serializable {
 
 		this.map = keepLevelMap;
 		this.heroWeapon = new Weapon();
-		this.setHordeSize(hordeSize);
+		this.setHordeSize(hordeSize);   
 
 		this.isRandomlyGenerated = true;
 

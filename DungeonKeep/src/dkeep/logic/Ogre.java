@@ -53,17 +53,21 @@ public class Ogre extends MovingObject implements Serializable {
 
 	}
 
+	/**
+	 * Gets ogre symbol, also comtemplates stunned mode
+	 * @return ogre movement
+	 */
 	public char getSymbol() {
 		if (isStunned)
 			return this.stunnedSymbol;
 		return this.Symbol;
 	}
 
-	public void setSymbol(char symbol) {
 
-		this.Symbol = symbol;
-	}
-
+	/**
+	 * Ogre constructor
+	 * @return new ogre object
+	 */
 	public Ogre(int x, int y) {
 
 		position.setX(x);
@@ -72,22 +76,13 @@ public class Ogre extends MovingObject implements Serializable {
 		club = new Weapon();
 	}
 
-	public int getRoundsLeftStunned() {
-		return roundsLeftStunned;
-	}
-
-	public void setRoundsLeftStunned(int roundsLeftStunned) {
-		this.roundsLeftStunned = roundsLeftStunned;
-	}
-
-	public boolean isStunned() {
-		return isStunned;
-	}
-
-	public void setStunned(boolean isStunned) {
-		this.isStunned = isStunned;
-	}
-
+	/**
+	 * Moves the ogre in the desired map in the choosen direction
+	 * @param movement
+	 * 		-choosen direction
+	 * @param map
+	 * 		-map to move ogre
+	 */
 	@Override
 	public void move(MOVEMENT_TYPE movement, char map[][]) {
 		int x = position.getX();
@@ -129,6 +124,62 @@ public class Ogre extends MovingObject implements Serializable {
 		case NONE:
 			break;
 		}
+	}
+
+	/**
+	 * @return the stunnedSymbol
+	 */
+	public char getStunnedSymbol() {
+		return stunnedSymbol;
+	}
+
+	/**
+	 * @param stunnedSymbol the stunnedSymbol to set
+	 */
+	public void setStunnedSymbol(char stunnedSymbol) {
+		this.stunnedSymbol = stunnedSymbol;
+	}
+
+	/**
+	 * @return the roundsLeftStunned
+	 */
+	public int getRoundsLeftStunned() {
+		return roundsLeftStunned;
+	}
+
+	/**
+	 * @param roundsLeftStunned the roundsLeftStunned to set
+	 */
+	public void setRoundsLeftStunned(int roundsLeftStunned) {
+		this.roundsLeftStunned = roundsLeftStunned;
+	}
+
+	/**
+	 * @return the isStunned
+	 */
+	public boolean isStunned() {
+		return isStunned;
+	}
+
+	/**
+	 * @param isStunned the isStunned to set
+	 */
+	public void setStunned(boolean isStunned) {
+		this.isStunned = isStunned;
+	}
+
+	/**
+	 * @param symbol the symbol to set
+	 */
+	public void setSymbol(char symbol) {
+		Symbol = symbol;
+	}
+
+	/**
+	 * @param club the club to set
+	 */
+	public void setClub(Weapon club) {
+		this.club = club;
 	}
 
 }

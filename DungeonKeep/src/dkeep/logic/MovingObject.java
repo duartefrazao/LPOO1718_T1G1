@@ -22,7 +22,6 @@ public abstract class MovingObject implements Serializable{
 	/**
 	 * Possible movements of the object in the game area.
 	 * 
-	 * @author pedro
 	 *
 	 */
 	public enum MOVEMENT_TYPE {
@@ -90,7 +89,7 @@ public abstract class MovingObject implements Serializable{
 	public void move(MOVEMENT_TYPE movement, char map[][]) {
 		int x = position.getX();
 		int y = position.getY();
-
+   
 		if (movement == MOVEMENT_TYPE.UP && map[x - 1][y] != 'X' && map[x - 1][y] != 'I') {
 			position.setX(--x);
 		} else if (movement == MOVEMENT_TYPE.DOWN && map[x + 1][y] != 'X' && map[x + 1][y] != 'I') {
