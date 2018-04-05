@@ -3,8 +3,13 @@ package dkeep.logic;
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ogre extends MovingObject{
+public class Ogre extends MovingObject implements Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 620343092351729404L;
 
 	private static final long serialVersionUID = 1L;
   

@@ -3,11 +3,11 @@ import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Weapon extends MovingObject {
-
-    /**
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1907280161972033828L;
+	
 	private char Symbol = '*';
 
     public char getSymbol(){

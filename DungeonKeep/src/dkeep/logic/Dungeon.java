@@ -8,8 +8,10 @@ import dkeep.logic.levels.Level;
 
 public class Dungeon implements Serializable{
 
-	  
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3652270603347449640L;
 
 	public enum GAME_STATE {
 		GAME_OVER, VICTORY, PLAYING

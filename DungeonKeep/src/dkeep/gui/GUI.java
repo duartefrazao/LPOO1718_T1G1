@@ -20,6 +20,8 @@ public class GUI {
 	private MainMenu mainMenu;
 	
 	private MapCreator mapCreator;
+	
+	private GameLoader gameLoader;
 
 	/**
 	 * Launch the application.
@@ -56,10 +58,14 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		resources = new Resources(frame);
+		
+		
 
 		stateMachine = new StateMachine(resources, frame);
 
 		gamePanel = new GamePanel(this.resources, stateMachine);
+		
+		gameLoader = new GameLoader(stateMachine);
 
 		optionsPanel = new OptionsPanel(stateMachine);
 
@@ -71,7 +77,7 @@ public class GUI {
 
 		frame.setContentPane(mainMenu);
 
-		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu, mapCreator);
+		stateMachine.setPanels(optionsPanel, gamePanel, mainMenu, mapCreator, gameLoader);
 
 		frame.pack();
 

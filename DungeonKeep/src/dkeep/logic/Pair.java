@@ -9,10 +9,13 @@ import java.io.Serializable;
  */
 public class Pair implements Serializable{
 
+	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8805531177476638846L;
+	
 	private int x;
 	private int y;
 

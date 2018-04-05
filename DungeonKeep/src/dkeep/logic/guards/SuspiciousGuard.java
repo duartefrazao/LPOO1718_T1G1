@@ -1,10 +1,16 @@
 package dkeep.logic.guards;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class SuspiciousGuard extends Guard{
+public class SuspiciousGuard extends Guard implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4999885784312383644L;
+	
 	static private boolean positiveDirection=true;
 	
 	public SuspiciousGuard(int x, int y) {

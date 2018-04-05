@@ -1,11 +1,19 @@
 package dkeep.logic.levels;
 
+import java.io.Serializable;
+
 import dkeep.logic.Hero;
 import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Pair;
 import dkeep.logic.guards.*;
 
-public class InitialLevel extends Level {
+public class InitialLevel extends Level implements Serializable {
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4723387839137665193L;
 
 	public InitialLevel() {
 

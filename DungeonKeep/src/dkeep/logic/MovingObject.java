@@ -13,6 +13,10 @@ public abstract class MovingObject implements Serializable{
 
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1073494203017627032L;
 	protected Pair position = new Pair(0, 0);
 
 	/**

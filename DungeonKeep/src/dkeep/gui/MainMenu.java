@@ -49,6 +49,7 @@ public class MainMenu extends JPanel {
 		initSettingsButton();
 		initCreateButton();
 		initExitButton();
+		initLoadGame();
 	}
 
 	public void initialize() {
@@ -63,6 +64,7 @@ public class MainMenu extends JPanel {
 	public void initNewGameButton() {
 		btnNewGame = new JButton("New Game");
 		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
+		gbc_btnNewGame.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewGame.gridx = 1;
 		gbc_btnNewGame.gridy = 1;
@@ -76,18 +78,28 @@ public class MainMenu extends JPanel {
 		});
 	}
 
+	public void initLoadGame() {
+
+		btnLoadGame = new JButton("Load Game");
+		btnLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stateMachine.update(StateMachine.Event.loadGame);
+			}
+		});
+		GridBagConstraints gbc_btnLoadGame = new GridBagConstraints();
+		gbc_btnLoadGame.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnLoadGame.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLoadGame.gridx = 1;
+		gbc_btnLoadGame.gridy = 2;
+		add(btnLoadGame, gbc_btnLoadGame);
+
+	}
+
 	public void initSettingsButton() {
-		{
-			btnLoadGame = new JButton("Load Game");
-			GridBagConstraints gbc_btnLoadGame = new GridBagConstraints();
-			gbc_btnLoadGame.insets = new Insets(0, 0, 5, 5);
-			gbc_btnLoadGame.gridx = 1;
-			gbc_btnLoadGame.gridy = 2;
-			add(btnLoadGame, gbc_btnLoadGame);
-		}
 
 		btnSettings = new JButton("Settings");
 		GridBagConstraints gbc_btnSettings = new GridBagConstraints();
+		gbc_btnSettings.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSettings.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSettings.gridx = 1;
 		gbc_btnSettings.gridy = 3;
@@ -105,6 +117,7 @@ public class MainMenu extends JPanel {
 
 		btnExit = new JButton("Exit");
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnExit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExit.gridx = 1;
 		gbc_btnExit.gridy = 5;
@@ -125,6 +138,7 @@ public class MainMenu extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnCreateMaze = new GridBagConstraints();
+		gbc_btnCreateMaze.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCreateMaze.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCreateMaze.gridx = 1;
 		gbc_btnCreateMaze.gridy = 4;
