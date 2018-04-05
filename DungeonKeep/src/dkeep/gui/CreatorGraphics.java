@@ -219,6 +219,9 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 	}
 
 	public void updateMap(int i, int j, char option) {
+		
+		if(j == 0 || j == map.length -1 || i == 0 || i == map[j].length -1)
+			return;
 
 		if (option == HERO && isHeroSet)
 			return;

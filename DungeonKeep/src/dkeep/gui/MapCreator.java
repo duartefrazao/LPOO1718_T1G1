@@ -196,7 +196,7 @@ public class MapCreator extends JPanel {
 			}
 		});
 	}
-
+	
 	public void initBtnClear() {
 
 		btnClearCell = new JButton("Clear Cell");
