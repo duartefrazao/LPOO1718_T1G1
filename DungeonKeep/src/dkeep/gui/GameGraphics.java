@@ -20,7 +20,7 @@ public class GameGraphics extends JPanel {
 
 	private Dimension fixedDimension = new Dimension(700, 700);
 
-	private int imageWidth;  
+	private int imageWidth;
 	private int imageHeight;
 
 	public void updateImageSize() {
@@ -63,10 +63,12 @@ public class GameGraphics extends JPanel {
 			for (int j = 0; j < map[i].length; j++) {
 
 				switch (map[i][j]) {
+
 				case ' ':
 					g.drawImage(this.resources.getFloor(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
 							this);
 					break;
+
 				case 'X':
 					g.drawImage(this.resources.getWall(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
 							this);
@@ -189,7 +191,8 @@ public class GameGraphics extends JPanel {
 			if (dungeon.getCurrentLevel() instanceof KeepLevel) {
 				int w_i = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getX();
 				int w_j = ((KeepLevel) dungeon.getCurrentLevel()).getHeroWeapon().getY();
-
+				g.drawImage(this.resources.getFloor(), w_j * imageHeight, w_i * imageWidth, imageWidth, imageHeight,
+						this);
 				g.drawImage(this.resources.getHeroWeapon(), w_j * imageHeight, w_i * imageWidth, imageWidth,
 						imageHeight, this);
 			}

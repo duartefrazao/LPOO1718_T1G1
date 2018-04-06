@@ -78,11 +78,11 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		if (!isHeroSet || !isKeySet || numberOfDoors == 0)
 			return false;
 
-		this.initVisited();
-
 		isMazePossible = false;
 
 		findHeroPos();
+
+		this.initVisited();
 
 		mazeSearch(x_hero, y_hero, KEY);
 
@@ -91,6 +91,10 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		else
 			isMazePossible = false;
 
+		findHeroPos();
+
+		this.initVisited();
+
 		mazeSearch(x_hero, y_hero, DOOR);
 
 		return isMazePossible;
@@ -98,6 +102,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 	}
 
 	public void mazeSearch(int x, int y, char goal) {
+
 		if (y < 0 || y > map.length || x < 0 || x > map[y].length)
 			return;
 

@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private Resources resources;
 	private StateMachine stateMachine;
 	private guardType guardPersonality = guardType.Drunken;
-	private Integer numOgres = 3; 
+	private Integer numOgres = 3;
 	private JButton btnUp;
 	private JButton btnLeft;
 	private JButton btnRight;
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
-
+		
 		if (state == Dungeon.GAME_STATE.VICTORY) {
 			this.textField.setText("YOU WON! Press exit to play again!");
 			btnUp.setEnabled(false);
@@ -68,6 +68,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
+			
+			this.gameArea.repaint();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
 
 			this.textField.setText("YOU LOST! Press exit to try again!");
@@ -76,6 +78,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
+			
+			this.gameArea.repaint();
 
 		} else {
 
@@ -89,6 +93,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 			this.gameArea.repaint();
 		}
+		
 	}
 
 	public void updateText() {
@@ -110,16 +115,17 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	/**
 	 * Create the panel
+	 * 
 	 * @param resources
-	 * 		- Graphics resources
+	 *            - Graphics resources
 	 * @param st
-	 * 		- GUI state machine
+	 *            - GUI state machine
 	 * @param gameLoader
-	 * 		- Game Loader, save/load game object
+	 *            - Game Loader, save/load game object
 	 */
 	public GamePanel(Resources resources, StateMachine st, GameLoader gameLoader) {
 
-		this.resources = resources; 
+		this.resources = resources;
 		this.stateMachine = st;
 		this.gameLoader = gameLoader;
 
@@ -194,10 +200,10 @@ public class GamePanel extends JPanel implements KeyListener {
 					e1.printStackTrace();
 					System.exit(1);
 				}
-				
+
 				requestFocusInWindow();
 			}
-			
+
 		});
 
 	}
