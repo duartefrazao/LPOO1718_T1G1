@@ -2,6 +2,10 @@ package dkeep.logic.guards;
 
 import java.io.Serializable;
 
+/**
+ * The rookie guard. The "classic" guard that only follows the path without any deviation.
+ * 
+ */
 public class RookieGuard extends Guard implements Serializable{
 
 	/**

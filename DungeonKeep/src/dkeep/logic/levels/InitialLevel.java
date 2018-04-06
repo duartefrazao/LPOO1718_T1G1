@@ -7,6 +7,10 @@ import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.Pair;
 import dkeep.logic.guards.*;
 
+/**
+ * The first level of the dungeon, the one with guards.
+ *
+ */
 public class InitialLevel extends Level implements Serializable {
 
 	/**
