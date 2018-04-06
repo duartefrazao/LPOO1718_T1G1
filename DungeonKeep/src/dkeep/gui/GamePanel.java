@@ -3,6 +3,7 @@ package dkeep.gui;
 import java.awt.GridBagConstraints;
 import java.util.Date;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private JButton btnLeft;
 	private JButton btnRight;
 	private JButton btnDown;
-	private JButton btnExit; 
+	private JButton btnExit;
 	private GameGraphics gameArea;
 	private JTextField textField;
 	private GameLoader gameLoader;
@@ -57,31 +58,25 @@ public class GamePanel extends JPanel implements KeyListener {
 		return this.fixedDimension;
 	}
 
+	public void exitToMainMenu() {
+		textField.requestFocusInWindow();
+		this.gameArea.repaint();
+		stateMachine.update(StateMachine.Event.endGame);
+
+	}
+
 	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
 		if (state == Dungeon.GAME_STATE.VICTORY) {
-			this.textField.setText("You won! Press exit to play again!");
-			btnUp.setEnabled(false);
-			btnLeft.setEnabled(false);
-			btnRight.setEnabled(false);
-			btnDown.setEnabled(false);
-			textField.requestFocusInWindow();
-			
-		
+			this.textField.setText("You won! Returning to Main Menu...!");
+			this.exitToMainMenu();
 
-			this.gameArea.repaint();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
 
-			this.textField.setText("You lost! Press exit to try again!");  
-			btnUp.setEnabled(false);
-			btnLeft.setEnabled(false);
-			btnRight.setEnabled(false);
-			btnDown.setEnabled(false);
-			textField.requestFocusInWindow();
-
-			this.gameArea.repaint();
+			this.textField.setText("You lost! Returning to Main Menu...!");
+			this.exitToMainMenu();
 
 		} else {
 
@@ -129,7 +124,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.resources = resources;
 		this.stateMachine = st;
-		this.gameLoader = gameLoader;  
+		this.gameLoader = gameLoader;
 
 		addKeyListener(this);
 
@@ -197,7 +192,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				String filename = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 				try {
-					if(!btnUp.isEnabled()) return ;
+					if (!btnUp.isEnabled())
+						return;
 					gameLoader.SaveGame(dungeon, filename);
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -205,7 +201,6 @@ public class GamePanel extends JPanel implements KeyListener {
 				}
 				requestFocusInWindow();
 			}
-			
 
 		});
 
