@@ -19,7 +19,7 @@ public class StateMachine {
 		mapCreator, game, options, mainMenu
 	}
 
-	public enum Event {
+	public enum Event {  
 		newGame, exitApp, startGame, endGame, createMaze, loadGame, back
 	}
 

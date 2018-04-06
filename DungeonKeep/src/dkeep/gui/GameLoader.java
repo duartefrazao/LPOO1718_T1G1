@@ -37,6 +37,7 @@ public class GameLoader extends JPanel {
 
 	private JTextField txtLoader;
 	private JButton btnBack;
+	private JButton btnNewButton; 
 
 	public GameLoader(StateMachine stateMachine) {
 		this.stateMachine = stateMachine;
@@ -46,11 +47,17 @@ public class GameLoader extends JPanel {
 	}
 
 	public void addFilesOptions() {
-
+		
+		
 		File folder = new File("res/saved_games/");
 
 		listOfFiles = folder.listFiles();
 
+		if(listOfFiles.length == 0) this.btnNewButton.setEnabled(false);
+		else this.btnNewButton.setEnabled(true);
+		
+		comboBox.removeAllItems();
+		
 		for (File f : listOfFiles) {
 			comboBox.addItem(f.getName());
 		}
@@ -99,14 +106,14 @@ public class GameLoader extends JPanel {
 	}
 
 	public void initBtnOK() {
-		JButton btnNewButton = new JButton("OK");
+		btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String option = (String) comboBox.getSelectedItem();
 
 				try {
-					if(option == null ) return ;
+					
 					dungeon = loadGame(option);
 				} catch (IOException e1) {
 					e1.printStackTrace();

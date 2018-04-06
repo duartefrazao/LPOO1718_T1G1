@@ -23,6 +23,8 @@ import dkeep.logic.levels.Level;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
@@ -40,7 +42,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private JButton btnLeft;
 	private JButton btnRight;
 	private JButton btnDown;
-	private JButton btnExit;
+	private JButton btnExit; 
 	private GameGraphics gameArea;
 	private JTextField textField;
 	private GameLoader gameLoader;
@@ -68,11 +70,13 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
+			
+		
 
 			this.gameArea.repaint();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
 
-			this.textField.setText("You lost! Press exit to try again!");
+			this.textField.setText("You lost! Press exit to try again!");  
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
@@ -201,9 +205,9 @@ public class GamePanel extends JPanel implements KeyListener {
 					e1.printStackTrace();
 					System.exit(1);
 				}
-
 				requestFocusInWindow();
 			}
+			
 
 		});
 
