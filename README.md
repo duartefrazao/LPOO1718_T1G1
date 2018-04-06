@@ -31,9 +31,14 @@ You can also load  a savegame or even change the settings like how the guard beh
 
 Additionally you can create your own keep level, using the map creator.
 
-<img src="https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/MapCreator.png" width="300">  <br>
+<img src="https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/MapCreator.png" width="300">  <br><br><br>
 
+### EclEmma
+![alt text](https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/EclEmma.png)
+<br><br>
 
-
+### PIT
+![alt text](https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/PIT.png)
+<br><br>
 
 
