@@ -33,7 +33,7 @@ public class TestInitialLevelLogic {
 		InitialLevel testLevel = new InitialLevel(map);
 
 		Hero hero = testLevel.getHero();
-		assertEquals(new Pair(1, 1), hero.getPosition());
+		assertEquals(new Pair(1, 1), hero.getPosition());  
 
 		hero.move(MOVEMENT_TYPE.DOWN, map);
 		assertEquals(new Pair(2, 1), hero.getPosition());
@@ -395,9 +395,10 @@ public class TestInitialLevelLogic {
 			}
 		}
 
-		assertEquals(true, i < 300);
+		assertEquals(true, i > 0);
 
 	}
+	
 	
 	@Test
 	public void testDrunkenGuardSleeping() {
