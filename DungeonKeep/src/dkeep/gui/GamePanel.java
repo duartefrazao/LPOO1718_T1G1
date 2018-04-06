@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		Dungeon.GAME_STATE state = dungeon.game(move);
 
 		if (state == Dungeon.GAME_STATE.VICTORY) {
-			this.textField.setText("YOU WON! Press exit to play again!");
+			this.textField.setText("You won! Press exit to play again!");
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
@@ -72,7 +72,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			this.gameArea.repaint();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
 
-			this.textField.setText("YOU LOST! Press exit to try again!");
+			this.textField.setText("You lost! Press exit to try again!");
 			btnUp.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRight.setEnabled(false);
@@ -127,7 +127,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		this.resources = resources;
 		this.stateMachine = st;
-		this.gameLoader = gameLoader;
+		this.gameLoader = gameLoader;  
 
 		addKeyListener(this);
 
@@ -195,6 +195,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				String filename = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 				try {
+					if(!btnUp.isEnabled()) return ;
 					gameLoader.SaveGame(dungeon, filename);
 				} catch (IOException e1) {
 					e1.printStackTrace();
