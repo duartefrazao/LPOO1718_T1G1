@@ -54,7 +54,7 @@ public class GameLoader extends JPanel {
 		for (File f : listOfFiles) {
 			comboBox.addItem(f.getName());
 		}
-
+ 
 	}
 
 	public void initialize() {
