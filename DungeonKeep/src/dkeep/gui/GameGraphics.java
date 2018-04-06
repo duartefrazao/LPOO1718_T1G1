@@ -21,7 +21,7 @@ public class GameGraphics extends JPanel {
 	private Dimension fixedDimension = new Dimension(700, 700);
 
 	private int imageWidth;
-	private int imageHeight;
+	private int imageHeight;  
 
 	public void updateImageSize() {
 		imageWidth = (int) (fixedDimension.getWidth() / resources.getMapWidth());
@@ -110,11 +110,11 @@ public class GameGraphics extends JPanel {
 			paintLever(g, l_i, l_j, lever);
 		} else {
 
-			int k_i = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getX();
-			int k_j = ((KeepLevel) (this.dungeon.getCurrentLevel())).getKey().getY();
+			int k_i = this.dungeon.getKeepLevel().getKey().getX();
+			int k_j = this.dungeon.getKeepLevel().getKey().getY();
 			paintKey(g, k_i, k_j);
 
-			Vector<Ogre> ogres = ((KeepLevel) (this.dungeon.getCurrentLevel())).getCrazyHorde();
+			Vector<Ogre> ogres = this.dungeon.getKeepLevel().getCrazyHorde();
 			paintOgres(g, ogres);
 
 		}
