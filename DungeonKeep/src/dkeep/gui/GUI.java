@@ -24,8 +24,10 @@ public class GUI {
 	private GameLoader gameLoader;
   
 	/**
-	 * Launch the application.
-	 */  
+	 * Launch the application 
+	 * @param args
+	 * 		- Predefined java main arguments
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -36,13 +38,14 @@ public class GUI {
 					e.printStackTrace();
 				}
 			}
-		});
+		}); 
 	}
 
 	/**
 	 * Create the application.
 	 * 
 	 * @throws IOException
+	 * 		- Gui exception
 	 */
 	public GUI() throws IOException {
 		initialize();

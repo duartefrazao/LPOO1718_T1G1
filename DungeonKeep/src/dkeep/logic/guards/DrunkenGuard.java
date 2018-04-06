@@ -18,7 +18,7 @@ public class DrunkenGuard extends Guard implements Serializable{
 	static private boolean wokeUp = false;
 
 	/**
-	 * @returns true if ogre is sleeping, false otherwise
+	 * @return true if ogre is sleeping, false otherwise
 	 */
 	public boolean isSleeping() {
 		return this.roundsLeftSleeping != 0;
@@ -26,14 +26,17 @@ public class DrunkenGuard extends Guard implements Serializable{
 
 	/**
 	 * Drunken Guard constructor
-	 * @returns new Drunken Guard object
+	 * @param x
+	 * 		-Guard x position
+	 * @param y
+	 * 		-Guard y position
 	 */
 	public DrunkenGuard(int x, int y) {
 		super(x, y);
 	}
 
 	/**
-	 * @returns true if moving in possible direction, false otherwise 
+	 * @return true if moving in possible direction, false otherwise 
 	 */
 	public boolean getDirection() {
 		return positiveDirection;

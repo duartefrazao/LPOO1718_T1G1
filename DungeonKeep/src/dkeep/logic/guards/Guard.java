@@ -19,7 +19,7 @@ public abstract class Guard extends MovingObject implements Serializable{
     
     /**
      * Gets the guard symbol
-     * @returns the guard symbol
+     * @return the guard symbol
      */
     public char getSymbol(){ return this.Symbol;};
 
@@ -32,7 +32,7 @@ public abstract class Guard extends MovingObject implements Serializable{
 
     /**
      * Gets a new guard movement respecting restrictions
-     * @returns new guard movent
+     * @return new guard movent
      *
      */
     public abstract MOVEMENT_TYPE getMove();
@@ -67,7 +67,6 @@ public abstract class Guard extends MovingObject implements Serializable{
    * @param y
    * 		- guard y position
    * 
-   * @return new Guard object
    */
 
     public Guard(int x, int y)

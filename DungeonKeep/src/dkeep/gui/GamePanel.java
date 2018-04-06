@@ -109,11 +109,17 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	/**
-	 * Create the panel.
+	 * Create the panel
+	 * @param resources
+	 * 		- Graphics resources
+	 * @param st
+	 * 		- GUI state machine
+	 * @param gameLoader
+	 * 		- Game Loader, save/load game object
 	 */
 	public GamePanel(Resources resources, StateMachine st, GameLoader gameLoader) {
 
-		this.resources = resources;
+		this.resources = resources; 
 		this.stateMachine = st;
 		this.gameLoader = gameLoader;
 

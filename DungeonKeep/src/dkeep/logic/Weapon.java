@@ -61,7 +61,6 @@ public class Weapon extends MovingObject {
 	/**
 	 * Weapon constructor
 	 * 
-	 * @return new weapon object
 	 */
 	public Weapon() {
 		super();

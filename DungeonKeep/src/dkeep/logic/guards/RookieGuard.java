@@ -16,7 +16,6 @@ public class RookieGuard extends Guard implements Serializable{
 	 * @param y
 	 * 		- rookie guard y position
 	 * 
-	 * @return new rookie guard object
 	 */
 	public RookieGuard(int x, int y) {
 		super(x, y);
@@ -24,7 +23,7 @@ public class RookieGuard extends Guard implements Serializable{
 
 	 /**
      * Gets a new guard movement respecting restrictions
-     * @returns new guard movent
+     * @return new guard movement
      *
      */
 	@Override

@@ -36,7 +36,7 @@ public class Hero extends MovingObject implements Serializable {
 	/**
 	 * Sets hero has key flag
 	 * 
-	 * * @param key - true to signal that hero has key - false to signal that hero
+	 * @param key - true to signal that hero has key - false to signal that hero
 	 * doesn't have key
 	 */
 	public void setKey(boolean key) {
@@ -66,7 +66,6 @@ public class Hero extends MovingObject implements Serializable {
 	/**
 	 * hero constructor
 	 * 
-	 * @return the new hero object
 	 */
 	public Hero() {
 		super();

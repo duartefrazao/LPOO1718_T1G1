@@ -69,7 +69,6 @@ public abstract class MovingObject implements Serializable{
 	/**
 	 * Returns the current position of and object represented by a pair (x, y)
 	 * 
-	 * @see Pair.java
 	 * @return Position pair
 	 */
 	public Pair getPosition() {
@@ -102,7 +101,10 @@ public abstract class MovingObject implements Serializable{
 	}  
 	  
 	/**
-	 * Contrary of the selected movement
+	 * Gets the contrary of the selected movement
+	 * @param move
+	 * 		-move to get the contrary from
+	 * 	 
 	 * @return the contrary movement
 	 */
 	public MOVEMENT_TYPE contrary(MOVEMENT_TYPE move) {

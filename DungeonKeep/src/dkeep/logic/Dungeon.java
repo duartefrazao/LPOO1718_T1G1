@@ -68,7 +68,6 @@ public class Dungeon implements Serializable {
 	 * 
 	 * @param vLevels
 	 *            - levels to construct dungeon
-	 * @return new dungeon object
 	 */
 	public Dungeon(Vector<Level> vLevels) {
 		this.levels = vLevels;

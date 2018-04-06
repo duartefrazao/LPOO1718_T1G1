@@ -12,19 +12,29 @@ import dkeep.logic.Weapon;
 
 public class KeepLevel extends Level implements Serializable {
 
-	/**
-	 *  
-	 */
+	private int hordeSize;
+	
 	private static final long serialVersionUID = -7873755346330412465L;
 
-	private boolean isRandomlyGenerated;
+	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
 
+	private Pair Key = new Pair(0, 0);
+
+	private Weapon heroWeapon;
+
+	private boolean isRandomlyGenerated;
+ 
 	public KeepLevel() {
 		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}
 
 	private char[][] initialMap;
 
+	/**
+	 * Keep level constructor on default map with a desired number of ogres
+	 * @param hordeSize
+	 * 		-number of ogres
+	 */
 	public KeepLevel(int hordeSize) {
 		super();
 
@@ -57,6 +67,11 @@ public class KeepLevel extends Level implements Serializable {
 		findPassageDoors();
 	}
 
+	/**
+	 * Keep level constructor with custom map
+	 * @param new_map
+	 * 		- custom map to apply to keep level
+	 */
 	public KeepLevel(char[][] new_map) {
 		super();
 
@@ -77,6 +92,9 @@ public class KeepLevel extends Level implements Serializable {
 		findPassageDoors();
 	}
 
+	/**
+	 * Reset keep level elements to original
+	 */
 	@Override
 	public void resetGameElements() {
 
@@ -101,22 +119,28 @@ public class KeepLevel extends Level implements Serializable {
 
 	}
 
-	private Vector<Ogre> crazyHorde = new Vector<Ogre>(0);
-
-	private Pair Key = new Pair(0, 0);
-
-	private Weapon heroWeapon;
-
+	/**
+	 * 
+	 * @return number of ogres
+	 */
 	public Vector<Ogre> getCrazyHorde() {
 		return crazyHorde;
 	}
 
-	private int hordeSize;
 
+	/**
+	 * Set number of ogres on the map
+	 * @param size
+	 * 		- number of ogres to apply to keep level
+	 */
 	public void setHordeSize(int size) {
 		this.hordeSize = size;
 	}
 
+	/**
+	 * Checks collision between hero and ogres, also deals with stunning ogres
+	 * @return true if collision is detected, false otherwise
+	 */
 	public boolean checkOgreCollision() {
 
 		for (int i = 0; i < this.hordeSize; i++) {
@@ -139,6 +163,13 @@ public class KeepLevel extends Level implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Sets a ogre in a desired position and the club on a valid random position
+	 * @param i
+	 * 		- ogre x position
+	 * @param j
+	 * 		- ogre y position
+	 */
 	public void setOgrePos(int i, int j) {
 		map[i][j] = ' ';
 
@@ -165,6 +196,9 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Identifies the passage doors
+	 */
 	@Override
 	public void findPassageDoors() {
 		for (int i = 0; i < map.length; i++) {
@@ -177,6 +211,13 @@ public class KeepLevel extends Level implements Serializable {
 
 	}
 
+	/**
+	 * Sets the hero position and generates the sword on a valid position
+	 * @param i
+	 * 		- hero x position
+	 * @param j
+	 * 		- hero y position
+	 */
 	public void setHeroPos(int i, int j) {
 		hero.setX(i);
 		hero.setY(j);
@@ -190,6 +231,9 @@ public class KeepLevel extends Level implements Serializable {
 		heroWeapon.move(swordMove, map);
 	}
 
+	/**
+	 * Identifies the game elements on the map, generating a random number of ogres
+	 */
 	public void findGameElements() {
 
 		for (int i = 0; i < map.length; i++) {
@@ -220,6 +264,9 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Identifies only the game elements on the map (doesn't generate random ogres)
+	 */
 	public void findGameElementsOnlyInMap() {
 
 		for (int i = 0; i < map.length; i++) {
@@ -257,6 +304,11 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Handles hero and weapon part of creating a map to print
+	 * @param mapToPrint
+	 * 		- Map to be printed
+	 */
 	public void createMapToPrintHeroPart(char[][] mapToPrint) {
 
 		int i, j;
@@ -275,6 +327,11 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Handles ogres and clubs part of creating a map to print
+	 * @param mapToPrint
+	 * 		- Map to be printed
+	 */
 	public void createMapToPrintOgrePart(char[][] mapToPrint) {
 
 		int i, j;
@@ -302,6 +359,10 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Creates a map with game elements to be printed 
+	 * @return map to be printed
+	 */
 	public char[][] createMapToPrint() {
 
 		char[][] mapToPrint = new char[map.length][];
@@ -320,6 +381,9 @@ public class KeepLevel extends Level implements Serializable {
 		return mapToPrint;
 	}
 
+	/**
+	 * Moves the ogre and the club
+	 */
 	public void ogreMovement() {
 		for (int i = 0; i < this.hordeSize; i++) {
 
@@ -333,6 +397,13 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Handles the hero and weapon actions related to the performed movement
+	 * @param x
+	 * 		- hero x position
+	 * @param y
+	 * 		- hero y position
+	 */
 	public void heroActions(int x, int y) {
 		if (x == Key.getX() && y == Key.getY()) {
 
@@ -352,6 +423,16 @@ public class KeepLevel extends Level implements Serializable {
 		}
 	}
 
+	/**
+	 * Handles the hero movement
+	 * 
+	 * @param move
+	 * 		- performed hero movement
+	 * @param x
+	 * 		- hero x position
+	 * @param y
+	 * 		- hero y position
+	 */
 	public void heroMovement(MOVEMENT_TYPE move, int x, int y) {
 
 		if (hero.hasKey()) {
@@ -391,6 +472,12 @@ public class KeepLevel extends Level implements Serializable {
 
 	}
 
+	/**
+	 * Level state machine, responsible for the level game flow
+	 * @param move
+	 * 		- hero movement
+	 * @return current level state
+	 */
 	public LEVEL_STATE updateLevel(MOVEMENT_TYPE move) {
 
 		hero.move(move, map);

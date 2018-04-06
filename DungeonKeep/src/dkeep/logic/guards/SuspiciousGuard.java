@@ -19,12 +19,12 @@ public class SuspiciousGuard extends Guard implements Serializable{
 	
 	 /**
      * Gets a new guard movement respecting restrictions
-     * @returns new guard movement
+     * @return new guard movement
      *
      */
 	@Override 
 	public MOVEMENT_TYPE getMove() {
-		
+		 
 		MOVEMENT_TYPE move;
 		if(positiveDirection) move = this.guardMovement.elementAt(currentMovPos);
 		else move = contrary(this.guardMovement.elementAt(currentMovPos));
