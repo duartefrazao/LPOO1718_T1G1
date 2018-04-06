@@ -15,10 +15,10 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 
 	final private char WALL = 'X';
 	final private char OGRE = 'O';
-	final private char HERO = 'H' ;
+	final private char HERO = 'H';
 	final private char KEY = 'k';
 	final private char DOOR = 'I';
-	//final private char FLOOR = ' ';
+	// final private char FLOOR = ' ';
 
 	private boolean isMazePossible = false;
 
@@ -83,21 +83,21 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		isMazePossible = false;
 
 		findHeroPos();
-		
-		mazeSearch(x_hero, y_hero);
-		
-		if(!isMazePossible)
+
+		mazeSearch(x_hero, y_hero, KEY);
+
+		if (!isMazePossible)
 			return false;
 		else
 			isMazePossible = false;
 
-		mazeSearch(x_hero, y_hero);
+		mazeSearch(x_hero, y_hero, DOOR);
 
 		return isMazePossible;
 
 	}
-	
-	public void mazeSearchKey(int x, int y) {
+
+	public void mazeSearch(int x, int y, char goal) {
 		if (y < 0 || y > map.length || x < 0 || x > map[y].length)
 			return;
 
@@ -109,7 +109,7 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		else
 			visited[y][x] = true;
 
-		if (map[y][x] == KEY) {
+		if (map[y][x] == goal) {
 			isMazePossible = true;
 			return;
 		}
@@ -117,36 +117,10 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 		if (map[y][x] == WALL)
 			return;
 
-		mazeSearch(x + 1, y);
-		mazeSearch(x - 1, y);
-		mazeSearch(x, y + 1);
-		mazeSearch(x, y - 1);
-	}
-
-	public void mazeSearch(int x, int y) {
-		if (y < 0 || y > map.length || x < 0 || x > map[y].length)
-			return;
-
-		if (isMazePossible)
-			return;
-
-		if (visited[y][x])
-			return;
-		else
-			visited[y][x] = true;
-
-		if (map[y][x] == DOOR) {
-			isMazePossible = true;
-			return;
-		}
-
-		if (map[y][x] == WALL)
-			return;
-
-		mazeSearch(x + 1, y);
-		mazeSearch(x - 1, y);
-		mazeSearch(x, y + 1);
-		mazeSearch(x, y - 1);
+		mazeSearch(x + 1, y, goal);
+		mazeSearch(x - 1, y, goal);
+		mazeSearch(x, y + 1, goal);
+		mazeSearch(x, y - 1, goal);
 	}
 
 	public void updateImageSize() {
@@ -219,9 +193,12 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 	}
 
 	public void updateMap(int i, int j, char option) {
-		
-		if(j == 0 || j == map.length -1 || i == 0 || i == map[j].length -1)
-			return;
+
+		if (option != DOOR && option != WALL) {
+
+			if ((j == 0 || j == map.length - 1 || i == 0 || i == map[j].length - 1))
+				return;
+		}
 
 		if (option == HERO && isHeroSet)
 			return;
@@ -305,7 +282,6 @@ public class CreatorGraphics extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 
 	}
 

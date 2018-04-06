@@ -2,6 +2,10 @@ package dkeep.logic;
 
 import java.io.Serializable;
 
+/**
+ * The main character of the game, the one the user interacts with.
+ *
+ */
 public class Hero extends MovingObject implements Serializable {
 
 

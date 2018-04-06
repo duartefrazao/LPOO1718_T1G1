@@ -7,6 +7,10 @@ import dkeep.logic.MovingObject.MOVEMENT_TYPE;
 import dkeep.logic.levels.KeepLevel;
 import dkeep.logic.levels.Level;
 
+/**
+ * The place where all the levels are set and the action take place.
+ *
+ */
 public class Dungeon implements Serializable {
 
 	private static final long serialVersionUID = 1L;

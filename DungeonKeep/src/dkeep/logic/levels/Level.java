@@ -17,6 +17,10 @@ public abstract class Level implements Serializable{
 	 */
 	private static final long serialVersionUID = 8341778413317578800L;
 
+	/**
+	 * All the possible level states. 
+	 *
+	 */
 	public enum LEVEL_STATE {
 		PASSED_LEVEL, DEATH, NONE
 	}
@@ -30,7 +34,12 @@ public abstract class Level implements Serializable{
 	protected Vector<Pair> passageDoors = new Vector<Pair>(0);
 
 
-
+	/**
+	 * Finds a random empty position in the map that's not adjacent to the hero. 
+	 * Useful for placing randomly ogres in the map.
+	 * @return A pair containing the empty position
+	 * @see Pair.java
+	 */
 	public Pair getRandomEmptyPositions() {
 
 		Pair randomPos = new Pair(0, 0);
@@ -53,6 +62,10 @@ public abstract class Level implements Serializable{
 		return randomPos;
 	}
 
+	/**
+	 * Finds the passage Doors of a level.
+	 * By passage doors we mean the doors adjacent to the edges of the map.
+	 */
 	public void findPassageDoors() {
 
 		for (int i = 0; i < map.length; i++) {
