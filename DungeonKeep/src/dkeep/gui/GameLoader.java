@@ -37,7 +37,7 @@ public class GameLoader extends JPanel {
 
 	private JTextField txtLoader;
 	private JButton btnBack;
-	private JButton btnNewButton; 
+	private JButton btnNewButton;
 
 	public GameLoader(StateMachine stateMachine) {
 		this.stateMachine = stateMachine;
@@ -47,21 +47,23 @@ public class GameLoader extends JPanel {
 	}
 
 	public void addFilesOptions() {
-		
-		
+
 		File folder = new File("res/saved_games/");
 
 		listOfFiles = folder.listFiles();
 
-		if(listOfFiles.length == 0) this.btnNewButton.setEnabled(false);
-		else this.btnNewButton.setEnabled(true);
-		
+		if (listOfFiles.length == 1)
+			this.btnNewButton.setEnabled(false);
+		else
+			this.btnNewButton.setEnabled(true);
+
 		comboBox.removeAllItems();
-		
+
 		for (File f : listOfFiles) {
-			comboBox.addItem(f.getName());
+			if (!f.getName().equals(".keep"))
+				comboBox.addItem(f.getName());
 		}
- 
+
 	}
 
 	public void initialize() {
@@ -109,11 +111,11 @@ public class GameLoader extends JPanel {
 		btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String option = (String) comboBox.getSelectedItem();
 
 				try {
-					
+
 					dungeon = loadGame(option);
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -151,7 +153,7 @@ public class GameLoader extends JPanel {
 			fout = new FileOutputStream("res/saved_games/" + filename, false);
 			oos = new ObjectOutputStream(fout);
 			oos.writeObject(dungeon);
- 
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.exit(1);
