@@ -12,7 +12,7 @@ Pedro Costa<br>
 * E-Mail: up201605339@fe.up.pt
 <br><br>
  
-## The Cat Dimension (Maze game)
+[## The Cat Dimension (Maze game)] (https://www.reddit.com/r/thecatdimension/)
 It's a maze game and was developed during the first half of the semester while we learnt the basics of java and the coding best practices.
 
 <img src="https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/MainMenu.png" width="300">  <br>
@@ -40,5 +40,3 @@ Additionally you can create your own keep level, using the map creator.
 ### PIT
 ![alt text](https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/PIT.png)
 <br><br>
-
-
