@@ -40,3 +40,6 @@ Additionally you can create your own keep level, using the map creator.
 ### PIT
 ![alt text](https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/PIT.png)
 <br><br>
+
+### Better Code Hub
+[![BCH compliance](https://bettercodehub.com/edge/badge/Duarte-Frazao/LPOO1718_T1G1?branch=master&token=79dcca737c5cdf3fb55ba0115ef2aca5862feaf4)](https://bettercodehub.com/)
