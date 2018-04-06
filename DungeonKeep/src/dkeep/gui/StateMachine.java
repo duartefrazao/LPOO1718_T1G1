@@ -19,7 +19,7 @@ public class StateMachine {
 		mapCreator, game, options, mainMenu
 	}
 
-	public enum Event {  
+	public enum Event {
 		newGame, exitApp, startGame, endGame, createMaze, loadGame, back
 	}
 
@@ -39,7 +39,7 @@ public class StateMachine {
 		mp.setDungeon(gamePanel.getDungeon());
 		gameLoader.setDungeon(gamePanel.getDungeon());
 	}
-	
+
 	public void rearrangeMainMenu() {
 		state = State.mainMenu;
 		mainMenu.repaint();
@@ -104,8 +104,9 @@ public class StateMachine {
 	}
 
 	public void addOptions(Integer og, Object object) {
+	
 		gamePanel.setNumOgres(og);
 		gamePanel.setGuardPersonality((guardType) object);
-		//gamePanel.newGame();
+		gamePanel.updateAfterSetting();
 	}
 }

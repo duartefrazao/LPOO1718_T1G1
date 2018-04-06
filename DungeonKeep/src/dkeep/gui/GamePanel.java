@@ -348,9 +348,16 @@ public class GamePanel extends JPanel implements KeyListener {
 		dungeon = new Dungeon(levels);
 
 	}
+	
+	public void updateAfterSetting() {
+		KeepLevel level2 = new KeepLevel(numOgres);
+		dungeon.substituteKeepLevel(level2);
+		InitialLevel level1 = (InitialLevel) dungeon.getCurrentLevel();
+		this.updateGuardPersonality(level1);;
+	}
 
 	public void resetGame() {
-
+		
 		dungeon.resetCurrentLevel();
 
 		InitialLevel level1 = (InitialLevel) dungeon.getCurrentLevel();
