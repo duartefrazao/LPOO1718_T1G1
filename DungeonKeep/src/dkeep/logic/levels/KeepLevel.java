@@ -288,7 +288,7 @@ public class KeepLevel extends Level implements Serializable {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 
-				switch (map[i][j]) {
+				switch (map[i][j]) {  
 				case 'k':
 					Key.setX(i);
 					Key.setY(j);

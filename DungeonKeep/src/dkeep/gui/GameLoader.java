@@ -102,10 +102,11 @@ public class GameLoader extends JPanel {
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 				String option = (String) comboBox.getSelectedItem();
 
 				try {
+					if(option == null ) return ;
 					dungeon = loadGame(option);
 				} catch (IOException e1) {
 					e1.printStackTrace();
