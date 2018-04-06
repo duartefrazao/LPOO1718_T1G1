@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import dkeep.logic.Dungeon;
 import dkeep.logic.Hero;
@@ -59,17 +60,35 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	public void exitToMainMenu() {
-		textField.requestFocusInWindow();
-		this.gameArea.repaint();
-		stateMachine.update(StateMachine.Event.endGame);
+
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				
+				textField.requestFocusInWindow();
+				btnUp.setEnabled(false);
+				btnDown.setEnabled(false);
+				btnLeft.setEnabled(false);
+				btnRight.setEnabled(false);
+				saveGame.setEnabled(false);
+				
+				stateMachine.update(StateMachine.Event.endGame);
+				
+
+			}
+		};
+
+		Timer timer = new Timer(1000, al);
+		timer.setRepeats(false);
+		timer.start();
 
 	}
 
 	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
-
+		gameArea.repaint();
 		if (state == Dungeon.GAME_STATE.VICTORY) {
+
 			this.textField.setText("You won! Returning to Main Menu...!");
 			this.exitToMainMenu();
 
@@ -192,8 +211,6 @@ public class GamePanel extends JPanel implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				String filename = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 				try {
-					if (!btnUp.isEnabled())
-						return;
 					gameLoader.SaveGame(dungeon, filename);
 				} catch (IOException e1) {
 					e1.printStackTrace();

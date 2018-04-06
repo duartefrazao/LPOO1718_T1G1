@@ -106,6 +106,6 @@ public class StateMachine {
 	public void addOptions(Integer og, Object object) {
 		gamePanel.setNumOgres(og);
 		gamePanel.setGuardPersonality((guardType) object);
-		gamePanel.newGame();
+		//gamePanel.newGame();
 	}
 }

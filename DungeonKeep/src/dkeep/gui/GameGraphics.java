@@ -21,7 +21,7 @@ public class GameGraphics extends JPanel {
 	private Dimension fixedDimension = new Dimension(700, 700);
 
 	private int imageWidth;
-	private int imageHeight;  
+	private int imageHeight;
 
 	public void updateImageSize() {
 		imageWidth = (int) (fixedDimension.getWidth() / resources.getMapWidth());
@@ -141,9 +141,7 @@ public class GameGraphics extends JPanel {
 			i = tempOgre.getClub().getX();
 			j = tempOgre.getClub().getY();
 
-			if (resources.getMap()[i][j] != 'O')
-				g.drawImage(this.resources.getOgreWeapon(), j * imageHeight, i * imageWidth, imageWidth, imageHeight,
-						this);
+			g.drawImage(this.resources.getOgreWeapon(), j * imageHeight, i * imageWidth, imageWidth, imageHeight, this);
 
 		}
 
