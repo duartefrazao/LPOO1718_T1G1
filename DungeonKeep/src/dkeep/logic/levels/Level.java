@@ -41,7 +41,6 @@ public abstract class Level implements Serializable {
 	 * Useful for placing randomly ogres in the map.
 	 * 
 	 * @return A pair containing the empty position
-	 * @see Pair.java
 	 */
 	public Pair getRandomEmptyPositions() {
 
@@ -100,7 +99,6 @@ public abstract class Level implements Serializable {
 	 * Identifies the game elements on the map, generating some elements randomly if
 	 * needed. Some random behaviour is needed, for example, to generate ogres.
 	 * 
-	 * @see Ogre.java
 	 */
 	public abstract void findGameElements();
 
