@@ -39,6 +39,17 @@ public class StateMachine {
 		mp.setDungeon(gamePanel.getDungeon());
 		gameLoader.setDungeon(gamePanel.getDungeon());
 	}
+	
+	public void rearrangeMainMenu() {
+		state = State.mainMenu;
+		mainMenu.repaint();
+		frame.setContentPane(mainMenu);
+		mainMenu.setFocusable(true);
+		mainMenu.requestFocusInWindow();
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		mainMenu.setVisible(true);
+	}
 
 	public void update(Event event) {
 		switch (event) {
@@ -65,14 +76,7 @@ public class StateMachine {
 			break;
 		case endGame:
 			gamePanel.resetGame();
-			state = State.mainMenu;
-			mainMenu.repaint();
-			frame.setContentPane(mainMenu);
-			mainMenu.setFocusable(true);
-			mainMenu.requestFocusInWindow();
-			frame.pack();
-			frame.setLocationRelativeTo(null);
-			mainMenu.setVisible(true);
+			rearrangeMainMenu();
 			break;
 		case createMaze:
 			state = State.mapCreator;
@@ -93,14 +97,7 @@ public class StateMachine {
 			gameLoader.setVisible(true);
 			break;
 		case back:
-			state = State.mainMenu;
-			mainMenu.repaint();
-			frame.setContentPane(mainMenu);
-			mainMenu.setFocusable(true);
-			mainMenu.requestFocusInWindow();
-			frame.pack();
-			frame.setLocationRelativeTo(null);
-			mainMenu.setVisible(true);
+			rearrangeMainMenu();
 			break;
 
 		}

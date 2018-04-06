@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void processGame(MOVEMENT_TYPE move) {
 
 		Dungeon.GAME_STATE state = dungeon.game(move);
-		
+
 		if (state == Dungeon.GAME_STATE.VICTORY) {
 			this.textField.setText("YOU WON! Press exit to play again!");
 			btnUp.setEnabled(false);
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
-			
+
 			this.gameArea.repaint();
 		} else if (state != Dungeon.GAME_STATE.PLAYING) {
 
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			btnRight.setEnabled(false);
 			btnDown.setEnabled(false);
 			textField.requestFocusInWindow();
-			
+
 			this.gameArea.repaint();
 
 		} else {
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 			this.gameArea.repaint();
 		}
-		
+
 	}
 
 	public void updateText() {
@@ -305,13 +305,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	}
 
-	public void newGameDungeonSettings() {
-		KeepLevel level2 = new KeepLevel(numOgres);
-		InitialLevel level1 = new InitialLevel();
-
-		Vector<Level> levels = new Vector<>();
-		levels.add(level1);
-		levels.add(level2);
+	public void updateGuardPersonality(InitialLevel level1) {
 
 		switch (guardPersonality) {
 		case Drunken:
@@ -324,6 +318,18 @@ public class GamePanel extends JPanel implements KeyListener {
 			level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
 			break;
 		}
+
+	}
+
+	public void newGameDungeonSettings() {
+		KeepLevel level2 = new KeepLevel(numOgres);
+		InitialLevel level1 = new InitialLevel();
+
+		Vector<Level> levels = new Vector<>();
+		levels.add(level1);
+		levels.add(level2);
+
+		this.updateGuardPersonality(level1);
 		dungeon = new Dungeon(levels);
 
 	}
@@ -334,17 +340,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
 		InitialLevel level1 = (InitialLevel) dungeon.getCurrentLevel();
 
-		switch (guardPersonality) {
-		case Drunken:
-			level1.setGuard(new DrunkenGuard(level1.getGuard().getX(), level1.getGuard().getY()));
-			break;
-		case Suspicious:
-			level1.setGuard(new SuspiciousGuard(level1.getGuard().getX(), level1.getGuard().getY()));
-			break;
-		case Rookie:
-			level1.setGuard(new RookieGuard(level1.getGuard().getX(), level1.getGuard().getY()));
-			break;
-		}
+		this.updateGuardPersonality(level1);
 
 	}
 
