@@ -10,6 +10,10 @@ import dkeep.logic.Ogre;
 import dkeep.logic.Pair;
 import dkeep.logic.Weapon;
 
+/**
+ * The second level of the dungeon, the one with ogres.
+ *
+ */
 public class KeepLevel extends Level implements Serializable {
 
 	private int hordeSize;
@@ -24,6 +28,9 @@ public class KeepLevel extends Level implements Serializable {
 
 	private boolean isRandomlyGenerated;
  
+	/**
+	 * Keep Level constructors on default map with a random number of ogres between 1 and 4
+	 */
 	public KeepLevel() {
 		this(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 	}

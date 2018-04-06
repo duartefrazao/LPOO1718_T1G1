@@ -3,6 +3,10 @@ package dkeep.logic;
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Represents the weapon of the moving objects.
+ *
+ */
 public class Weapon extends MovingObject {
 	/**
 	 * 

@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * MovingObject.java - Base class for every moving object of the game
  * 
- * @author pedro
  *
  */
 public abstract class MovingObject implements Serializable{

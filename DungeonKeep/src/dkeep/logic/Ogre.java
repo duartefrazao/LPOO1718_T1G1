@@ -3,6 +3,11 @@ package dkeep.logic;
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+/**
+ * Represents the hero's enemies in the keep level.
+ *
+ */
 public class Ogre extends MovingObject implements Serializable {
 
 	/**
