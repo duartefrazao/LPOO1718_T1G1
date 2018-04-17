@@ -37,7 +37,7 @@ public class GameView extends ScreenAdapter {
     }
 
     private void loadAssets(){
-        this.game.getAssetManager().load("badlogic.jpg", Texture.class);
+        this.game.getAssetManager().load("aestroid_dark.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
 
@@ -48,7 +48,7 @@ public class GameView extends ScreenAdapter {
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
         game.getBatch().begin();
-        Texture bad = game.getAssetManager().get("badlogic.jpg", Texture.class);
+        Texture bad = game.getAssetManager().get("aestroid_dark.png", Texture.class);
         game.getBatch().draw(bad, camera.position.x - (bad.getWidth() /2f), camera.position.y - (bad.getHeight() / 2f));
         game.getBatch().end();
 
