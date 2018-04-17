@@ -1,6 +1,6 @@
 package com.groundcontrol.game.model.elements;
 
-public class ElementModel {
+public abstract class ElementModel {
 
     private float x;
 
