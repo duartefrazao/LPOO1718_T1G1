@@ -12,3 +12,7 @@ DungeonKeep/DungeonKeep\.iml
 DungeonKeep/report/201803111619/mutations\.xml
 
 DK/\.project
+
+GroundControl/gradle/wrapper/gradle-wrapper\.properties
+
+GroundControl/build\.gradle

@@ -8,6 +8,7 @@ import com.groundcontrol.game.view.GameView;
 public class GroundControl extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
+
 	
 	@Override
 	public void create () {

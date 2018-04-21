@@ -8,6 +8,11 @@ import com.groundcontrol.game.model.elements.PlayerModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+import static com.groundcontrol.game.controller.GameController.ARENA_HEIGHT;
+import static com.groundcontrol.game.controller.GameController.ARENA_WIDTH;
+import static java.lang.Math.random;
+
 public class GameModel {
 
     /**
@@ -23,23 +28,37 @@ public class GameModel {
     /**
      * Returns singleton
      */
-    public static GameModel getInstance(){
-        if (instance == null)  instance = new GameModel();
+    public static GameModel getInstance() {
+        if (instance == null) instance = new GameModel();
         return instance;
     }
+
+
+    private static final int PLANET_COUNT = 100;
 
     /**
      * Planets
      */
     private List<PlanetModel> planets;
 
-    private GameModel(){
+    private GameModel() {
         planets = new ArrayList<PlanetModel>();
-        player = new PlayerModel(350,350,0);
+        player = new PlayerModel(350, 350, 0);
 
-        for(PlanetModel p:planets){
-
+        for (int i = 0; i < PLANET_COUNT; i++) {
+            planets.add(new PlanetModel(
+                    random.nextFloat() * ARENA_WIDTH,
+                    random.nextFloat() * ARENA_HEIGHT,
+                    (float) Math.toRadians(random.nextFloat() * 360)));
         }
+
+    }
+
+    public void update(float delta) {
+
+        //TODO
+        return;
+
     }
 
     public static void setInstance(GameModel instance) {
