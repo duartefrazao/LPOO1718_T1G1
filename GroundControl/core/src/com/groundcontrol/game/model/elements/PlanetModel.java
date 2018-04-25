@@ -17,4 +17,11 @@ public class PlanetModel extends ElementModel {
     public PlanetSize getSize(){
         return this.size;
     }
+
+    @Override
+    public ModelType getType() {
+        return ModelType.PLANET;
+    }
+
+
 }
