@@ -6,8 +6,9 @@ import com.groundcontrol.game.model.elements.ElementModel;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.groundcontrol.game.model.elements.ElementModel.ModelType.PLANET;
-import static com.groundcontrol.game.model.elements.ElementModel.ModelType.PLAYER;
+import static com.groundcontrol.game.model.elements.ElementModel.ModelType.BigPlanet;
+import static com.groundcontrol.game.model.elements.ElementModel.ModelType.MediumPlanet;
+import static com.groundcontrol.game.model.elements.ElementModel.ModelType.Player;
 
 public class ViewFactory {
 
@@ -16,9 +17,11 @@ public class ViewFactory {
     public static ElementView makeView(GroundControl game, ElementModel model){
 
         if(!cache.containsKey(model)){
-            if(model.getType()== PLANET)
+            if(model.getType()== BigPlanet)
+                cache.put(model, new BigPlanetView(game));
+            else if(model.getType()== MediumPlanet)
                 cache.put(model, new PlanetView(game));
-            if(model.getType()==PLAYER)
+            else if(model.getType() == Player)
                 cache.put(model, new PlayerView(game));
         }
 

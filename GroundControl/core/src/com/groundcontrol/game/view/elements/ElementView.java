@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.groundcontrol.game.GroundControl;
 import com.groundcontrol.game.model.elements.ElementModel;
-import com.groundcontrol.game.view.GameView;
-
 import static com.groundcontrol.game.view.GameView.PIXEL_TO_METER;
 
 public abstract class ElementView {
@@ -25,8 +23,6 @@ public abstract class ElementView {
     }
 
     public void update(ElementModel model){
-        int xPos,yPos;
-        //if(GameView.getInstance())
         sprite.setCenter(model.getX() / PIXEL_TO_METER, model.getY() / PIXEL_TO_METER);
         sprite.setRotation((float) Math.toDegrees(model.getRotation()));
     }

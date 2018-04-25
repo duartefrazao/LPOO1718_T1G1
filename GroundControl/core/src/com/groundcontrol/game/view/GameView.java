@@ -1,13 +1,11 @@
 package com.groundcontrol.game.view;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.groundcontrol.game.GroundControl;
 import com.groundcontrol.game.controller.GameController;
 import com.groundcontrol.game.model.GameModel;
@@ -51,6 +49,7 @@ public class GameView extends ScreenAdapter {
     private void loadAssets(){
         this.game.getAssetManager().load("planet.png", Texture.class);
         this.game.getAssetManager().load("player.png", Texture.class);
+        this.game.getAssetManager().load("big_planet.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
 
@@ -75,6 +74,8 @@ public class GameView extends ScreenAdapter {
     }
 
     private void handleInputs(float delta){
+
+
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             GameController.getInstance().moveLeft(delta);
         }
@@ -87,6 +88,7 @@ public class GameView extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             GameController.getInstance().moveDown(delta);
         }
+
 
         boolean accAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
 

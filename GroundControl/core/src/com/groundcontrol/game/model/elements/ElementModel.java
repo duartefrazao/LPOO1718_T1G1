@@ -2,6 +2,8 @@ package com.groundcontrol.game.model.elements;
 
 public abstract class ElementModel {
 
+    public enum ModelType{ BigPlanet, MediumPlanet, Player};
+
     private float x;
 
     private float y;
@@ -15,11 +17,6 @@ public abstract class ElementModel {
     }
 
     private float rotation;
-
-    public enum ModelType {PLANET,PLAYER};
-
-    private ModelType type;
-
 
     ElementModel(float x, float y, float rotation){
         this.x = x;
@@ -43,7 +40,5 @@ public abstract class ElementModel {
         this.y = y;
     }
 
-    public ModelType getType() {
-        return type;
-    }
+    public abstract ModelType getType();
 }

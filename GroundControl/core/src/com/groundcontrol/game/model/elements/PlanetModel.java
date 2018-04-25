@@ -3,7 +3,11 @@ package com.groundcontrol.game.model.elements;
 public class PlanetModel extends ElementModel {
 
 
-    public enum PlanetSize {SMALL, MEDIUM, BIG};
+    public enum PlanetSize {
+        SMALL,
+        MEDIUM,
+        BIG
+    }
 
 
     private PlanetSize size;
@@ -14,13 +18,16 @@ public class PlanetModel extends ElementModel {
         this.size = size;
     }
 
-    public PlanetSize getSize(){
+    public PlanetSize getSize() {
         return this.size;
     }
 
     @Override
     public ModelType getType() {
-        return ModelType.PLANET;
+        if (this.size == PlanetSize.BIG)
+            return ModelType.BigPlanet;
+        else
+            return ModelType.MediumPlanet;
     }
 
 

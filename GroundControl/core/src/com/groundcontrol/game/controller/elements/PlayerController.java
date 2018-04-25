@@ -1,7 +1,6 @@
 package com.groundcontrol.game.controller.elements;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundcontrol.game.model.elements.ElementModel;
 
 public class PlayerController extends ElementController {

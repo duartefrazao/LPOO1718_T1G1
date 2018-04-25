@@ -2,7 +2,6 @@ package com.groundcontrol.game.controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.utils.Array;
 import com.groundcontrol.game.controller.elements.BigPlanetController;
 import com.groundcontrol.game.controller.elements.PlanetController;
@@ -11,9 +10,6 @@ import com.groundcontrol.game.model.GameModel;
 import com.groundcontrol.game.model.elements.ElementModel;
 import com.groundcontrol.game.model.elements.PlanetModel;
 import com.groundcontrol.game.model.elements.PlayerModel;
-
-import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameController implements ContactListener {
@@ -47,6 +43,7 @@ public class GameController implements ContactListener {
         List<PlanetModel> planets = GameModel.getInstance().getPlanets();
 
         playerController = new PlayerController(world,GameModel.getInstance().getPlayer());
+
         for (PlanetModel p : planets) {
 
             if (p.getSize() == PlanetModel.PlanetSize.MEDIUM)
