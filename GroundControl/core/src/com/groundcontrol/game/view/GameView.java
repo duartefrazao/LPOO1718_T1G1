@@ -1,10 +1,13 @@
 package com.groundcontrol.game.view;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.groundcontrol.game.GroundControl;
 import com.groundcontrol.game.controller.GameController;
 import com.groundcontrol.game.model.GameModel;
@@ -51,6 +54,8 @@ public class GameView extends ScreenAdapter {
     @Override
     public void render(float delta){
 
+        handleInputs(delta);
+
         GameController.getInstance().update(delta);
 
         camera.update();
@@ -66,8 +71,24 @@ public class GameView extends ScreenAdapter {
 
     }
 
+    private void handleInputs(float delta){
 
-    public void drawElements(){
+        boolean accAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
+
+        if(accAvailable){
+
+            float vx = Gdx.input.getAccelerometerX();
+            float vy = Gdx.input.getAccelerometerY();
+
+            GameController.getInstance().setPlanetForce(-vx, -vy);
+
+        }
+
+
+    }
+
+
+    private void drawElements(){
         List<PlanetModel> planets = GameModel.getInstance().getPlanets();
         for(PlanetModel p : planets){
             ElementView view = ViewFactory.makeView(game,p);
