@@ -16,3 +16,5 @@ DK/\.project
 GroundControl/gradle/wrapper/gradle-wrapper\.properties
 
 GroundControl/build\.gradle
+
+GroundControl/save

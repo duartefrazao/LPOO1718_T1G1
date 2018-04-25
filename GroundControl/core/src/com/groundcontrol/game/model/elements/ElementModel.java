@@ -16,6 +16,10 @@ public abstract class ElementModel {
 
     private float rotation;
 
+    public enum ModelType {PLANET,PLAYER};
+
+    private ModelType type;
+
 
     ElementModel(float x, float y, float rotation){
         this.x = x;
@@ -37,5 +41,9 @@ public abstract class ElementModel {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public ModelType getType() {
+        return type;
     }
 }

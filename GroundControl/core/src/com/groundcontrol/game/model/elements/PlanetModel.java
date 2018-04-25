@@ -5,4 +5,11 @@ public class PlanetModel extends ElementModel {
     public PlanetModel(float x, float y, float rotation) {
         super(x, y, rotation);
     }
+
+    @Override
+    public ModelType getType() {
+        return ModelType.PLANET;
+    }
+
+
 }

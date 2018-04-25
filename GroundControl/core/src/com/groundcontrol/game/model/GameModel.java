@@ -43,7 +43,7 @@ public class GameModel {
 
     private GameModel() {
         planets = new ArrayList<PlanetModel>();
-        player = new PlayerModel(350, 350, 0);
+        player = new PlayerModel(5, 5, 0);
 
         for (int i = 0; i < PLANET_COUNT; i++) {
             planets.add(new PlanetModel(

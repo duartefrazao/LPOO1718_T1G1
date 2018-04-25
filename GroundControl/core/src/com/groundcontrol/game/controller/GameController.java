@@ -4,9 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.groundcontrol.game.controller.elements.PlanetController;
+import com.groundcontrol.game.controller.elements.PlayerController;
 import com.groundcontrol.game.model.GameModel;
 import com.groundcontrol.game.model.elements.ElementModel;
 import com.groundcontrol.game.model.elements.PlanetModel;
+import com.groundcontrol.game.model.elements.PlayerModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,19 @@ public class GameController implements ContactListener {
 
     private float accumulator;
 
+    private final  PlayerController playerController;
+
     private GameController(){
-        world = new World(new Vector2(0,-2), true);
+        world = new World(new Vector2(0,0), true);
 
         List<PlanetModel> planets = GameModel.getInstance().getPlanets();
 
+
+        playerController = new PlayerController(world,GameModel.getInstance().getPlayer());
+
         for(PlanetModel p : planets) {
             new PlanetController(world, p);
+
         }
 
 
@@ -59,7 +67,6 @@ public class GameController implements ContactListener {
 
 
         for(Body body : bodies){
-
             ((ElementModel) body.getUserData()).setX(body.getPosition().x);
             ((ElementModel) body.getUserData()).setY(body.getPosition().y);
             ((ElementModel) body.getUserData()).setRotation(body.getAngle());
@@ -103,5 +110,28 @@ public class GameController implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public void moveLeft(float delta) {
+        playerController.applyForceToCenter(-10,0,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+
+
+    }
+
+    public void moveRight(float delta) {
+        playerController.applyForceToCenter(10,0,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+    }
+
+
+    public void moveUp(float delta) {
+        playerController.applyForceToCenter(0,10,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+    }
+
+    public void moveDown(float delta) {
+        playerController.applyForceToCenter(10,-10,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
     }
 }
