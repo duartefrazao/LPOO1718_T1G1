@@ -1,7 +1,5 @@
 package com.groundcontrol.game.model;
 
-
-import com.groundcontrol.game.controller.GameController;
 import com.groundcontrol.game.model.elements.PlanetModel;
 import com.groundcontrol.game.model.elements.PlayerModel;
 
@@ -11,7 +9,6 @@ import java.util.List;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.groundcontrol.game.controller.GameController.ARENA_HEIGHT;
 import static com.groundcontrol.game.controller.GameController.ARENA_WIDTH;
-import static java.lang.Math.random;
 
 public class GameModel {
 
@@ -34,7 +31,7 @@ public class GameModel {
     }
 
 
-    private static final int PLANET_COUNT = 100;
+    private static final int PLANET_COUNT = 20;
 
     /**
      * Planets
