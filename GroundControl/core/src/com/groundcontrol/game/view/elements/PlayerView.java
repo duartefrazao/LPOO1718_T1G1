@@ -17,4 +17,24 @@ public class PlayerView extends ElementView {
         return new Sprite(texture, texture.getWidth(), texture.getHeight());
     }
 
+   /* public void update(ElementModel model){
+        super.update(model);
+
+        accelarating=((PlayerModel) model).isAccelerating();
+
+        ((PlayerModel)model).setAccelerating(false);
+    }
+
+    @Override
+    public void draw(SpriteBatch batch){
+        stateTime+= Gdx.graphics.getDeltaTime();
+
+        if(accelarating) {
+            sprite.setRegion(acceleratingAnimation.getKeyFrame(stateTime, true));
+        }else{
+            sprite.setRegion(notAccelaratingRegion);
+        }
+
+        sprite.draw(batch);
+    }*/
 }

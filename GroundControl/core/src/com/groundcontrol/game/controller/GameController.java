@@ -4,13 +4,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.groundcontrol.game.controller.elements.BigPlanetController;
+import com.groundcontrol.game.controller.elements.ElementController;
 import com.groundcontrol.game.controller.elements.PlanetController;
 import com.groundcontrol.game.controller.elements.PlayerController;
 import com.groundcontrol.game.model.GameModel;
 import com.groundcontrol.game.model.elements.ElementModel;
 import com.groundcontrol.game.model.elements.PlanetModel;
 import com.groundcontrol.game.model.elements.PlayerModel;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class GameController implements ContactListener {
 
@@ -26,6 +31,7 @@ public class GameController implements ContactListener {
 
     private static float VELOCITY_LIMIT = 10f;
     private final  PlayerController playerController;
+    private ArrayList<ElementController> planetControllers = new ArrayList<ElementController>();
 
 
     private static float ANGULAR_LIMIT = 0.02f;
@@ -42,14 +48,21 @@ public class GameController implements ContactListener {
 
         List<PlanetModel> planets = GameModel.getInstance().getPlanets();
 
+        ElementController planetC;
+
         playerController = new PlayerController(world,GameModel.getInstance().getPlayer());
 
         for (PlanetModel p : planets) {
 
-            if (p.getSize() == PlanetModel.PlanetSize.MEDIUM)
-                new PlanetController(world, p);
-            else
-                new BigPlanetController(world, p);
+            if (p.getSize() == PlanetModel.PlanetSize.MEDIUM) {
+
+                planetC = new PlanetController(world, p);
+                planetControllers.add(planetC);
+            }
+            else {
+                planetC = new BigPlanetController(world, p);
+                planetControllers.add(planetC);
+            }
         }
 
 
@@ -122,6 +135,8 @@ public class GameController implements ContactListener {
         world.getBodies(bodies);
 
 
+        getPlayerRotation();
+
         for (Body body : bodies) {
             verifyBounds(body);
             limitVelocities(body);
@@ -133,6 +148,34 @@ public class GameController implements ContactListener {
 
 
     }
+
+    private void getPlayerRotation() {
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
+
+        Float distance=0f;
+
+        Float angle=0f;
+        for (ElementController planet:planetControllers){
+            distance= abs(planet.getX()- playerController.getX());
+            distance+=abs(planet.getY()- playerController.getY());
+
+            if(distance <60){
+                System.out.println(playerController.getAngle());
+                ((PlayerModel) playerController.getUserData()).setRotation(20);
+                //PlayerModel p =  ((PlayerModel) playerController.getUserData());
+            }
+
+          //  System.out.println(playerController.getAngle()-);
+
+           // velocity.set(planet.getX() - playerController.getX(),planet.getY() - playerController.getY()).nor().scl(playerController.dst(planet.getX(), planet.getY())));
+            //System.out.println(distance);
+
+        }
+
+    }
+
+
 
     private void verifyBounds(Body body) {
         if (body.getPosition().x < 0)

@@ -60,7 +60,7 @@ public class GameView extends ScreenAdapter {
 
         GameController.getInstance().update(delta);
 
-        camera.position.set(GameModel.getInstance().getPlayer().getX()/PIXEL_TO_METER,GameModel.getInstance().getPlayer().getY()/PIXEL_TO_METER,0);
+        //camera.position.set(GameModel.getInstance().getPlayer().getX()/PIXEL_TO_METER,GameModel.getInstance().getPlayer().getY()/PIXEL_TO_METER,0);
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 

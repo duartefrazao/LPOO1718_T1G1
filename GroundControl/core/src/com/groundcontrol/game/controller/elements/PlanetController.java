@@ -1,12 +1,15 @@
 package com.groundcontrol.game.controller.elements;
 
 import com.badlogic.gdx.physics.box2d.World;
+import com.groundcontrol.game.model.elements.ElementModel;
 import com.groundcontrol.game.model.elements.PlanetModel;
+
+import javax.xml.bind.Element;
 
 public class PlanetController extends ElementController{
 
 
-    public PlanetController(World world, PlanetModel model){
+    public PlanetController(World world, ElementModel model){
 
         super(world, model);
 
@@ -24,7 +27,7 @@ public class PlanetController extends ElementController{
                 239, 398,
                 345, 398,
                 248, 52
-        }, width, height, density, friction, restitution, PLANET_BODY, PLANET_BODY);
+        }, width, height, density, friction, restitution, PLANET_BODY, (short) (PLANET_BODY|PLAYER_BODY));
 
         createFixture(body, new float[]{
                 420, 360,
@@ -33,7 +36,7 @@ public class PlanetController extends ElementController{
                 296, 54,
                 247, 49,
                 345, 398,
-        },width, height, density, friction, restitution, PLANET_BODY, PLANET_BODY);
+        },width, height, density, friction, restitution, PLANET_BODY,  (short) (PLANET_BODY|PLAYER_BODY));
 
 
     }

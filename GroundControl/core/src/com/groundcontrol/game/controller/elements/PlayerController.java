@@ -22,8 +22,8 @@ public class PlayerController extends ElementController {
                 160,53,
                 207,123,
                 193,195,
-                154,227,
-        }, width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
+                62, 186,
+        }, width, height, density, friction, restitution, PLAYER_BODY,  (short) (PLANET_BODY|PLAYER_BODY));
 
         //Corns
         createFixture(body, new float[]{
@@ -33,8 +33,8 @@ public class PlayerController extends ElementController {
                 142,13,
                 142,26,
                 129,33,
-                129,51,
-        },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
+                114,49,
+        },width, height, density, friction, restitution, PLAYER_BODY,  (short) (PLANET_BODY|PLAYER_BODY));
 
         createFixture(body, new float[]{
                 191,83,
@@ -44,7 +44,7 @@ public class PlayerController extends ElementController {
                 241,34,
                 232,52,
                 219,76,
-                205,93,
+                191,83,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
         //Arms
@@ -53,6 +53,7 @@ public class PlayerController extends ElementController {
                 23,198,
                 3,217,
                 21,268,
+                61,196,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
         createFixture(body, new float[]{
@@ -60,6 +61,7 @@ public class PlayerController extends ElementController {
                 175,285,
                 166,316,
                 156,330,
+                150,229,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
         //Legs
@@ -71,6 +73,7 @@ public class PlayerController extends ElementController {
                 90,418,
                 85,403,
                 81,374,
+                31,332,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
         createFixture(body, new float[]{
@@ -79,6 +82,7 @@ public class PlayerController extends ElementController {
                 106,418,
                 161,417,
                 144,397,
+                107,359,
                 152,327,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
@@ -91,6 +95,7 @@ public class PlayerController extends ElementController {
                 143,330,
                 151,280,
                 138,227,
+                75,219,
         },width, height, density, friction, restitution, PLAYER_BODY, PLAYER_BODY);
 
 
