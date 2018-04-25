@@ -73,13 +73,21 @@ public class GameController implements ContactListener {
 
 
     private void applyGravityToPlanets() {
-        Array<Body> bodies = new Array<Body>();
+        //Array<Body> bodies = new Array<Body>();
 
-        world.getBodies(bodies);
+      //  world.getBodies(bodies);
 
-        for (Body body : bodies) {
-            body.applyForceToCenter(planetForce, true);
+        for(ElementController p : planetControllers){
+            p.setLinearVelocity(planetForce);
         }
+
+
+        /*
+        for (Body body : bodies) {
+            //body.applyForceToCenter(planetForce, true);
+            body.setLinearVelocity(planetForce);
+        }
+        */
     }
 
     private void limitVelocities(Body body) {

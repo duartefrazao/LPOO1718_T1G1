@@ -20,6 +20,8 @@ public class GameView extends ScreenAdapter {
 
     private final GroundControl game;
 
+    public enum StateInput { RIGHT_BUTTON, lEFT_BUTTON, JUMP_BUTTON}
+
     public final static float PIXEL_TO_METER = 0.005f;
 
     private static final float VIEWPORT_WIDTH = 20;
@@ -50,6 +52,7 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("planet.png", Texture.class);
         this.game.getAssetManager().load("player.png", Texture.class);
         this.game.getAssetManager().load("big_planet.png", Texture.class);
+        this.game.getAssetManager().load("runningSheet.png", Texture.class);
         this.game.getAssetManager().finishLoading();
     }
 

@@ -1,12 +1,13 @@
 package com.groundcontrol.game.controller.elements;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.groundcontrol.game.model.elements.ElementModel;
 
 public class PlayerController extends ElementController {
 
     public PlayerController(World world, ElementModel model) {
-        super(world, model);
+        super(world, model, BodyDef.BodyType.DynamicBody);
 
         float density = 1f,
                 friction = 0.4f,

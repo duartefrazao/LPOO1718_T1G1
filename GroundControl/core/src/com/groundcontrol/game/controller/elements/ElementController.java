@@ -1,5 +1,6 @@
 package com.groundcontrol.game.controller.elements;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -18,11 +19,11 @@ public abstract class ElementController {
 
     final Body body;
 
-    ElementController(World world, ElementModel model) {
+    ElementController(World world, ElementModel model, BodyDef.BodyType bodyType) {
 
         BodyDef bodydef = new BodyDef();
 
-        bodydef.type = BodyDef.BodyType.DynamicBody;
+        bodydef.type = bodyType;
 
         bodydef.position.set(model.getX(), model.getY());
         bodydef.angle = model.getRotation();
@@ -86,6 +87,10 @@ public abstract class ElementController {
 
     public void setLinearVelocity(float velocity) {
         body.setLinearVelocity((float) (velocity * -Math.sin(getAngle())), (float) (velocity * Math.cos(getAngle())));
+    }
+
+    public void setLinearVelocity(Vector2 v){
+        body.setLinearVelocity(v);
     }
 
     public void setAngularVelocity(float omega) {

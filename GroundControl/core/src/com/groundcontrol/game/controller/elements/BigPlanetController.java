@@ -1,5 +1,6 @@
 package com.groundcontrol.game.controller.elements;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.groundcontrol.game.model.elements.ElementModel;
 import com.groundcontrol.game.model.elements.PlanetModel;
@@ -8,7 +9,7 @@ public class BigPlanetController extends ElementController {
 
     public BigPlanetController(World world, ElementModel model){
 
-        super(world, model);
+        super(world, model, BodyDef.BodyType.KinematicBody);
 
         float density = 1f,
                 friction = 0.4f,
