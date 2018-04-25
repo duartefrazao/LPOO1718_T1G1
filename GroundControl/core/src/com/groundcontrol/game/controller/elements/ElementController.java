@@ -5,11 +5,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.groundcontrol.game.model.elements.ElementModel;
+import com.groundcontrol.game.model.elements.PlayerModel;
 
 import static com.groundcontrol.game.view.GameView.PIXEL_TO_METER;
 
-public abstract class ElementController {
+public abstract class ElementController  extends Actor{
 
     //Collision Handling
     final static short PLANET_BODY = 0x0001;
@@ -22,7 +24,12 @@ public abstract class ElementController {
     ElementController(World world, ElementModel model){
 
         BodyDef bodydef = new BodyDef();
-        bodydef.type = BodyDef.BodyType.DynamicBody;
+
+        if(model instanceof PlayerModel){
+            bodydef.type = BodyDef.BodyType.DynamicBody;
+        }else {
+            bodydef.type = BodyDef.BodyType.KinematicBody;
+        }
         bodydef.position.set(model.getX(), model.getY());
         bodydef.angle = model.getRotation();
 

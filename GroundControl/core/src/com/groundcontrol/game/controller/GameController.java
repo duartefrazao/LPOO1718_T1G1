@@ -2,6 +2,7 @@ package com.groundcontrol.game.controller;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.utils.Array;
 import com.groundcontrol.game.controller.elements.BigPlanetController;
 import com.groundcontrol.game.controller.elements.PlanetController;
@@ -30,8 +31,6 @@ public class GameController implements ContactListener {
     private static float VELOCITY_LIMIT = 10f;
     private final  PlayerController playerController;
 
-    private GameController(){
-        world = new World(new Vector2(0,0), true);
 
     private static float ANGULAR_LIMIT = 0.02f;
 
@@ -42,7 +41,7 @@ public class GameController implements ContactListener {
         this.planetForce.y = y * 10;
     }
 
-    private GameController() {
+    private GameController(){
         world = new World(new Vector2(0, 0), true);
 
         List<PlanetModel> planets = GameModel.getInstance().getPlanets();
@@ -58,6 +57,8 @@ public class GameController implements ContactListener {
 
 
         world.setContactListener(this);
+
+
     }
 
 
