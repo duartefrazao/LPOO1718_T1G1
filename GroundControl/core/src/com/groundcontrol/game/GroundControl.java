@@ -3,6 +3,8 @@ package com.groundcontrol.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.groundcontrol.game.controller.GameController;
+import com.groundcontrol.game.model.GameModel;
 import com.groundcontrol.game.view.GameView;
 
 public class GroundControl extends Game {
@@ -19,7 +21,12 @@ public class GroundControl extends Game {
 	}
 
 	private void startGame(){
-		setScreen(new GameView(this));
+
+        GameModel gameModel = new GameModel();
+
+		GameController gameController = new GameController(gameModel);
+
+		setScreen(new GameView(this, gameModel, gameController));
 	}
 
 	@Override

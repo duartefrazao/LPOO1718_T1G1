@@ -28,10 +28,18 @@ public class GameView extends ScreenAdapter {
 
     private final OrthographicCamera camera;
 
-    public GameView(GroundControl game){
+    private GameController gameController;
+
+    private GameModel gameModel;
+
+    public GameView(GroundControl game, GameModel gameModel, GameController gameController){
 
         this.game = game;
         loadAssets();
+
+        this.gameModel = gameModel;
+
+        this.gameController = gameController;
 
         camera = createCamera();
     }
@@ -61,7 +69,7 @@ public class GameView extends ScreenAdapter {
 
         handleInputs(delta);
 
-        GameController.getInstance().update(delta);
+        this.gameController.update(delta);
 
         //camera.position.set(GameModel.getInstance().getPlayer().getX()/PIXEL_TO_METER,GameModel.getInstance().getPlayer().getY()/PIXEL_TO_METER,0);
         camera.update();
@@ -106,7 +114,7 @@ public class GameView extends ScreenAdapter {
             float vx = Gdx.input.getAccelerometerX();
             float vy = Gdx.input.getAccelerometerY();
 
-            GameController.getInstance().setPlanetForce(-vx, -vy);
+            this.gameController.setPlanetForce(-vx, -vy);
 
         }
 
@@ -117,12 +125,12 @@ public class GameView extends ScreenAdapter {
     public void drawElements(){
 
 
-        PlayerModel player = GameModel.getInstance().getPlayer();
+        PlayerModel player = this.gameModel.getPlayer();
         ElementView viewPlayer = ViewFactory.makeView(game,player);
         viewPlayer.update(player);
         viewPlayer.draw(game.getBatch());
 
-        List<PlanetModel> planets = GameModel.getInstance().getPlanets();
+        List<PlanetModel> planets = this.gameModel.getPlanets();
         for(PlanetModel p : planets){
             ElementView view = ViewFactory.makeView(game,p);
             view.update(p);

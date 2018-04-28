@@ -24,8 +24,6 @@ public class GameController implements ContactListener {
 
     public static final int ARENA_HEIGHT = 50;
 
-    private static GameController controller;
-
     private float pRot=0;
     private float newRot=0;
 
@@ -37,6 +35,8 @@ public class GameController implements ContactListener {
     private final  PlayerController playerController;
     private ArrayList<ElementController> planetControllers = new ArrayList<ElementController>();
 
+    private GameModel gameModel;
+
 
     private static float ANGULAR_LIMIT = 0.02f;
 
@@ -47,14 +47,16 @@ public class GameController implements ContactListener {
         this.planetForce.y = y * 10;
     }
 
-    private GameController(){
+    public GameController(GameModel gameModel){
         world = new World(new Vector2(0, 0), true);
 
-        List<PlanetModel> planets = GameModel.getInstance().getPlanets();
+        this.gameModel = gameModel;
+
+        List<PlanetModel> planets = this.gameModel.getPlanets();
 
         ElementController planetC;
 
-        playerController = new PlayerController(world,GameModel.getInstance().getPlayer());
+        playerController = new PlayerController(world,this.gameModel.getPlayer());
 
         for (PlanetModel p : planets) {
 
@@ -123,14 +125,10 @@ public class GameController implements ContactListener {
         body.setAngularVelocity(omega);
     }
 
-    public static GameController getInstance() {
-        if (controller == null)
-            controller = new GameController();
-        return controller;
-    }
 
     public void update(float delta) {
-        GameModel.getInstance().update(delta);
+
+        this.gameModel.update(delta);
 
         float frameTime = Math.min(delta, 0.25f);
 
@@ -251,6 +249,8 @@ public class GameController implements ContactListener {
 
     }
 
+
+    /*
     public void moveLeft(float delta) {
         playerController.applyForceToCenter(-10,0,true);
         ((PlayerModel) playerController.getUserData()).setAccelerating(true);
@@ -278,4 +278,6 @@ public class GameController implements ContactListener {
         ((PlayerModel) playerController.getUserData()).setRotation(10);
         ((PlayerModel) playerController.getUserData()).setAccelerating(true);
     }
+
+    */
 }

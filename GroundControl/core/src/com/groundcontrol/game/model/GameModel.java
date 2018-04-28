@@ -12,40 +12,28 @@ import static com.groundcontrol.game.controller.GameController.ARENA_WIDTH;
 
 public class GameModel {
 
-    /**
-     * Singleton instance of game model
-     */
-    private static GameModel instance;
 
     /**
      * Player character
      */
     private PlayerModel player;
 
-    /**
-     * Returns singleton
-     */
-    public static GameModel getInstance() {
-        if (instance == null) instance = new GameModel();
-        return instance;
-    }
 
-
-    private static final int PLANET_COUNT = 1;
+    private static final int PLANET_COUNT = 10;
 
     /**
      * Planets
      */
     private List<PlanetModel> planets;
 
-    private GameModel() {
+    public GameModel() {
         planets = new ArrayList<PlanetModel>();
         player = new PlayerModel(5, 5, 0);
 
         for (int i = 0; i < PLANET_COUNT; i++) {
             planets.add(new PlanetModel(
-                    10f ,
-                    5,
+                    random.nextFloat() * ARENA_WIDTH,
+                    random.nextFloat() * ARENA_HEIGHT,
                     (float) Math.toRadians(random.nextFloat() * 360),
                     random.nextBoolean() ? PlanetModel.PlanetSize.BIG : PlanetModel.PlanetSize.MEDIUM));
         }
@@ -57,10 +45,6 @@ public class GameModel {
         //TODO
         return;
 
-    }
-
-    public static void setInstance(GameModel instance) {
-        GameModel.instance = instance;
     }
 
     public PlayerModel getPlayer() {
