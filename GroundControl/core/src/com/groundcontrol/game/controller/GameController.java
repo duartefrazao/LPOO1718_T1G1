@@ -221,27 +221,4 @@ public class GameController implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
     }
-
-    public void moveLeft(float delta) {
-        playerController.applyForceToCenter(-10,0,true);
-        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
-
-
-    }
-
-    public void moveRight(float delta) {
-        playerController.applyForceToCenter(10,0,true);
-        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
-    }
-
-
-    public void moveUp(float delta) {
-        playerController.applyForceToCenter(0,10,true);
-        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
-    }
-
-    public void moveDown(float delta) {
-        playerController.applyForceToCenter(10,-10,true);
-        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
-    }
 }

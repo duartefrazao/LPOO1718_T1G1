@@ -78,6 +78,7 @@ public class GameView extends ScreenAdapter {
 
     private void handleInputs(float delta){
 
+        /*
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             GameController.getInstance().moveLeft(delta);
@@ -91,6 +92,8 @@ public class GameView extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             GameController.getInstance().moveDown(delta);
         }
+
+        */
 
 
         boolean accAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
