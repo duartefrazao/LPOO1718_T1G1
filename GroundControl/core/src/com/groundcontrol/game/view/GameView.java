@@ -92,6 +92,9 @@ public class GameView extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             GameController.getInstance().moveDown(delta);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.R)){
+            GameController.getInstance().rotateLeft(delta);
+        }
 
         */
 

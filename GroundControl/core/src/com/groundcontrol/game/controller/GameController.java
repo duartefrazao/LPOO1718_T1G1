@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.decrementExact;
 
 public class GameController implements ContactListener {
 
@@ -24,6 +25,9 @@ public class GameController implements ContactListener {
     public static final int ARENA_HEIGHT = 50;
 
     private static GameController controller;
+
+    private float pRot=0;
+    private float newRot=0;
 
     private final World world;
 
@@ -143,21 +147,22 @@ public class GameController implements ContactListener {
         world.getBodies(bodies);
 
 
-        getPlayerRotation();
+
 
         for (Body body : bodies) {
             verifyBounds(body);
             limitVelocities(body);
             ((ElementModel) body.getUserData()).setX(body.getPosition().x);
             ((ElementModel) body.getUserData()).setY(body.getPosition().y);
-            ((ElementModel) body.getUserData()).setRotation(body.getAngle());
+            //((ElementModel) body.getUserData()).setRotation(body.getAngle());
 
         }
+        getPlayerRotation(delta);
 
 
     }
 
-    private void getPlayerRotation() {
+    private void getPlayerRotation(float delta) {
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
 
@@ -168,12 +173,36 @@ public class GameController implements ContactListener {
             distance= abs(planet.getX()- playerController.getX());
             distance+=abs(planet.getY()- playerController.getY());
 
-            if(distance <60){
-                System.out.println(playerController.getAngle());
-                ((PlayerModel) playerController.getUserData()).setRotation(20);
-                //PlayerModel p =  ((PlayerModel) playerController.getUserData());
-            }
+            if(distance <5){
+                //System.out.println(playerController.getAngle());
+                //System.out.println((float) ( (planet.getY() - playerController.getY()) / (planet.getX()- playerController.getX()) * 180.0d / Math.PI));
 
+                PlayerModel p =  ((PlayerModel) playerController.getUserData());
+
+                pRot=  (float) ( (planet.getY() - playerController.getY()) / (planet.getX()- playerController.getX()) * 180.0d / Math.PI);
+                newRot+= (pRot-newRot)*delta;
+
+               // System.out.println(Math.toDegrees(Math.atan2(planet.getY() - playerController.getY(), planet.getX()- playerController.getX())));
+                //Vector2()
+                double degrees =  (Math.toDegrees(Math.atan2(planet.getY() - playerController.getY(), planet.getX()- playerController.getX())));
+                degrees+=90;
+
+                //if(pRot< pRot+
+                pRot= (float)Math.toRadians(degrees);
+               //pRot-=Mat;
+                 System.out.println(pRot);
+                ((PlayerModel) playerController.getUserData()).setRotation(pRot);
+            }
+            System.out.println(pRot);
+            //System.out.println(delta);
+
+
+            //System.out.println(playerController.getAngle());
+
+            /*
+             pRotation = ((tPos.y - pPos.y) / (tPos.x - pPos.x) * 180.0d / Math.PI);
+            pNewRotation += (pRotation - pNewRotation) * Gdx.graphics.getDeltaTime();
+             */
           //  System.out.println(playerController.getAngle()-);
 
            // velocity.set(planet.getX() - playerController.getX(),planet.getY() - playerController.getY()).nor().scl(playerController.dst(planet.getX(), planet.getY())));
@@ -220,5 +249,33 @@ public class GameController implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public void moveLeft(float delta) {
+        playerController.applyForceToCenter(-10,0,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+
+
+    }
+
+    public void moveRight(float delta) {
+        playerController.applyForceToCenter(10,0,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+    }
+
+
+    public void moveUp(float delta) {
+        playerController.applyForceToCenter(0,10,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+    }
+
+    public void moveDown(float delta) {
+        playerController.applyForceToCenter(10,-10,true);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
+    }
+
+    public void rotateLeft(float delta) {
+        ((PlayerModel) playerController.getUserData()).setRotation(10);
+        ((PlayerModel) playerController.getUserData()).setAccelerating(true);
     }
 }
