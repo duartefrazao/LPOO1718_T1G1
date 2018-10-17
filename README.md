@@ -21,7 +21,7 @@ It consists of a two level game, the first level you have to get the lever witho
 
 <img src="https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/InitialLevel.png" width="300">  <br>
 
-The second level, the keep level, is a little more tricky, first instead of guards you have ogres with can atack in a random direction, you can also catch the red band to become a super cat with possibility to stun the ogres, you need to get to the key to unlock the doors and win the game. 
+The second level, the Keep Level, is a little more tricky. Instead of guards you have ogres which can atack you in a random direction. You can also catch the red band to become a super cat with possibility to stun the ogres, you need to get to the key to unlock the doors and win the game. 
 
 <img src="https://github.com/Duarte-Frazao/LPOO1718_T1G1/blob/master/Screenshots/KeepLevel.png" width="300">  <br>
 
